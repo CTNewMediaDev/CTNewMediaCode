@@ -1,0 +1,62 @@
+[Wed Mar 09 14:32:25 2016] [error] [client 171.221.148.15] PHP Notice:  Undefined index: country in /var/www/html/cms/datacenter/clickcount.php on line 38, referer: http://www.zhuangxiuji.com.cn/cms/content.php?id=67&shareopenid=owB_Pw8KlC2rq3Vll3likjXg-xWY
+[Wed Mar 09 14:32:25 2016] [error] [client 171.221.148.15] PHP Notice:  Undefined index: province in /var/www/html/cms/datacenter/clickcount.php on line 39, referer: http://www.zhuangxiuji.com.cn/cms/content.php?id=67&shareopenid=owB_Pw8KlC2rq3Vll3likjXg-xWY
+[Wed Mar 09 14:32:25 2016] [error] [client 171.221.148.15] PHP Notice:  Undefined index: city in /var/www/html/cms/datacenter/clickcount.php on line 40, referer: http://www.zhuangxiuji.com.cn/cms/content.php?id=67&shareopenid=owB_Pw8KlC2rq3Vll3likjXg-xWY
+[Wed Mar 09 14:32:25 2016] [error] [client 171.221.148.15] PHP Notice:  Undefined index: district in /var/www/html/cms/datacenter/clickcount.php on line 41, referer: http://www.zhuangxiuji.com.cn/cms/content.php?id=67&shareopenid=owB_Pw8KlC2rq3Vll3likjXg-xWY
+[Wed Mar 09 14:33:43 2016] [error] [client 171.221.148.15] PHP Notice:  Undefined index: country in /var/www/html/cms/datacenter/clickcount.php on line 38, referer: http://www.zhuangxiuji.com.cn/cms/content.php?id=64&shareopenid=owB_Pw8KlC2rq3Vll3likjXg-xWY
+[Wed Mar 09 14:33:43 2016] [error] [client 171.221.148.15] PHP Notice:  Undefined index: province in /var/www/html/cms/datacenter/clickcount.php on line 39, referer: http://www.zhuangxiuji.com.cn/cms/content.php?id=64&shareopenid=owB_Pw8KlC2rq3Vll3likjXg-xWY
+[Wed Mar 09 14:33:43 2016] [error] [client 171.221.148.15] PHP Notice:  Undefined index: city in /var/www/html/cms/datacenter/clickcount.php on line 40, referer: http://www.zhuangxiuji.com.cn/cms/content.php?id=64&shareopenid=owB_Pw8KlC2rq3Vll3likjXg-xWY
+[Wed Mar 09 14:33:43 2016] [error] [client 171.221.148.15] PHP Notice:  Undefined index: district in /var/www/html/cms/datacenter/clickcount.php on line 41, referer: http://www.zhuangxiuji.com.cn/cms/content.php?id=64&shareopenid=owB_Pw8KlC2rq3Vll3likjXg-xWY
+[Wed Mar 09 14:42:53 2016] [error] [client 171.221.148.15] PHP Notice:  Undefined index: country in /var/www/html/cms/datacenter/clickcount.php on line 38, referer: http://www.zhuangxiuji.com.cn/cms/content.php?id=66&shareopenid=owB_Pw8KlC2rq3Vll3likjXg-xWY
+[Wed Mar 09 14:42:53 2016] [error] [client 171.221.148.15] PHP Notice:  Undefined index: province in /var/www/html/cms/datacenter/clickcount.php on line 39, referer: http://www.zhuangxiuji.com.cn/cms/content.php?id=66&shareopenid=owB_Pw8KlC2rq3Vll3likjXg-xWY
+[Wed Mar 09 14:42:53 2016] [error] [client 171.221.148.15] PHP Notice:  Undefined index: city in /var/www/html/cms/datacenter/clickcount.php on line 40, referer: http://www.zhuangxiuji.com.cn/cms/content.php?id=66&shareopenid=owB_Pw8KlC2rq3Vll3likjXg-xWY
+[Wed Mar 09 14:42:53 2016] [error] [client 171.221.148.15] PHP Notice:  Undefined index: district in /var/www/html/cms/datacenter/clickcount.php on line 41, referer: http://www.zhuangxiuji.com.cn/cms/content.php?id=66&shareopenid=owB_Pw8KlC2rq3Vll3likjXg-xWY
+[Wed Mar 09 14:45:41 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/onsale_0.html, referer: http://www.zhuangxiuji.com.cn/cms/content.php?id=67
+[Wed Mar 09 14:45:56 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/onsale_2.html, referer: http://www.zhuangxiuji.com.cn/cms/content.php?id=67
+[Wed Mar 09 14:46:12 2016] [error] [client 101.226.69.246] File does not exist: /var/www/html/cms/list.jsp, referer: http://www.zhuangxiuji.com.cn/cms/list.jsp
+[Wed Mar 09 14:46:12 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/list.jsp, referer: http://www.zhuangxiuji.com.cn/cms/content.php?id=67
+[Wed Mar 09 14:46:30 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/10.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:46:31 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/17.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:46:31 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/12.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:46:31 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/15.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:46:31 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/20.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:46:31 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/18.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:46:31 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/13.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:46:31 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/source/images/arrows.png, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:46:32 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/11.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:46:32 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/16.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:46:32 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/21.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:46:32 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/14.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:46:33 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/19.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:46:54 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/login.html, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:47:34 2016] [error] [client 111.9.108.24] PHP Notice:  Undefined index: id in /var/www/html/cms/category.php on line 20, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:47:42 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/login.html, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:50:34 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/12.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:50:35 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/source/images/arrows.png, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:50:35 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/17.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:50:35 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/10.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:50:35 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/13.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:50:35 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/11.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:50:35 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/18.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:50:35 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/21.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:50:35 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/16.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:50:36 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/14.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:50:37 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/19.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:50:37 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/20.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:50:37 2016] [error] [client 111.9.108.24] File does not exist: /var/www/html/cms/upload/m_pic/15.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 14:54:31 2016] [error] [client 171.221.148.15] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/cms/datacenter/clickcount.php on line 54, referer: http://www.zhuangxiuji.com.cn/cms/content.php?id=66&shareopenid=owB_Pw8KlC2rq3Vll3likjXg-xWY
+[Wed Mar 09 14:58:20 2016] [error] [client 171.221.148.15] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/cms/datacenter/clickcount.php on line 58, referer: http://www.zhuangxiuji.com.cn/cms/content.php?id=66&shareopenid=owB_Pw8KlC2rq3Vll3likjXg-xWY
+[Wed Mar 09 15:00:09 2016] [error] [client 171.221.148.15] PHP Notice:  Undefined variable: contentid in /var/www/html/cms/datacenter/clickcount.php on line 96, referer: http://www.zhuangxiuji.com.cn/cms/content.php?id=66&shareopenid=owB_Pw8KlC2rq3Vll3likjXg-xWY
+[Wed Mar 09 15:11:10 2016] [error] [client 119.147.146.193] PHP Notice:  Undefined index: redirectpage in /var/www/html/cms/go.php on line 8
+[Wed Mar 09 15:27:43 2016] [error] [client 171.221.148.15] File does not exist: /var/www/html/cms/source/images/arrows.png, referer: http://www.zhuangxiuji.com.cn/cms/source/css/style.css
+[Wed Mar 09 15:27:43 2016] [error] [client 171.221.148.15] File does not exist: /var/www/html/cms/upload/m_pic/14.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 15:27:43 2016] [error] [client 171.221.148.15] File does not exist: /var/www/html/cms/upload/m_pic/10.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 15:27:43 2016] [error] [client 171.221.148.15] File does not exist: /var/www/html/cms/upload/m_pic/15.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 15:27:43 2016] [error] [client 171.221.148.15] File does not exist: /var/www/html/cms/upload/m_pic/21.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 15:27:43 2016] [error] [client 171.221.148.15] File does not exist: /var/www/html/cms/upload/m_pic/18.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 15:27:43 2016] [error] [client 171.221.148.15] File does not exist: /var/www/html/cms/upload/m_pic/20.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 15:27:43 2016] [error] [client 171.221.148.15] File does not exist: /var/www/html/cms/upload/m_pic/16.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 15:27:44 2016] [error] [client 171.221.148.15] File does not exist: /var/www/html/cms/upload/m_pic/19.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 15:27:44 2016] [error] [client 171.221.148.15] File does not exist: /var/www/html/cms/upload/m_pic/11.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 15:27:44 2016] [error] [client 171.221.148.15] File does not exist: /var/www/html/cms/upload/m_pic/17.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 15:27:44 2016] [error] [client 171.221.148.15] File does not exist: /var/www/html/cms/upload/m_pic/12.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
+[Wed Mar 09 15:27:45 2016] [error] [client 171.221.148.15] File does not exist: /var/www/html/cms/upload/m_pic/13.jpg, referer: http://www.zhuangxiuji.com.cn/cms/index.php
