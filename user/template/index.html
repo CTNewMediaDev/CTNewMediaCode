@@ -1,0 +1,27 @@
+<?php include '../template1/header.html';?>
+<link rel="stylesheet" href="style/css/style.css" type="text/css">
+<body>
+<div id="frame">
+
+    <div id="top">
+
+        <a id="logo" href="index.php" style="left:-5px;"><img src="../source/images/y_logomain.jpg" align="top"></a>
+
+        <a id="title">个人资料 --同城新媒</a>
+
+		<span id="list">
+		   <a href="login.html"><img src="../source/images/userlogin.png" align="top"></a>
+		</span>
+    </div>
+    <div class="user-main">
+        <div class="user-info">
+            <div class="user-head-img">
+                <img src="<?php echo $user_info['headimgurl'];?>" width="100%" style="border-radius: 9px;-webkit-border-radius: 9px;-moz-border-radius: 9px;">
+            </div>
+            <div class="user_info_right">
+                <h4><?php echo $user_info['nickname'];?></h4>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
