@@ -221,9 +221,9 @@ class UserManage{
                 city = '".$userinfo['city']."',
                 province = '".$userinfo['province']."',
                 country = '".$userinfo['country']."',
-                headimgurl = '".$userinfo['headimgurl']."'
-                where openid = '".$userinfo['openid']."'
-               "; 
+                headimgurl = '".$userinfo['headimgurl']."',
+                subscribe_time = ".$userinfo['subscribe_time']."
+                where openid = '".$userinfo['openid']."'"; 
         $db->query($sql);   
     }
 
@@ -252,5 +252,28 @@ class UserManage{
             return $userid;
         else
             return false;
+    }
+
+    /**
+     * [是否已关注]
+     * @param  [type] $openid [description]
+     * @return [type]         [description]
+     */
+    public static function checkisSubscribe($openid){
+        $userinfo = self::getUserInfo($openid);
+        if($userinfo['subscribe']==1)
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * 更新关注状态
+     */
+    public static function updateSubscribe($openid,$subscribe){
+        $db = new mysql;
+        $db->connect(DBHOST, DBUSER, DBPASSWORD, DBNAME);
+        $sql = "update users set subscribe=".$subscribe." where openid='".$openid."'";
+        $db->query($sql);
     }
 }

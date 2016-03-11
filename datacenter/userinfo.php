@@ -15,6 +15,12 @@ class Userinfo{
 		return true;
 	}
 
+	//更新关注状态，影响极大
+	public static function updateSubscribe($db,$openid,$subscribe){
+		$sql = "update users set subscribe=".$subscribe." where openid='".$openid."'";
+		$db->query($sql);
+	}
+
 	//检查是否已经插入用户信息
 	public static function checkIfuserInfoinDb($db,$openid){
 		$sql = "select * from users where openid='".$openid."'";
@@ -36,7 +42,7 @@ class Userinfo{
 
 	//拉取用户信息，网页授权
 	public static function getUserinfoPage($access_token,$openid){
-		$url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
+		$url = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
 		$tempinfo = file_get_contents($url);
 		$userinfo = json_decode($tempinfo,true);
 		return $userinfo;
