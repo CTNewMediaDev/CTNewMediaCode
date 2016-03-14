@@ -5,7 +5,7 @@
 
     <div id="top">
 
-        <a id="logo" href="index.php" style="left:-5px;"><img src="../source/images/y_logomain.jpg" align="top"></a>
+        <a id="logo" href="../index.php" style="left:-5px;"><img src="../source/images/y_logomain.jpg" align="top"></a>
 
         <a id="title">个人资料 --同城新媒</a>
 
@@ -22,6 +22,33 @@
                 <h4><?php echo $user_info['nickname'];?></h4>
             </div>
         </div>
+        <div style="min-height: 500px">
+            <div>
+                <!--<ul style="line-height: 20px">-->
+                    <!--<li>我的积分: 0</li>-->
+                    <!---->
+                    <!--<li>我喜欢的: null</li>-->
+                <!--</ul>-->
+                <hr />
+                <table style="width: 100%;background-color: white" rules="rows">
+                    <tr>
+                        <td>地址：</td>
+                        <td><?php echo $user_info['country'].' '.$user_info['province'].' '.$user_info['city']?></td>
+                    </tr>
+                    <tr>
+                        <td>关注时间</td>
+                        <td><?php echo date('Y-m-d',$user_info['subscribe_time']);?></td>
+                    </tr>
+                    <tr>
+                        <td>我的积分：</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>我喜欢的</td>
+                        <td>Null</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
-    </div>
-</body>
+<?php include '../template1/footer.html';?>
