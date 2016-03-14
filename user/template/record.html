@@ -1,0 +1,34 @@
+<?php include '../template1/header.html';?>
+<link rel="stylesheet" href="style/css/style.css" type="text/css">
+<body>
+<div id="frame">
+
+    <div id="top">
+
+        <a id="logo" href="../index.php" style="left:-5px;"><img src="../source/images/y_logomain.jpg" align="top"></a>
+
+        <a id="title"></a>
+
+		<span id="list">
+		   <a href="login.html"><img src="../source/images/userlogin.png" align="top"></a>
+		</span>
+    </div>
+    <?php if(empty($records)):?>
+        <div style="width: 100%;margin-top: 200px;text-align: center">
+            No Data!
+        </div>
+    <?php endif;?>
+    <?php if(!empty($records)):?>
+        <div class="user_records_table">
+            <table style="" rules="rows">
+                <?php foreach($records as $v):?>
+                <tr>
+                    <td style="width: 70%;overflow: hidden;word-break: keep-all"><?php echo $v['title'];?></td>
+                    <td style="text-align: right;width: 10%"><?php echo $v['cmoney']?></td>
+                </tr>
+                <?php endforeach;?>
+            </table>
+        </div>
+    <?php endif;?>
+    </div>
+</body>
