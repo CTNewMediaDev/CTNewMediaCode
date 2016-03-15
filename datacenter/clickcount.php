@@ -125,7 +125,7 @@ class ClickCount{
 		return $result;
 	}
     public static function getClickInfoByDb($db,$openId){
-        $sql='select A.title,C.money as cmoney,A.money as amoney from clickcount as C left join articles as A on C.contentid=A.id where C.clickOpenid="'.$openId.'"  limit 0,10';
+        $sql='select A.title,C.addtime,C.money as cmoney,A.money as amoney from clickcount as C left join articles as A on C.contentid=A.id where C.clickOpenid="'.$openId.'"  limit 0,10';
         $res=$db->fetch_all($sql);
         if(empty($res)){
             return false;
