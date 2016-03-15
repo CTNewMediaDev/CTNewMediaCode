@@ -22,33 +22,35 @@
                 <h4><?php echo $user_info['nickname'];?></h4>
             </div>
         </div>
-        <div style="min-height: 500px">
-            <div>
+        <div style="min-height: 400px">
+            <div style="margin-top: 20px;">
                 <!--<ul style="line-height: 20px">-->
                     <!--<li>我的积分: 0</li>-->
                     <!---->
                     <!--<li>我喜欢的: null</li>-->
                 <!--</ul>-->
                 <hr />
-                <table style="width: 100%;background-color: white" rules="rows">
+                <table style="margin:0 auto;width: 95%;background-color: white;border-radius: 10px;-webkit-border-radius: 10px;-moz-border-radius: 9px;" rules="rows">
                     <tr>
-                        <td>地址：</td>
+                        <td> &nbsp;地址：</td>
                         <td><?php echo $user_info['country'].' '.$user_info['province'].' '.$user_info['city']?></td>
                     </tr>
                     <tr>
-                        <td>关注时间</td>
+                        <td> &nbsp;关注时间：</td>
                         <td><?php echo date('Y-m-d',$user_info['subscribe_time']);?></td>
                     </tr>
                     <tr>
-                        <td>我的积分：</td>
+                        <td> &nbsp;我的积分：</td>
                         <td>0</td>
                     </tr>
                     <tr>
-                        <td>我喜欢的</td>
+                        <td> &nbsp;我喜欢的：</td>
                         <td>Null</td>
                     </tr>
                 </table>
             </div>
         </div>
     </div>
+    </div>
+</body>
 <?php include '../template1/footer.html';?>

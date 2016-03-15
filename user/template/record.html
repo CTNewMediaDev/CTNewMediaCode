@@ -19,16 +19,74 @@
         </div>
     <?php endif;?>
     <?php if(!empty($records)):?>
-        <div class="user_records_table">
-            <table style="" rules="rows">
+        <div class="user_records_table" style="width: 100%;background-color: #FFFFFF">
+            <div style="width: 100%;height: 40px;line-height: 40px;background-color: #D76B56;color: #FFFFFF;text-align: center">我的赚钱记录</div>
+            <hr/>
+            <table style="" rules="rows" id="data_table">
                 <?php foreach($records as $v):?>
                 <tr>
-                    <td style="width: 70%;overflow: hidden;word-break: keep-all"><?php echo $v['title'];?></td>
-                    <td style="text-align: right;width: 10%"><?php echo $v['cmoney']?></td>
+                    <td style="width: 70%;overflow: hidden;word-break: keep-all">
+                        <span style="font-size: 12px;">分享点击：</span><br>
+                        <span><?php echo $v['title'];?></span><br>
+                        <span style='font-size: 10px'><?php echo date('Y-m-d H:i:s',$v['addtime']);?></span>
+                    </td>
+                    <td style="text-align: right;width: 10%"><?php echo '￥'.$v['cmoney'];?></td>
                 </tr>
                 <?php endforeach;?>
             </table>
+            <div style="width: 100%;background-color: white;margin-top: 5px;padding-top: 10px;padding-bottom: 10px">
+                <?php if(count($records)==10):?>
+                <div id="more" style="width: 100%;text-align: center;color: darkgray;background-color: #EEEEEE;height: 30px;line-height: 30px">查看更多</div>
+                <?php endif;?>
+                <?php if(count($records)<10):?>
+                <div style="width: 100%;text-align: center;color: darkgray">没有更多消息</div>
+                <?php endif;?>
+            </div>
         </div>
     <?php endif;?>
     </div>
 </body>
+<?php include '../template1/footer.html';?>
+<script type="text/javascript">
+    function unixToTime(unixTime, isFull, timeZone) {
+        if (typeof (timeZone) == 'number')
+        {
+            unixTime = parseInt(unixTime) + parseInt(timeZone) * 60 * 60;
+        }
+        var time = new Date(unixTime * 1000);
+        var ymdhis = "";
+        ymdhis += time.getUTCFullYear() + "-";
+        ymdhis += (time.getUTCMonth()+1) + "-";
+        ymdhis += time.getUTCDate();
+        if (isFull === true)
+        {
+            ymdhis += " " + time.getUTCHours() + ":";
+            ymdhis += time.getUTCMinutes() + ":";
+            ymdhis += time.getUTCSeconds();
+        }
+        return ymdhis;
+    }
+    var page_now=1;
+    $("#more").click(function(){
+        page_now+=1;
+        $.ajax({
+            url:'record.php',
+            type:'get',
+            data:'action=more&page_now='+page_now,
+            success:function(res){
+                info=eval("("+res+")");
+//                each
+                if(info!=0) {
+                    for (var i = 0; i < info.length; i++) {
+                        $("#data_table").append("<tr><td><span style='font-size: 12px;'>分享点击：</span><br> <span>" + info[i].title + "</span><br> <span style='font-size: 10px'>" + unixToTime(info[i].addtime, true, 'PRC') + "</span></td><td style='text-align: right;width: 10%'>￥" + info[i].cmoney + "</td></tr>");
+                    }
+                    if(info.length<10){
+                        $("#more").html('没有更多消息');
+                    }
+                }else{
+                    $("#more").html('没有更多消息');
+                }
+            }
+        })
+    })
+</script>

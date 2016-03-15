@@ -1,12 +1,13 @@
 .user-info{
-    width: 100%;
+    /*width: 100%;*/
     height: auto;
-    min-height: 10px;
-    position: relative;
-    background-color: #DC3A37;
+    /*min-height: 10px;*/
+    /*position: relative;*/
+    background-color: #D76B56;
     margin-top: 10px;
     overflow: hidden;
     padding: 10px;
+    color: #FFFFFF;
 }
 .user-head-img{
     width: 15%;
@@ -21,4 +22,9 @@
     float: right;
     width: 30%;
 }
-.user_records_table table tr td{}
+.user_records_table{
+    margin-top: 10px;
+}
+.user_records_table table tr td{
+
+}
