@@ -89,7 +89,7 @@ if(isset($_POST['action'])&&$_POST['action']=='clickshare'){
 
 			SystemTool::systemLog($db,'位置数据跟踪','没取到位置坐标，用ip取位置信息',$_SERVER['REMOTE_ADDR'].print_r($_POST,true));
 		}
-		SystemTool::systemLog($db,'位置数据跟踪','位置信息',print_r($addressinfo,true));
+		//SystemTool::systemLog($db,'位置数据跟踪','位置信息',print_r($addressinfo,true));
 
 		$clickresult = ClickCount::logClick($db,$contentinfo,$clickOpenid,$shareOpenid,$_SERVER['REMOTE_ADDR'],$clickprice,$addressinfo);
 		switch($clickresult){
