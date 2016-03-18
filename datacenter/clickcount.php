@@ -124,9 +124,27 @@ class ClickCount{
 		$result = 1;
 		return $result;
 	}
-    public static function getClickInfoByDb($db,$openId){
-        $sql='select A.title,C.addtime,C.money as cmoney,A.money as amoney from clickcount as C left join articles as A on C.contentid=A.id where C.clickOpenid="'.$openId.'"  limit 0,10';
+
+
+    /**
+     * 读取点击及相应用户信息
+     * @param  [type] $db          [description]
+     * @param  [type] $openId [description]
+     * @param  [int] $from [limit的起始记录]
+     * @param  [int] $limit [limit的记录条数]
+     */
+    public static function getClickInfoByDb($db,$openId,$from,$limit){
+//        $sql='select A.title,C.addtime,C.money as cmoney,A.money as amoney from clickcount as C left join articles as A on C.contentid=A.id where C.clickOpenid="'.$openId.'"  limit 0,10';
+        $sql="select * from clickcount where shareOpenid='".$openId."' limit $from,".$limit;
+//        $click_arr=$db->fetch_all($sql);
+//        $user_sql='select '
         $res=$db->fetch_all($sql);
+        for($i=0;$i<count($res);$i++){
+            $sql="select nickname,headimgurl from users where openid='".$res[$i]['clickOpenid']."'";
+            $user_info=$db->fetch_first($sql);
+            $res[$i]['nickname']=$user_info['nickname'];
+            $res[$i]['headimgurl']=$user_info['headimgurl'];
+        }
         if(empty($res)){
             return false;
         }else{
