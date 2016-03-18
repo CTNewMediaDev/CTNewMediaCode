@@ -28,3 +28,11 @@
 .user_records_table table tr td{
 
 }
+.user_count_info{
+    position: relative;
+    width: 100%;
+    /*height: 100px;*/
+    margin-top: 20px;
+    background-color: #FFFFFF;
+    overflow: hidden;
+}
