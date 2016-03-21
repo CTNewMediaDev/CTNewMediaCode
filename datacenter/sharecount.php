@@ -25,6 +25,7 @@ class ShareCount{
 						'".$timenow."'
 					)";
 			$db->query($sql);
+			$db->query("update articles set sharenum = sharenum+1 where id=".$contentid);
 		}
 		$errormsg = $db->error();
 		if(!empty($errormsg))

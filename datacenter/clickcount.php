@@ -120,7 +120,8 @@ class ClickCount{
 			$result = -2;
 			return $result;
 		}
-
+		//clicknum
+		$db->query("update articles set clicknum=clicknum+1 where id=".$contentinfo['id']);
 		$result = 1;
 		return $result;
 	}
