@@ -68,7 +68,7 @@ $shareinfo['link'] = $url;
 $shareinfo['imgUrl'] = $content['listimage'];
 
 //template
-include 'template/content.html';
+include 'newtemplate/content.html';
 
 //click num
 $db->query("update articles set visitcount=visitcount+1 where id=".$contentid);

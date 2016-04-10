@@ -24,4 +24,4 @@ $title='赚钱记录';
 $pageidx = 'index';
 $records=ClickCount::getClickInfoByDb($db,$_SESSION['openid'],0,10);
 //var_dump($records);exit;
-include 'template/record.html';
+include '../newtemplate/record.html';

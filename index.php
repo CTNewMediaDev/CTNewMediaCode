@@ -23,4 +23,4 @@ $pageidx = 'index';
 $title = '微官网--同城新媒';
 
 //template
-include 'template/index.html';
+include 'newtemplate/index.html';
