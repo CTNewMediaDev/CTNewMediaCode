@@ -121,6 +121,7 @@
                     </div>
                     <ul class="nav nav-pills nav-stacked main-menu">
                         <li class="nav-header">控制面板</li>
+                        <li><a class="ajax-link" href="system.php"><i class="glyphicon glyphicon-align-justify"></i><span>系统设置</span></a>
                         <li><a class="ajax-link" href="index.php"><i class="glyphicon glyphicon-align-justify"></i><span>文章列表</span></a>
                         </li>
                         <li><a class="ajax-link" href="add.php"><i class="glyphicon glyphicon-edit"></i><span>写新文章</span></a>
