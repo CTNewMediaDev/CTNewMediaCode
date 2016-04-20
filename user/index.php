@@ -14,5 +14,10 @@ if(empty($_SESSION['openid'])){
 $title='个人中心';
 $pageidx = 'index';
 $user_info=Userinfo::getUserinfobyDb($db,$_SESSION['openid']);
+$money_info=$db->fetch_first("select * from usersmoney where openid='".$_SESSION['openid']."'");
+//$click_info
+//$clickCountAll=$db->result_first("select count(*) from clickcount where shareOpenid='".$_SESSION['openid']."'");
+//$clickCountYes=$db->result_first("select count(*) from clickcount where shareOpenid='".$_SESSION['openid']."' and addtime>=".strtotime(date('Y/m/d',strtotime('-1 day')))." and addtime<".strtotime(date('Y/m/d')));
+
 
 include '../newtemplate/userindex.html';

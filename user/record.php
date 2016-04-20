@@ -2,6 +2,7 @@
 /**
  赚钱记录
  */
+date_default_timezone_set('PRC');
 ini_set('display_errors', 1);
 require_once '../config.inc.php';
 
@@ -11,6 +12,15 @@ if(empty($_SESSION['openid'])){
     $redirecturl .= '#'.time();
     SystemTool::checkOpenid($db,'snsapi_userinfo',$redirecturl);
 }
+
+$user_info=Userinfo::getUserinfobyDb($db,$_SESSION['openid']);
+
+$clickCountAll=$db->result_first("select count(*) from clickcount where shareOpenid='".$_SESSION['openid']."'");
+$clickCountYes=$db->result_first("select count(*) from clickcount where shareOpenid='".$_SESSION['openid']."' and addtime>=".strtotime(date('Y/m/d',strtotime('-1 day')))." and addtime<".strtotime(date('Y/m/d')));
+
+$money_info=$db->fetch_first("select * from usersmoney where openid='".$_SESSION['openid']."'");
+
+$count_arr=ClickCount::getCountByDay($db,7);
 
 if(!empty($_GET['action'])&&$_GET['action']=='more'){
     $page=$_GET['page_now'];
