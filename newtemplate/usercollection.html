@@ -1,0 +1,38 @@
+<?php include '../newtemplate/header.html';?>
+<div>
+    <?php if($collections):?>
+    <?php foreach($collections as $value):?>
+    <a href="<?php echo SITE_DOMAIN;?>content.php?id=62">
+        <section class="body-item">
+            <img src="<?php echo $value['listimage'];?>" alt="" class="body-item-img"/>
+            <div class="body-concent">
+                <h2><?php echo $value['title']?></h2>
+                <div class="body-allmoney">全部金额：<span class="body-allm"><?php echo $value['leftmoney'];?></span>  / <span class="body-alls"><?php echo $value['money'];?></span></div>
+                <div class="body-read">
+                    <ul>
+                        <li>
+                            <span class="fa fa-eye"></span>阅读(<?php echo $value['visitcount'];?>)
+                        </li>
+                        <li>
+                            <span class="fa fa-star-o"></span>收藏(<?php echo $value['collectnum'];?>)
+                        </li>
+                        <li>
+                            <span class="fa fa-share-alt"></span>分享(<?php echo $value['sharenum'];?>)
+                        </li>
+                    </ul>
+                </div>
+                <div class="body-address">
+                    <div class="body-adrtime">
+                        <span class="fa fa-map-marker"></span><span>游仙区</span><span>2016-3-14～2016-3-31</span>
+                    </div>
+                    <div class="body-share">分享点击后得钱</div>
+                </div>
+            </div>
+        </section>
+    </a>
+    <?php endforeach;?>
+    <?php else:?>
+    没有收藏
+    <?php endif;?>
+</div>
+<?php include '../newtemplate/footer.html';?>

@@ -120,19 +120,18 @@ class ClickCount{
 			$result = -2;
 			return $result;
 		}
-		//clicknum
-		$db->query("update articles set clicknum=clicknum+1 where id=".$contentinfo['id']);
+
 		$result = 1;
 		return $result;
 	}
 
-
     /**
-     * 读取点击及相应用户信息
-     * @param  [type] $db          [description]
-     * @param  [type] $openId [description]
-     * @param  [int] $from [limit的起始记录]
-     * @param  [int] $limit [limit的记录条数]
+     * 获取点击文章及点击个人信息
+     * @param $db
+     * @param $openId
+     * @param $from [起始位置]
+     * @param $limit [结束位置]
+     * @return bool
      */
     public static function getClickInfoByDb($db,$openId,$from,$limit){
 //        $sql='select A.title,C.addtime,C.money as cmoney,A.money as amoney from clickcount as C left join articles as A on C.contentid=A.id where C.clickOpenid="'.$openId.'"  limit 0,10';
@@ -151,6 +150,23 @@ class ClickCount{
         }else{
             return $res;
         }
+    }
+
+    /**
+     * 获取点击记录
+     * @param $db
+     * @param $day_count [获取记录天数]
+     * @return array
+     */
+    public static function getCountByDay($db,$day_count){
+        date_default_timezone_set("PRC");
+        $count_arr=array();
+        for($i=0;$i<$day_count;$i++){
+            $sql="select count(*) as c_count,sum(money) as c_sum from clickcount where shareOpenid='".$_SESSION['openid']."' and addtime>=".strtotime(date('Y/m/d',strtotime("-$i day")))." and addtime<".strtotime(date('Y/m/d',strtotime("-".($i-1)." day")));
+            $res=$db->fetch_first($sql);
+            array_push($count_arr,$res);
+        }
+        return $count_arr;
     }
 }
 
