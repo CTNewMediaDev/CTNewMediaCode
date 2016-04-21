@@ -272,7 +272,6 @@ function docReady() {
     }
 
     //datatable
-    
     $('.datatable').dataTable({
         "sDom": "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
         "sPaginationType": "bootstrap",
@@ -280,8 +279,6 @@ function docReady() {
             "sLengthMenu": "_MENU_ records per page"
         }
     });
-    
-
     $('.btn-close').click(function (e) {
         e.preventDefault();
         $(this).parent().parent().parent().fadeOut();
@@ -351,7 +348,6 @@ function docReady() {
 
 
 //additional functions for data table
-
 $.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings) {
     return {
         "iStart": oSettings._iDisplayStart,

@@ -42,7 +42,7 @@
     <!-- jQuery -->
     <script src="bower_components/jquery/jquery.min.js"></script>
     <!-- data table plugin -->
-    <script src='js/jquery.dataTables.min.js'></script>
+    
     <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -64,8 +64,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.php"> <img alt="Charisma Logo" src="img/logo20.png" class="hidden-xs"/>
-                <span>CT New Media</span></a>
+            <a class="navbar-brand" href="index.php"> 
+                <span>同城新媒管理后台</span></a>
 
             <!-- user dropdown starts -->
             <div class="btn-group pull-right">
@@ -101,10 +101,6 @@
                 </ul>
             </div>
             <!-- theme selector ends -->
-
-            <ul class="collapse navbar-collapse nav navbar-nav top-menu">
-                <li><a href="http://www.zhuangxiuji.com.cn/cms/"><i class="glyphicon glyphicon-globe"></i> 访问前端页面</a></li>
-            </ul>
 
         </div>
     </div>
