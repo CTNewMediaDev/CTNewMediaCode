@@ -11,37 +11,125 @@ isAdmin();
 
 //保存修改
 if(isset($_POST['savepost'])){
-	$id = intval(trim($_POST['articleid']));
-	$content = addslashes($_POST['content']);
-	$title = addslashes($_POST['title']);
-	//$remark = addslashes(trim($_POST['remark']));
-	//$tags = addslashes($_POST['tags']);
-	$status = $_POST['status'];
-	$categoryid = $_POST['categoryid'];
-	
-	//有效范围
-	$areadata = array();
-	$areadata['country'] = urlencode('中国');
 
-	$province = trim($_POST['province']);
-	$areadata['province'] = urlencode($province);
+	//文章内容
+	if(isset($_GET['formid'])&&$_GET['formid']=='articleform'){
+		$id = intval(trim($_POST['articleid']));
+		$content = addslashes($_POST['content']);
+		$title = addslashes($_POST['title']);
+		$categoryid = intval($_POST['categoryid']);
+		$sql = "update articles set title='".$title."',categoryid=".$categoryid." where id=".$id;
+		$db->query($sql);
+		$sql = "update cmscontent set content='".$content."' where articleid=".$id;
+		$db->query($sql);
+		$msg = '文章内容已保存';
+		header("location:edit.php?id=".$id."&msg=".$msg);
+		exit;
+	}
 
-	$city = trim($_POST['city']);
-	$district = trim($_POST['district']);
-	if($city=='全省'){
-		$city = 'all';
-		$district = '';
-	}else{
-		if(!empty($district)){
-			$districttemp = explode('|', $district);
-			foreach($districttemp as $key=>$item){
-				$districttemp[$key] = urlencode($item);
+	//发布文章，修改状态
+	if(isset($_GET['formid'])&&$_GET['formid']=='statusform'){
+		$id = intval(trim($_POST['articleid']));
+		$status = intval($_POST['status']);
+		$sql = "update articles set status=".$status." where id=".$id;
+		$db->query($sql);
+		$msg = '文章状态已经修改';
+		header("location:edit.php?id=".$id."&msg=".$msg);
+		exit;
+	}
+
+
+	//推广设置
+	if(isset($_GET['formid'])&&$_GET['formid']=='tuiguang'){
+		$id = intval(trim($_POST['articleid']));
+		$starttime = strtotime($_POST['starttime']);
+		$endtime = strtotime($_POST['endtime']);
+		$money = floatval($_POST['money']);
+		$minprice = floatval($_POST['minprice']);
+		$maxprice = floatval($_POST['maxprice']);
+
+		$sql = "update articles set starttime=".$starttime.",endtime=".$endtime.",money=".$money.",minprice=".$minprice.",maxprice=".$maxprice." where id=".$id;
+		$db->query($sql);
+		$msg = '推广设置已保存';
+		header("location:edit.php?id=".$id."&msg=".$msg);
+		exit;
+	}
+
+	//地址设置
+	if(isset($_GET['formid'])&&$_GET['formid']=='addrform'){
+		$id = intval(trim($_POST['articleid']));
+		//商家地址
+		$storeaddress['province'] = urlencode($_POST['storeprovince']);
+		$storeaddress['city'] = urlencode($_POST['storecity']);
+		$storeaddress['district'] = urlencode(_POST['storedist']);
+		$storeaddress['address'] = urlencode($_POST['storeaddr']);
+		$storeaddr = json_encode($storeaddress);
+
+		//分钱范围
+		$areadata = array();
+		$areadata['country'] = urlencode('中国');
+
+		$province = trim($_POST['province']);
+		$areadata['province'] = urlencode($province);
+
+		$city = trim($_POST['city']);
+		$district = trim($_POST['district']);
+		if($city=='全省'){
+			$city = 'all';
+			$district = '';
+		}else{
+			if(!empty($district)){
+				$districttemp = explode('|', $district);
+				foreach($districttemp as $key=>$item){
+					$districttemp[$key] = urlencode($item);
+				}
 			}
 		}
-	}
-	$areadata['city'] = urlencode($city);
+		$areadata['city'] = urlencode($city);
+		$areadata['district'] = isset($districttemp)?$districttemp:urlencode($district);
+		$moneyarea = json_encode($areadata);
 
-	$areadata['district'] = isset($districttemp)?$districttemp:urlencode($district);
+		$sql = "update articles set storeaddr='".urldecode($storeaddr)."',city='".urldecode($moneyarea)."' where id=".$id;
+		$db->query($sql);
+		$msg = '位置设置已保存';
+		header("location:edit.php?id=".$id."&msg=".$msg);
+		exit;
+	}
+
+	//图片设置
+	if(isset($_GET['formid'])&&$_GET['formid']=='picform'){
+		$id = intval(trim($_POST['articleid']));
+
+		if(!empty($_FILES['slpic'])&&!$_FILES['slpic']['error']){
+			#/upload/blog/image/{yyyy}{mm}{dd}/{time}{rand:6}
+			$daydir = date('Ymd',time());
+			$filename = time();
+			$filename .= rand(111111,999999);
+			$filename .= '.'.substr($_FILES['slpic']['type'],6);
+			$returnfilename = '/upload/blog/image/'.$daydir.'/'.$filename;
+
+			$uploaddir = $_SERVER['DOCUMENT_ROOT'].'/upload/blog/image/'.$daydir;
+			if(!is_dir($uploaddir)){
+				mkdir($uploaddir,0777);
+			}
+
+			if(move_uploaded_file($_FILES['slpic']['tmp_name'],$uploaddir.'/'.$filename)){
+				$listimage = $returnfilename;
+				$listimage = 'http://www.zhuangxiuji.com.cn'.$listimage;
+			}
+			$sql = "update articles set listimage='".$listimage."' where id=".$id;
+			$db->query($sql);
+		}
+
+		if(isset($_POST['bannercontent'])){
+			$sql = "update articles set banners='".$_POST['bannercontent']."' where id=".$id;
+			$db->query($sql);
+		}
+		$msg = '图片设置已保存';
+		header("location:edit.php?id=".$id."&msg=".$msg);
+		exit;
+	}
+	
 
 
 	$money = floatval($_POST['money']);
@@ -52,23 +140,7 @@ if(isset($_POST['savepost'])){
 	$clicknum = intval($_POST['clicknum']);
 	$sharenum = intval($_POST['sharenum']);
 	$visitcount = intval($_POST['visitcount']);
-	// if(!$_FILES['slpic']['error']){
-		// #/upload/blog/image/{yyyy}{mm}{dd}/{time}{rand:6}
-		// $daydir = date('Ymd',time());
-		// $filename = time();
-		// $filename .= rand(111111,999999);
-		// $filename .= '.'.substr($_FILES['slpic']['type'],6);
-		// $returnfilename = '/upload/blog/image/'.$daydir.'/'.$filename;
-
-		// $uploaddir = $_SERVER['DOCUMENT_ROOT'].'/upload/blog/image/'.$daydir;
-		// if(!is_dir($uploaddir)){
-			// mkdir($uploaddir,0777);
-		// }
-
-		// if(move_uploaded_file($_FILES['slpic']['tmp_name'],$uploaddir.'/'.$filename)){
-			// $listimage = $returnfilename;
-		// }
-	// }
+	
 
 	if(empty($listimage)){
 		if(preg_match('/<img(.*?)src="(.*?)(?=")/',$_POST['content'],$temp)){
@@ -80,22 +152,6 @@ if(isset($_POST['savepost'])){
 		$listimage = 'http://www.zhuangxiuji.com.cn'.$listimage;
 	}
 
-	
-
-	//update 主表
-	$sql = "update articles set title='".$title."',remark='".$remark."',status=".$status." ,categoryid='".$categoryid."',city='".urldecode(json_encode($areadata))."',money=".$money.",leftmoney=".$leftmoney.",priceperclick=".$priceperclick.",clicknum=".$clicknum.",minprice=".$minprice.",maxprice=".$maxprice.",sharenum=".$sharenum.",visitcount=".$visitcount." where id=".$id;
-	$db->query($sql);
-	if(!empty($listimage)){
-		$sql = "update articles set listimage='".$listimage."' where id=".$id;
-		$db->query($sql);
-	}
-
-	//内容表
-	$sql = "update cmscontent set content='".$content."' where articleid=".$id;
-	$db->query($sql);
-
-	$msg = "Saved Successfully";
-	echo '修改保存成功<script>setTimeout(function(){window.location.href=\'index.php\';},1000)</script>';
 }else{
 	$id = intval($_GET['id']);	
 }

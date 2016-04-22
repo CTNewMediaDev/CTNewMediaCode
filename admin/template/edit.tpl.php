@@ -32,7 +32,7 @@
                 </ul>
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane active" id="article">
-                            <form role="form" id="articleform" action="add.php?formid=articleform" method="post" enctype="multipart/form-data">
+                            <form role="form" id="articleform" action="edit.php?formid=articleform" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="articleid" value="<?php echo $data['articleid']?>">
                                 <br>
                                 <div class="form-group">
@@ -73,7 +73,7 @@
                     </div>
 
                     <div class="tab-pane" id="setmoney">
-                        <form role="form" id="tuiguang" action="add.php?formid=tuiguang" method="post" enctype="multipart/form-data">
+                        <form role="form" id="tuiguang" action="edit.php?formid=tuiguang" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="articleid" value="<?php echo $data['articleid']?>">
                             <br>
                             <div class="form-group">
@@ -101,13 +101,14 @@
                         </form>
                     </div>
                     <div class="tab-pane" id="setbanner">
-                        <form role="form" id="picform" action="add.php?formid=picform" method="post" enctype="multipart/form-data">
+                        <form role="form" id="picform" action="edit.php?formid=picform" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="articleid" value="<?php echo $data['articleid']?>">
                             <div class="form-group">
                                 <br>
                                 <label for="remark">上传缩略图</label>
                                 <input type="file" name="slpic">
                                 <?php if(!empty($data['listimage'])):?>
+                                    <br>
                                     <img src="<?php echo $data['listimage'];?>" width="80" height="58" />
                                 <?php else:?>
                                     No ListImage
@@ -137,7 +138,7 @@
                         </form>
                     </div>
                     <div class="tab-pane" id="setarea">
-                        <form role="form" id="addrform" action="add.php?formid=addrform" method="post" enctype="multipart/form-data">
+                        <form role="form" id="addrform" action="edit.php?formid=addrform" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="articleid" value="<?php echo $data['articleid']?>">
                             <br>
                             <div class="form-group">
@@ -167,7 +168,7 @@
                         </form>
                     </div>
                     <div class="tab-pane" id="openvisit">
-                        <form role="form" id="statusform" action="add.php?formid=statusform" method="post" enctype="multipart/form-data">
+                        <form role="form" id="statusform" action="edit.php?formid=statusform" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="articleid" value="<?php echo $data['articleid']?>">
                             <br>
                             <div class="form-group">
