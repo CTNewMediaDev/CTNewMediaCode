@@ -108,12 +108,34 @@ if(empty($id)){
 	if(empty($data)){
 		$msg = "There is No article with this ID";
 	}else{
-		$tempareadata = json_decode($data['city'],true);
-		$data['province'] = $tempareadata['province'];
-		$data['tempcity'] = $tempareadata['city']=='all'?'全省':$tempareadata['city'];
-		$data['district'] = is_array($tempareadata['district'])?implode('|',$tempareadata['district']):'';
+		if(!empty($data['city'])){
+			$tempareadata = json_decode($data['city'],true);
+			$data['province'] = $tempareadata['province'];
+			$data['tempcity'] = $tempareadata['city']=='all'?'全省':$tempareadata['city'];
+			$data['district'] = is_array($tempareadata['district'])?implode('|',$tempareadata['district']):'';
+		}else{
+			$data['province'] = '';
+			$data['tempcity'] = '';
+			$data['district'] = '';
+		}
+
+		if(!empty($data['storeaddr'])){
+			$storetempdata = json_decode($data['storeaddr'],true);
+			$data['storeprovince'] = $storetempdata['province'];
+			$data['storecity'] = $storetempdata['city'];
+			$data['storedist'] = $storetempdata['district'];
+			$data['addr'] = $storetempdata['address'];
+		}else{
+			$data['storeprovince'] = '';
+			$data['storecity'] = '';
+			$data['storedist'] = '';
+			$data['addr'] = '';
+		}
+
 	}
 }
+
+if(isset($_GET['msg'])) $msg = $_GET['msg'];
 
 $allcategory = getCategory($db);
 
