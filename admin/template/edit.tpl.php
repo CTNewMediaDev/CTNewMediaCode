@@ -24,14 +24,15 @@
                     </div>
                 <?php endif;?>
                 <ul class="nav nav-tabs" id="myTab">
-                    <li class="active"><a href="#article">文章内容</a></li>
+                    <li><a href="#article">文章内容</a></li>
                     <li><a href="#setmoney">推广设置</a></li>
                     <li><a href="#setarea">位置设置</a></li>
                     <li><a href="#setbanner">图片设置</a></li>
                     <li><a href="#openvisit">发布文章</a></li>
+                    <li><a href="#dataedit">数据修改</a></li>
                 </ul>
                 <div id="myTabContent" class="tab-content">
-                    <div class="tab-pane active" id="article">
+                    <div class="tab-pane" id="article">
                             <form role="form" id="articleform" action="edit.php?formid=articleform" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="articleid" value="<?php echo $data['articleid']?>">
                                 <br>
@@ -183,10 +184,38 @@
                             <button type="button" onclick="submitform('statusform')" class="btn btn-primary btn-sm" name="addpost">保  存</button>
                         </form>
                     </div>
-                </div>
-             
-                              
-                              
+                    <div class="tab-pane" id="dataedit">
+                        <form role="form" id="dataform" action="edit.php?formid=dataform" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="articleid" value="<?php echo $data['articleid']?>">
+                            <br>
+                            
+                            <div class="form-group">
+                                    <label for="visitcount">访问数</label>
+                                    <input type="text" class="form-control" id="visitcount" name="visitcount" value="<?php echo $data['visitcount'];?>">
+                            </div>
+                            <div class="form-group">
+                                    <label for="collectnum">收藏数</label>
+                                    <input type="text" class="form-control" id="collectnum" name="collectnum" value="<?php echo $data['collectnum'];?>">
+                            </div>
+                            <div class="form-group">
+                                    <label for="sharenum">分享数</label>
+                                    <input type="text" class="form-control" id="sharenum" name="sharenum" value="<?php echo $data['sharenum'];?>">
+                            </div>
+
+                            <div class="form-group">
+                                    <label for="clicknum">点击数</label>
+                                    <input type="text" class="form-control" id="clicknum" name="clicknum" value="<?php echo $data['clicknum'];?>">
+                            </div>
+                            
+                            <div class="form-group">
+                                    <label for="leftmoney">剩余金额</label>
+                                    <input type="text" class="form-control" id="leftmoney" name="leftmoney" value="<?php echo $data['leftmoney'];?>">
+                            </div>
+                            <input type="hidden" name="addpost">
+                            <button type="button" onclick="submitform('dataform')" class="btn btn-primary btn-sm" name="addpost">保  存</button>
+                        </form>
+                    </div>
+                </div>  
             </div>
         </div>
     </div>
@@ -226,6 +255,8 @@ $(function(){
         $("#district").value='';
         $("#district").hide();
     }
+
+    $('#myTab li:eq(<?php echo $formnum;?>) a').tab('show');
 });
 
 function selectcity(){

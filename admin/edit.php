@@ -10,7 +10,7 @@ isAdmin();
 
 
 //保存修改
-if(isset($_POST['savepost'])){
+if(isset($_POST['addpost'])){
 
 	//文章内容
 	if(isset($_GET['formid'])&&$_GET['formid']=='articleform'){
@@ -23,7 +23,8 @@ if(isset($_POST['savepost'])){
 		$sql = "update cmscontent set content='".$content."' where articleid=".$id;
 		$db->query($sql);
 		$msg = '文章内容已保存';
-		header("location:edit.php?id=".$id."&msg=".$msg);
+		$formnum=0;
+		header("location:edit.php?formnum=".$formnum."&id=".$id."&msg=".$msg);
 		exit;
 	}
 
@@ -34,7 +35,8 @@ if(isset($_POST['savepost'])){
 		$sql = "update articles set status=".$status." where id=".$id;
 		$db->query($sql);
 		$msg = '文章状态已经修改';
-		header("location:edit.php?id=".$id."&msg=".$msg);
+		$formnum=4;
+		header("location:edit.php?formnum=".$formnum."&id=".$id."&msg=".$msg);
 		exit;
 	}
 
@@ -51,7 +53,8 @@ if(isset($_POST['savepost'])){
 		$sql = "update articles set starttime=".$starttime.",endtime=".$endtime.",money=".$money.",minprice=".$minprice.",maxprice=".$maxprice." where id=".$id;
 		$db->query($sql);
 		$msg = '推广设置已保存';
-		header("location:edit.php?id=".$id."&msg=".$msg);
+		$formnum=1;
+		header("location:edit.php?formnum=".$formnum."&id=".$id."&msg=".$msg);
 		exit;
 	}
 
@@ -61,7 +64,7 @@ if(isset($_POST['savepost'])){
 		//商家地址
 		$storeaddress['province'] = urlencode($_POST['storeprovince']);
 		$storeaddress['city'] = urlencode($_POST['storecity']);
-		$storeaddress['district'] = urlencode(_POST['storedist']);
+		$storeaddress['district'] = urlencode($_POST['storedist']);
 		$storeaddress['address'] = urlencode($_POST['storeaddr']);
 		$storeaddr = json_encode($storeaddress);
 
@@ -92,7 +95,8 @@ if(isset($_POST['savepost'])){
 		$sql = "update articles set storeaddr='".urldecode($storeaddr)."',city='".urldecode($moneyarea)."' where id=".$id;
 		$db->query($sql);
 		$msg = '位置设置已保存';
-		header("location:edit.php?id=".$id."&msg=".$msg);
+		$formnum=2;
+		header("location:edit.php?formnum=".$formnum."&id=".$id."&msg=".$msg);
 		exit;
 	}
 
@@ -126,34 +130,36 @@ if(isset($_POST['savepost'])){
 			$db->query($sql);
 		}
 		$msg = '图片设置已保存';
-		header("location:edit.php?id=".$id."&msg=".$msg);
+		$formnum=3;
+		header("location:edit.php?formnum=".$formnum."&id=".$id."&msg=".$msg);
 		exit;
 	}
-	
 
+	//数据修改
+	if(isset($_GET['formid'])&&$_GET['formid']=='dataform'){
+		$id = intval(trim($_POST['articleid']));
+		$visitcount = intval($_POST['visitcount']);
+		$collectnum = intval($_POST['collectnum']);
+		$sharenum = intval($_POST['sharenum']);
+		$clicknum = intval($_POST['clicknum']);
+		$leftmoney = floatval($_POST['leftmoney']);
 
-	$money = floatval($_POST['money']);
-	$leftmoney = floatval($_POST['leftmoney']);
-	$minprice = floatval($_POST['minprice']);
-	$maxprice = floatval($_POST['maxprice']);
-	$priceperclick = floatval($_POST['priceperclick']);
-	$clicknum = intval($_POST['clicknum']);
-	$sharenum = intval($_POST['sharenum']);
-	$visitcount = intval($_POST['visitcount']);
-	
-
-	if(empty($listimage)){
-		if(preg_match('/<img(.*?)src="(.*?)(?=")/',$_POST['content'],$temp)){
-			$listimage = $temp[2];
-		}
+		$sql = "update articles set visitcount=".$visitcount.",".
+				"collectnum=".$collectnum.",".
+				"sharenum=".$sharenum.",".
+				"collectnum=".$collectnum.",".
+				"clicknum=".$clicknum.",".
+				"leftmoney=".$leftmoney.
+				" where id=".$id;
+		$db->query($sql);
+		$msg = '数据修改已保存';
+		$formnum=5;
+		header("location:edit.php?formnum=".$formnum."&id=".$id."&msg=".$msg);
+		exit;
 	}
-
-	if(!empty($listimage)&&strpos($listimage,'//')===false){
-		$listimage = 'http://www.zhuangxiuji.com.cn'.$listimage;
-	}
-
 }else{
-	$id = intval($_GET['id']);	
+	$id = intval($_GET['id']);
+	$formnum = isset($_GET['formnum'])?$_GET['formnum']:0;	
 }
 
 if(empty($id)){
