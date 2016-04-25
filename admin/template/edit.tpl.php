@@ -32,7 +32,7 @@
                     <li><a href="#dataedit">数据修改</a></li>
                 </ul>
                 <div id="myTabContent" class="tab-content">
-                    <div class="tab-pane" id="article">
+                    <div class="tab-pane active" id="article">
                             <form role="form" id="articleform" action="edit.php?formid=articleform" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="articleid" value="<?php echo $data['articleid']?>">
                                 <br>
