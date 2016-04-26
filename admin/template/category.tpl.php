@@ -1,4 +1,8 @@
 <?php include 'template/header.php';?>
+<link href='../res/css/font-awesome.css' rel='stylesheet'>
+<style>
+.fa{font-size:30px;}
+</style>
 <!--content section start-->
 <div>
     <ul class="breadcrumb">
@@ -26,8 +30,10 @@
 				    <thead>
 				    <tr>
 				        <th width="80">id</th>
-				        <th>name</th>
-                        <th>ordernum</th>
+				        <th>分类名</th>
+                        <th>显示顺序</th>
+                        <th>图标</th>
+                        <th>状态</th>
 				        <th width="300">operations</th>
 				    </tr>
 				    </thead>

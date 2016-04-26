@@ -14,19 +14,25 @@ if($action == 'addcategory'){
 	if(isset($_POST['addcategory'])){
 		$categoryname = $_POST['catname'];
 		$ordernum = intval($_POST['ordernum']);
+		$iconclass = $_POST['iconclass'];
+		$status = $_POST['status'];
+
 		if(checkCatIsExists($db,'name',$categoryname)!==false){
-			echo '分类已存在。<script>setTimeout(function(){window.location.href=\'category.php?action=addcategory\';},1000)</script>';
+			$msg = '分类名已存在';
+			header("location:category.php?action=addcategory&msg=".$msg);
 			exit;
 		}
-		$sql = "insert into category(`name`,`ordernum`) values('".$categoryname."','".$ordernum."')";
+		$sql = "insert into category(`name`,`ordernum`,`iconclass`,`status`) values('".$categoryname."','".$ordernum."','".$iconclass."','".$status."')";
 		$db->query($sql);
 		$catid = $db->insert_id();
 		if($catid){
-			echo '分类已添加成功。<script>setTimeout(function(){window.location.href=\'category.php\';},1000)</script>';
+			$msg = '分类已添加成功';
+			header("location:category.php?action=editcategory&id=".$catid."&msg=".$msg);
 			exit;
 		}
 	}
 	else{
+		$msg = isset($_GET['msg'])?$_GET['msg']:'';
 		//template
 		include 'template/addcategory.tpl.php';
 		exit;
@@ -39,16 +45,22 @@ if($action=='editcategory'){
 		$catid = intval($_POST['catid']);
 		$name = $_POST['catname'];
 		$ordernum = intval($_POST['ordernum']);
-		$sql = "update category set name='".$name."',ordernum='".$ordernum."' where id=".$catid;
+		$iconclass = $_POST['iconclass'];
+		$status = $_POST['status'];
+		$sql = "update category set name='".$name."',ordernum='".$ordernum."',iconclass='".$iconclass."',status='".$status."' where id=".$catid;
 		$db->query($sql);
 		$rowsnum = $db->affected_rows();
 		if($rowsnum>0){
-			echo '已经修改。<script>setTimeout(function(){window.location.href=\'category.php\';},1000)</script>';
+			$msg = '修改成功';
+			header("location:category.php?action=editcategory&id=".$catid."&msg=".$msg);
 			exit;
 		}else{
+			$msg = '出错了，修改失败';
+			header("location:category.php?action=editcategory&id=".$catid."&msg=".$msg);
 			exit;
 		}
 	}else{
+		$msg = isset($_GET['msg'])?$_GET['msg']:'';
 		$id = intval($_GET['id']);
 		//template
 		$categoryinfo = checkCatIsExists($db,'id',$id);

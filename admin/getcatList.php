@@ -17,7 +17,7 @@ if(isset($_GET['pagesize'])){
 	$pagesize = 10;
 }
 
-$aColumns = array('id','name','ordernum');
+$aColumns = array('id','name','ordernum','iconclass','status');
 
 
 /** 
@@ -114,7 +114,7 @@ $sQuery = "
 	";
 
 //total num
-$totalquery = $db->fetch_first("select count(*) as num from category");
+$totalquery = $db->fetch_first("select count(*) as num from category ".$sWhere);
 $totalnum = intval($totalquery['num']);
 $totalpage = ceil($totalnum/$pagesize);
 if($page>$totalpage) $page = $totalpage;
@@ -135,6 +135,9 @@ foreach($datalist as $datatemp){
 	$item[] = $datatemp['id'];
 	$item[] = $datatemp['name'];
 	$item[] = $datatemp['ordernum'];
+	$item[] = '<div class="fa-hover col-md-3 col-sm-4"><a href="javascript:void(0)">
+	           <i class="fa fa-'.$datatemp['iconclass'].'"></i> '.$datatemp['iconclass'].'</a></div>';
+	$item[] = ($datatemp['status']==0)?'未发布':'已发布';           
 	$item[] = '
             <a class="btn btn-info" href="category.php?action=editcategory&id='.$datatemp['id'].'">
                 <i class="glyphicon glyphicon-edit icon-white"></i>
