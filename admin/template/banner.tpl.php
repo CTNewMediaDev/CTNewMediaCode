@@ -6,7 +6,7 @@
             <a href="index.php">Home</a>
         </li>
         <li>
-            <a href="#">文章列表</a>
+            <a href="#">banner图列表</a>
         </li>
     </ul>
 </div>
@@ -14,21 +14,20 @@
     <div class="box col-md-12">
         <div class="box-inner">
             <div class="box-header well">
-                <h2><i class="glyphicon glyphicon-align-justify"></i> 文章列表</h2>
+                <h2><i class="glyphicon glyphicon-align-justify"></i> banner列表</h2>
             </div>
-            <div style="width:100%;padding:10px 20px;font-weight:Bold;"><a href="add.php">添加文章</a></div>
+            <div style="width:100%;padding:10px 20px;font-weight:Bold;"><a href="banneradd.php">添加Banner图</a></div>
             <div class="box-content row" style="padding:20px;">
-                <table id="articlelist" class="table table-striped table-bordered bootstrap-datatable  responsive order-column" style="font-size:12px;">
+                <table id="bannerlist" class="table table-striped table-bordered bootstrap-datatable  responsive order-column" style="font-size:12px;">
 				    <thead>
 				    <tr>
-				        <th width="50">编号</th>
+				        <th width="70">编号</th>
 				        <th>标题</th>
-                        <th width="100">分类</th>
-                        <th width="100">状态</th>
-                        <th width="80">总金额</th>
-                        <th width="80">剩余</th>
-                        <th width="100">点击</th>
-                        <th width="120">发布时间</th>
+                        <th width="70">位置</th>
+                        <th width="90">状态</th>
+                        <th width="120">图片</th>
+                        <th width="120">链接</th>
+                        <th width="140">添加时间</th>
 				        <th width="140">操作</th>
 				    </tr>
 				    </thead>
@@ -41,7 +40,7 @@
 <!--content section end-->   
 <script>
 		$(document).ready(function() {
-                $('#articlelist').dataTable( {
+                $('#bannerlist').dataTable( {
                         "sDom": "<'row-fluid'<'col-md-6'l><'col-md-6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
 						"sPaginationType": "bootstrap",
 						"oLanguage": {
@@ -50,13 +49,13 @@
                         "bProcessing": true,
                         "bServerSide": true,
                         "bSort":false,
-					    "sAjaxSource": "getList.php"
+					    "sAjaxSource": "getbanners.php"
                 });
         }); 
 
         function deletearticle(id){
             if(confirm("确定删除？")){
-                $.get("delete.php?id="+id,function(data){
+                $.get("bannerdelete.php?id="+id,function(data){
                     console.log(data);
                     if(data=='success'){
                         $('#deleteitem'+id).parent().parent().remove();  

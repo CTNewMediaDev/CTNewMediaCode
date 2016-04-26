@@ -17,6 +17,7 @@
             <div class="box-header well">
                 <h2><i class="glyphicon glyphicon-edit"></i> 添加文章</h2>
             </div>
+            <div style="width:100%;padding:10px 20px;font-weight:Bold;"><a href="index.php">返回列表</a></div>
             <div class="box-content">
                 <ul class="nav nav-tabs" id="myTab">
                     <li class="active"><a href="#article">文章内容</a></li>

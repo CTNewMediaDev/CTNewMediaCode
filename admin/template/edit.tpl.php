@@ -17,6 +17,7 @@
             <div class="box-header well">
                 <h2><i class="glyphicon glyphicon-edit"></i> 编辑文章</h2>
             </div>
+            <div style="width:100%;padding:10px 20px;font-weight:Bold;"><a href="index.php">返回列表</a></div>
             <div class="box-content">
                 <?php if(!empty($msg)):?>
                     <div style="width:100%;height:30px;font-size:12px;color:green;">
@@ -28,7 +29,7 @@
                     <li><a href="#setmoney">推广设置</a></li>
                     <li><a href="#setarea">位置设置</a></li>
                     <li><a href="#setbanner">图片设置</a></li>
-                    <li><a href="#openvisit">发布文章</a></li>
+                    <li><a href="#openvisit">状态设置</a></li>
                     <li><a href="#dataedit">数据修改</a></li>
                 </ul>
                 <div id="myTabContent" class="tab-content">

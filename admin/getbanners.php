@@ -17,7 +17,7 @@ if(isset($_GET['pagesize'])){
 	$pagesize = 10;
 }
 
-$aColumns = array('id','status','title','urlalias','listimage','remark', 'addtime','visitcount','categoryid','city','money','leftmoney','clicknum','priceperclick','minprice','maxprice');
+$aColumns = array('id','title','position','imgurl','linkto','status','addtime');
 
 
 /** 
@@ -104,7 +104,7 @@ for ( $i=0 ; $i<count($aColumns) ; $i++ )
 * SQL queries
 *  * Get data to display
 */
-$sTable = 'articles';
+$sTable = 'banners';
 $sQuery = "
 		SELECT SQL_CALC_FOUND_ROWS id, ".str_replace(" , ", " ", implode(", ", $aColumns))."
 		FROM   $sTable
@@ -114,7 +114,7 @@ $sQuery = "
 	";
 
 //total num
-$totalquery = $db->fetch_first("select count(*) as num from articles");
+$totalquery = $db->fetch_first("select count(*) as num from banners ".$sWhere);
 $totalnum = intval($totalquery['num']);
 $totalpage = ceil($totalnum/$pagesize);
 if($page>$totalpage) $page = $totalpage;
@@ -134,19 +134,13 @@ foreach($datalist as $datatemp){
 	$item = array();
 	$item[] = $datatemp['id'];
 	$item[] = $datatemp['title'];
-	$tempcategory = getCategoryName($db,$datatemp['categoryid']);
-	$item[] = $tempcategory['name'];
-	$item[] = ($datatemp['status']==0)?'未发布':'已发布';
-	
-	$item[] = '&yen;'.$datatemp['money'];
-	$item[] = '&yen;'.$datatemp['leftmoney'];
-	$item[] = $datatemp['clicknum'];
+	$item[] = $datatemp['position'];
+	$item[] = $datatemp['status']==0?'未发布':'已发布';
+	$item[] = '<img src="'.$datatemp['imgurl'].'" style="width:200px;height:auto;"/>';
+	$item[] = $datatemp['linkto'];
 	$item[] = $datatemp['addtime'];
-	$item[] = '<a target="_blank" href="http://www.zhuangxiuji.com.cn/cms/admin/content.php?id='.$datatemp['id'].'">
-                <i></i>
-                详细&nbsp;
-            </a>
-            <a  href="edit.php?id='.$datatemp['id'].'">
+
+	$item[] = '<a  href="banneredit.php?id='.$datatemp['id'].'">
                 <i></i>
                 &nbsp;编辑&nbsp;
             </a>
