@@ -9,7 +9,7 @@ class SystemTool{
 	 * @return [type]     [description]
 	 */
 	public static function getAllCategory($db){
-		$sql = "select * from category";
+		$sql = "select * from category where status=1 order by ordernum asc";
 		$result = $db->fetch_all($sql);
 		return $result;
 	}

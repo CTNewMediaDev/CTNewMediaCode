@@ -1,19 +1,30 @@
-<?php include 'newtemplate/header.html';?>
-
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-title" content="同城新媒" />
+    <title>同城新媒</title>
+    <link rel="alternate icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="favicon.png">
+    <link type="text/css" rel="stylesheet" href="css/font-awesome.css">
+    <link type="text/css" rel="stylesheet" href="css/common.css">
+</head>
 <body style="padding-bottom: 4.0rem">
     <header class="header">
         <div class="logo">
-            <img src="<?php echo SITE_DOMAIN;?>res/img/logo.png" alt="同城新媒"/>
+            <img src="img/logo.png" alt="同城新媒"/>
         </div>
-        <!--
         <div class="locate">
             成都武侯区 <span class="fa fa-angle-down"></span>
         </div>
-        -->
     </header>
 
     <div class="banner">
-        <img src="<?php echo $banners[0]['imgurl'];?>" alt="<?php echo $banners[0]['title'];?>"/>
+        <img src="img/banner.jpg" alt="图片"/>
     </div>
 
     <div class="search">
@@ -27,42 +38,73 @@
         <div class="nav-body">
             <div class="nav-menu">
                 <ul>
-                    <?php foreach($categories as $key=>$cat):?>
-                    <?php if($key>7){break;}?>
                     <li>
-                        <div class="fa fa-<?php echo $cat['iconclass'];?> nav-icon nav-bkcolor0<?php echo $key+1;?>"></div>
-                        <div class="nav-title"><?php echo $cat['name'];?></div>
+                        <div class="fa fa-building-o nav-icon nav-bkcolor01"></div>
+                        <div class="nav-title">房产</div>
                     </li>
-                    <?php endforeach;?>
+                    <li>
+                        <div class="fa fa-gavel nav-icon nav-bkcolor02"></div>
+                        <div class="nav-title">装修</div>
+                    </li>
+                    <li>
+                        <div class="fa fa-car nav-icon nav-bkcolor03"></div>
+                        <div class="nav-title">汽车</div>
+                    </li>
+                    <li>
+                        <div class="fa fa-heartbeat nav-icon nav-bkcolor04"></div>
+                        <div class="nav-title">婚嫁</div>
+                    </li>
+                    <li>
+                        <div class="fa fa-camera-retro nav-icon nav-bkcolor05"></div>
+                        <div class="nav-title">摄影</div>
+                    </li>
+                    <li>
+                        <div class="fa fa-ship nav-icon nav-bkcolor06"></div>
+                        <div class="nav-title">旅游</div>
+                    </li>
+                    <li>
+                        <div class="fa fa-cutlery nav-icon nav-bkcolor07"></div>
+                        <div class="nav-title">美食</div>
+                    </li>
+                    <li>
+                        <div class="fa fa-graduation-cap nav-icon nav-bkcolor08"></div>
+                        <div class="nav-title">教育</div>
+                    </li>
                 </ul>
-                <?php if(count($categories)>8):?>
                 <ul>
-                    <?php foreach($categories as $key=>$cat):?>
-                    <?php 
-                        if($key<7){continue;}
-                        if($key>15){break;}
-                    ?>
                     <li>
-                        <div class="fa fa-<?php echo $cat['iconclass'];?> nav-icon nav-bkcolor0<?php echo ($key+1)%8;?>"></div>
-                        <div class="nav-title"><?php echo $cat['name'];?></div>
+                        <div class="fa fa-building-o nav-icon nav-bkcolor01"></div>
+                        <div class="nav-title">房产</div>
                     </li>
-                    <?php endforeach;?>
-                </ul>
-                <?php endif;?>
-                <?php if(count($categories)>16):?>
-                <ul>
-                    <?php foreach($categories as $key=>$cat):?>
-                    <?php 
-                        if($key<15){continue;}
-                        if($key>24){break;}
-                    ?>
                     <li>
-                        <div class="fa fa-<?php echo $cat['iconclass'];?> nav-icon nav-bkcolor0<?php echo ($key+1)%8;?>"></div>
-                        <div class="nav-title"><?php echo $cat['name'];?></div>
+                        <div class="fa fa-gavel nav-icon nav-bkcolor02"></div>
+                        <div class="nav-title">装修</div>
                     </li>
-                    <?php endforeach;?>
+                    <li>
+                        <div class="fa fa-car nav-icon nav-bkcolor03"></div>
+                        <div class="nav-title">汽车</div>
+                    </li>
+                    <li>
+                        <div class="fa fa-heartbeat nav-icon nav-bkcolor04"></div>
+                        <div class="nav-title">婚嫁</div>
+                    </li>
+                    <li>
+                        <div class="fa fa-camera-retro nav-icon nav-bkcolor05"></div>
+                        <div class="nav-title">摄影</div>
+                    </li>
+                    <li>
+                        <div class="fa fa-ship nav-icon nav-bkcolor06"></div>
+                        <div class="nav-title">旅游</div>
+                    </li>
+                    <li>
+                        <div class="fa fa-cutlery nav-icon nav-bkcolor07"></div>
+                        <div class="nav-title">美食</div>
+                    </li>
+                    <li>
+                        <div class="fa fa-graduation-cap nav-icon nav-bkcolor08"></div>
+                        <div class="nav-title">教育</div>
+                    </li>
                 </ul>
-                <?php endif;?>
             </div>
         </div>
         <!--<div class="nav-dot">
@@ -92,10 +134,9 @@
                 </ul>
             </div>
         </div>
-
-        <a href="<?php echo SITE_DOMAIN;?>content.php?id=62">
+        <a href="">
             <section class="body-item">
-                <img src="<?php echo SITE_DOMAIN;?>res/img/listimg.jpg" alt="" class="body-item-img"/>
+                <img src="img/listimg.jpg" alt="" class="body-item-img"/>
                 <div class="body-concent">
                     <h2>半山艾马仕，国际巨匠的园林</h2>
                     <div class="body-allmoney">全部金额：<span class="body-allm">￥2000.00</span>  / <span class="body-alls">￥1455.00</span></div>
@@ -121,10 +162,9 @@
                 </div>
             </section>
         </a>
-
-        <a href="<?php echo SITE_DOMAIN;?>content.php?id=62">
+        <a href="">
             <section class="body-item">
-                <img src="<?php echo SITE_DOMAIN;?>res/img/listimg.jpg" alt="" class="body-item-img"/>
+                <img src="img/listimg.jpg" alt="" class="body-item-img"/>
                 <div class="body-concent">
                     <h2>半山艾马仕，国际巨匠的园林</h2>
                     <div class="body-allmoney">全部金额：<span class="body-allm">￥2000.00</span>  / <span class="body-alls">￥1455.00</span></div>
@@ -150,9 +190,9 @@
                 </div>
             </section>
         </a>
-        <a href="<?php echo SITE_DOMAIN;?>content.php?id=62">
+        <a href="">
             <section class="body-item">
-                <img src="<?php echo SITE_DOMAIN;?>res/img/listimg.jpg" alt="" class="body-item-img"/>
+                <img src="img/listimg.jpg" alt="" class="body-item-img"/>
                 <div class="body-concent">
                     <h2>半山艾马仕，国际巨匠的园林</h2>
                     <div class="body-allmoney">全部金额：<span class="body-allm">￥2000.00</span>  / <span class="body-alls">￥1455.00</span></div>
@@ -180,6 +220,14 @@
         </a>
     </div>
 
+    <div class="footer">
+        <ul>
+            <li class="footer-hover"><span class="fa fa-home"></span><br>首页</li>
+            <li><span class="fa fa-signal"></span><br>排行榜</li>
+            <li><span class="fa fa-user"></span><br>个人中心</li>
+        </ul>
+    </div>
+
 <script>
     var clientWidth = document.body.clientWidth;
     var menu = document.querySelectorAll('.nav-menu ul');
@@ -200,5 +248,5 @@
     });
 
 </script>
-
-<?php include 'newtemplate/footer.html';?>
+</body>
+</html>

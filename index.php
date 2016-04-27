@@ -14,8 +14,17 @@ if(empty($_SESSION['openid'])){
 	SystemTool::checkOpenid($db,'snsapi_userinfo',$redirecturl);
 }
 
+//首页banner
+$sql = "select * from banners where position='首页' and status=1";
+$banners = $db->fetch_all($sql);
+
 //分类数据
-$allcategory = SystemTool::getAllCategory($db);
+$categories = SystemTool::getAllCategory($db);
+
+//默认数据
+$sql = "select * from articles where status=1 order by id desc limit 10";
+$articles = $db->fetch_all($sql);
+
 
 $pageidx = 'index';
 
