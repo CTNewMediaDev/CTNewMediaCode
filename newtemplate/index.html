@@ -1,5 +1,17 @@
 <?php include 'newtemplate/header.html';?>
-
+<style>
+.selecteditem{color: #b32a22;}
+.fbdaclass a{
+    text-decoration: none;
+    color: #333333;
+}
+.fbdaclass a:link{
+    color: #333333;
+}
+.fbdaclass a:visited{
+    color: #333333;
+}
+</style>
 <body style="padding-bottom: 4.0rem">
     <header class="header">
         <div class="logo">
@@ -11,11 +23,11 @@
         </div>
         -->
     </header>
-
-    <div class="banner">
-        <img src="<?php echo $banners[0]['imgurl'];?>" alt="<?php echo $banners[0]['title'];?>"/>
-    </div>
-
+    <?php if(!empty($banners)):?>
+        <div class="banner">
+            <img src="<?php echo $banners[0]['imgurl'];?>" alt="<?php echo $banners[0]['title'];?>"/>
+        </div>
+    <?php endif;?>
     <div class="search">
         <div class="search-body">
             <input type="text" class="search-text" placeholder="">
@@ -25,13 +37,15 @@
 
     <nav class="nav">
         <div class="nav-body">
-            <div class="nav-menu">
+            <div class="nav-menu fbdaclass">
                 <ul>
                     <?php foreach($categories as $key=>$cat):?>
                     <?php if($key>7){break;}?>
                     <li>
-                        <div class="fa fa-<?php echo $cat['iconclass'];?> nav-icon nav-bkcolor0<?php echo $key+1;?>"></div>
-                        <div class="nav-title"><?php echo $cat['name'];?></div>
+                        <a href="index.php?catid=<?php echo $cat['id'];?>">
+                        <div class="fa fa-<?php echo $cat['iconclass'];?> nav-icon nav-bkcolor0<?php echo $key+1;?> "></div>
+                        <div class="nav-title <?php if(!empty($catid)&&$catid==$cat['id']){echo 'selecteditem';}?>"><?php echo $cat['name'];?></div>
+                        </a>
                     </li>
                     <?php endforeach;?>
                 </ul>
@@ -75,109 +89,72 @@
 
     <div class="body">
         <div class="body-title">
-            <div class="body-comp">
-                综合排序 <span class="fa fa-align-left"></span>
+            <div class="body-comp fbdaclass">
+                <a href="<?php echo $orderlink;?>" <?php if(empty($order)){echo 'style="color:#b32a22;"';}?>>综合排序</a> <span class="fa fa-align-left"></span>
             </div>
-            <div class="body-seq">
+            <div class="body-seq fbdaclass">
                 <ul>
-                    <li>阅读</li>
-                    <li>分享</li>
-                    <li>收藏</li>
-                    <li id="allmoney">金额 <span class="fa fa-angle-down"></span>
-                        <div class="body-seq-money">
-                            <div>全部金额</div>
-                            <div>剩余金额</div>
+                    <li><a href="<?php echo $orderlink;?>order=visitcount" 
+                        <?php if(!empty($order)&&$order=='visitcount'){echo 'style="color:#b32a22;"';}?>>阅读</a></li>
+
+                    <li><a href="<?php echo $orderlink;?>order=sharenum" 
+                        <?php if(!empty($order)&&$order=='sharenum'){echo 'style="color:#b32a22;"';}?>>分享</a></li>
+
+                    <li><a href="<?php echo $orderlink;?>order=collectnum" 
+                        <?php if(!empty($order)&&$order=='collectnum'){echo 'style="color:#b32a22;"';}?>>收藏</a></li>
+
+                    <li id="allmoney" <?php if(!empty($order)&&$order=='money'||$order=='leftmoney'){echo 'style="color:#b32a22;"';}?> >金额 <span class="fa fa-angle-down"></span>
+                        <div class="body-seq-money" >
+                            <div><a href="<?php echo $orderlink;?>order=money" 
+                                <?php if(!empty($order)&&$order=='money'){echo 'style="color:#b32a22;"';}?>>全部金额</a></div>
+                            <div><a href="<?php echo $orderlink;?>order=leftmoney" 
+                                <?php if(!empty($order)&&$order=='leftmoney'){echo 'style="color:#b32a22;"';}?>>剩余金额</a></div>
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
-
-        <a href="<?php echo SITE_DOMAIN;?>content.php?id=62">
-            <section class="body-item">
-                <img src="<?php echo SITE_DOMAIN;?>res/img/listimg.jpg" alt="" class="body-item-img"/>
-                <div class="body-concent">
-                    <h2>半山艾马仕，国际巨匠的园林</h2>
-                    <div class="body-allmoney">全部金额：<span class="body-allm">￥2000.00</span>  / <span class="body-alls">￥1455.00</span></div>
-                    <div class="body-read">
-                        <ul>
-                            <li>
-                                <span class="fa fa-eye"></span>阅读(100)
-                            </li>
-                            <li>
-                                <span class="fa fa-star-o"></span>收藏(12)
-                            </li>
-                            <li>
-                                <span class="fa fa-share-alt"></span>分享(76)
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="body-address">
-                        <div class="body-adrtime">
-                            <span class="fa fa-map-marker"></span><span>游仙区</span><span>2016-3-14～2016-3-31</span>
+        <?php if(empty($articles)):?>
+            <section class="body-item">没有更多内容</section>
+        <?php else:?>
+            <?php foreach($articles as $key=>$article):?>
+            <a href="<?php echo SITE_DOMAIN;?>content.php?id=<?php echo $article['id'];?>">
+                <section class="body-item">
+                    <img src="<?php echo $article['listimage'];?>" alt="<?php echo $article['title'];?>" class="body-item-img"/>
+                    <div class="body-concent">
+                        <h2><?php echo $article['title'];?></h2>
+                        <div class="body-allmoney">全部金额：<span class="body-allm">￥<?php echo $article['money'];?></span>  / <span class="body-alls">￥<?php echo $article['leftmoney'];?></span></div>
+                        <div class="body-read">
+                            <ul>
+                                <li>
+                                    <span class="fa fa-eye"></span>阅读(<?php echo $article['visitcount'];?>)
+                                </li>
+                                <li>
+                                    <span class="fa fa-star-o"></span>收藏(<?php echo $article['collectnum'];?>)
+                                </li>
+                                <li>
+                                    <span class="fa fa-share-alt"></span>分享(<?php echo $article['sharenum'];?>)
+                                </li>
+                            </ul>
                         </div>
-                        <div class="body-share">分享点击后得钱</div>
-                    </div>
-                </div>
-            </section>
-        </a>
-
-        <a href="<?php echo SITE_DOMAIN;?>content.php?id=62">
-            <section class="body-item">
-                <img src="<?php echo SITE_DOMAIN;?>res/img/listimg.jpg" alt="" class="body-item-img"/>
-                <div class="body-concent">
-                    <h2>半山艾马仕，国际巨匠的园林</h2>
-                    <div class="body-allmoney">全部金额：<span class="body-allm">￥2000.00</span>  / <span class="body-alls">￥1455.00</span></div>
-                    <div class="body-read">
-                        <ul>
-                            <li>
-                                <span class="fa fa-eye"></span>阅读(100)
-                            </li>
-                            <li>
-                                <span class="fa fa-star-o"></span>收藏(12)
-                            </li>
-                            <li>
-                                <span class="fa fa-share-alt"></span>分享(76)
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="body-address">
-                        <div class="body-adrtime">
-                            <span class="fa fa-map-marker"></span><span>游仙区</span><span>2016-3-14～2016-3-31</span>
+                        <div class="body-address">
+                            <div class="body-adrtime">
+                                <span class="fa fa-map-marker"></span><span><?php echo $article['storedist'];?></span><span>
+                                <?php echo date('Y-m-d',$article['starttime']);?>
+                                ～
+                                <?php echo date('Y-m-d',$article['endtime']);?>
+                                </span>
+                            </div>
+                            <!--
+                            <div class="body-share">分享点击后得钱</div>
+                            -->
                         </div>
-                        <div class="body-share">分享点击后得钱</div>
                     </div>
-                </div>
-            </section>
-        </a>
-        <a href="<?php echo SITE_DOMAIN;?>content.php?id=62">
-            <section class="body-item">
-                <img src="<?php echo SITE_DOMAIN;?>res/img/listimg.jpg" alt="" class="body-item-img"/>
-                <div class="body-concent">
-                    <h2>半山艾马仕，国际巨匠的园林</h2>
-                    <div class="body-allmoney">全部金额：<span class="body-allm">￥2000.00</span>  / <span class="body-alls">￥1455.00</span></div>
-                    <div class="body-read">
-                        <ul>
-                            <li>
-                                <span class="fa fa-eye"></span>阅读(100)
-                            </li>
-                            <li>
-                                <span class="fa fa-star-o"></span>收藏(12)
-                            </li>
-                            <li>
-                                <span class="fa fa-share-alt"></span>分享(76)
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="body-address">
-                        <div class="body-adrtime">
-                            <span class="fa fa-map-marker"></span><span>游仙区</span><span>2016-3-14～2016-3-31</span>
-                        </div>
-                        <div class="body-share">分享点击后得钱</div>
-                    </div>
-                </div>
-            </section>
-        </a>
+                </section>
+            </a>
+            <?php endforeach;?>
+        <?php endif;?>
+        
     </div>
 
 <script>
