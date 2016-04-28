@@ -16,6 +16,7 @@ if(empty($_SESSION['openid'])){
 }
 $title='我的分享';
 $pageidx = 'index';
+$user_info=Userinfo::getUserinfobyDb($db,$_SESSION['openid']);
 $shares=ShareCount::getShare($db);
 if($shares){
     for($i=0;$i<count($shares);$i++){
