@@ -1,4 +1,5 @@
 <?php include '../newtemplate/header.html';?>
+<script type="text/javascript" src="<?php echo SITE_DOMAIN;?>/source/js/jquery-1.9.1.min.js"></script>
 <style>
     .share-user{
         background: #FFFFFF;
@@ -47,24 +48,40 @@
         padding-left: .3rem;
     }
     .myshare span{
-        width: 30%;
+        display: inline-block;
+        width: 45%;
         text-align: center;
         font-size: .9rem;
-        line-height: 3.0rem;
+        margin: .6rem 0 .6rem 0;
+        /*line-height: 3.0rem;*/
+        /*height: 3.0rem;*/
     }
-    .myshare .share-button{
-        border-left: 2px solid #b32a22;
-        border-right: 1px solid #DEDEDE;
+    .on-button{
+        /*border-left: 2px solid #b32a22;*/
         color: #b32a22;
         font-size: .9rem;
         font-weight: normal;
-        margin: .6rem .6rem;
-        padding-left: .3rem;
+        /*margin: .6rem .6rem;*/
+        /*padding-left: .3rem;*/
     }
 
     .font-red{
         color: #b32a22;
         /*font-size: .;*/
+    }
+    .fl{
+        float: left;
+    }
+    .clear{
+        clear: both;
+    }
+    .click-head{
+        width: 2.5rem;
+        height: 2.5rem;
+        overflow: hidden;
+        /*border-radius: 3rem;*/
+        float: left;
+        margin: 10px 0 10px 5px;
     }
 </style>
 <div class="share-user">
@@ -77,16 +94,17 @@
                 <span>累计分享：<span class="font-red">12</span>次</span>
                 <span class="fr">累计被点击：<span class="font-red">15</span>次</span>
         </div>
+        <div class="clear"></div>
     </div>
 </div>
+<!--<div class="myshare">-->
+    <!--<h2>我的分享记录</h2>-->
+<!--</div>-->
 <div class="myshare">
-    <h2>我的分享记录</h2>
+    <span class="on-button" id="share_button" style="border-right: 1px solid #DEDEDE;">我的分享记录</span>
+    <span class="" id="click_button">我的点击记录</span>
 </div>
-<div class="myshare">
-    <span class="share-button">我的分享记录</span>
-    <span class="click-button">我的点击记录</span>
-</div>
-<div>
+<div id="share_info">
     <?php if($shares):?>
     <?php foreach($shares as $value):?>
     <a href="<?php echo SITE_DOMAIN;?>content.php?id=62">
@@ -133,4 +151,100 @@
     没有分享
     <?php endif;?>
 </div>
+<div id="click_info" style="display: none">
+    <?php if(empty($click_info)):?>
+    <div class="data_empty">
+        No Data!
+    </div>
+    <?php endif;?>
+    <?php if(!empty($click_info)):?>
+    <table class="data_table" rules="none" id="data_table">
+    <?php foreach($click_info as $k=>$v):?>
+    <tr>
+        <td class="td_left">
+            <div class="click-head">
+                <img src="<?php echo $v['headimgurl'];?>">
+            </div>
+            <div class="user_info">
+                <div><?php echo $v['nickname'];?></div>
+                <div style='font-size: 10px;margin-top: 10px'><?php echo date('Y-m-d H:i:s',$v['addtime']);?>&nbsp;帮助点击</div>
+            </div>
+            <div></div>
+        </td>
+        <td class="td_right">+<?php echo '￥'.$v['money'];?></td>
+    </tr>
+    <?php endforeach;?>
+    </table>
+    <div style="width: 100%;background-color: white;margin-top: 5px;padding-top: 10px;padding-bottom: 10px;margin-bottom: 55px">
+        <?php if(count($click_info)==10):?>
+        <div id="more">查看更多</div>
+        <?php endif;?>
+        <?php if(count($click_info)<10):?>
+        <div style="width: 100%;text-align: center;color: darkgray">没有更多消息</div>
+        <?php endif;?>
+    </div>
+    <?php endif;?>
+</div>
+<style>
+    .data_empty{width: 100%;margin-top: 200px;text-align: center}
+    .user_records_table{width: 100%;background-color: #FFFFFF}
+    .record_title{width: 100%;height: 40px;line-height: 40px;background-color: #D76B56;color: #FFFFFF;text-align: center}
+    .data_table{border-color: #EEEEEE}
+    .data_table tr{border:1px solid #EEEEEE;}
+    .td_left{width: 70%;overflow: hidden;}
+    .td_right{text-align: right;width: 15%}
+    .head_img{float: left;margin-left: 10px;margin-bottom: 10px;margin-top: 10px}
+    .user_info{float: left;margin-left: 10px;margin-top: 10px}
+    #more{width: 100%;text-align: center;color: darkgray;background-color: #EEEEEE;line-height: 41px;}
+</style>
+<script type="text/javascript">
+    $("#click_button").click(function(){
+        $("#share_button").removeClass('on-button');
+//        $("#share_button").css({'border-right':'none','border-left':"2px solid"});
+        $("#click_button").addClass('on-button');
+        $("#share_info").css('display','none');
+        $("#click_info").css('display','block');
+    });
+    $("#share_button").click(function(){
+        $("#click_button").removeClass('on-button');
+        $("#share_button").addClass('on-button');
+        $("#share_info").css('display','block');
+        $("#click_info").css('display','none');
+    })
+    var page_now=1;
+    $("#more").click(function(){
+        page_now+=1;
+        $.ajax({
+            url:'share.php',
+            type:'get',
+            data:'action=more&page_now='+page_now,
+            success:function(res){
+                info=eval("("+res+")");
+//                each
+                if(info!=0) {
+                    for (var i = 0; i < info.length; i++) {
+                        $("#data_table").append("<tr>" +
+                        "<td class='td_left'> " +
+                        "<div class='click-head'> " +
+                        "<img src='<?php echo $v['headimgurl'];?>'> " +
+                        "</div> " +
+                        "<div class='user_info'> " +
+                        "<div><?php echo $v['nickname'];?></div> " +
+                        "<div style='font-size: 10px;margin-top: 10px'><?php echo date('Y-m-d H:i:s',$v['addtime']);?>&nbsp;帮助点击</div> " +
+                        "</div> " +
+                        "<div></div> " +
+                        "</td> " +
+                        "<td class='td_right'>+<?php echo '￥'.$v['money'];?></td> " +
+                        "</tr>");
+                    }
+                    if(info.length<10){
+                        $("#more").html('没有更多消息');
+                    }
+                }else{
+                    $("#more").html('没有更多消息');
+                }
+            }
+        })
+    })
+</script>
 <?php include '../newtemplate/footer.html';?>

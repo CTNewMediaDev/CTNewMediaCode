@@ -30,4 +30,13 @@ if($shares){
         }
     }
 }
+//点击信息
+$click_info=ClickCount::getClickInfoByDbAll($db,$_SESSION['openid'],0,10);
+if(@$_GET['action']=='more'){
+    $page=$_GET['page_now'];
+    $res=ClickCount::getClickInfoByDbAll($db,$_SESSION['openid'],($page-1)*10,10);
+    echo json_encode($res);
+    exit;
+}
+
 include '../newtemplate/usershare.html';

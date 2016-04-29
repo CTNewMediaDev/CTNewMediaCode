@@ -40,13 +40,13 @@
                 <?php endforeach;?>
             </table>
             <div style="width: 100%;background-color: white;margin-top: 5px;padding-top: 10px;padding-bottom: 10px">
-                <?php if(count($records)==10):?>
-                <div id="more">查看更多</div>
-                <?php endif;?>
-                <?php if(count($records)<10):?>
-                <div style="width: 100%;text-align: center;color: darkgray">没有更多消息</div>
-                <?php endif;?>
-            </div>
+            <?php if(count($records)==10):?>
+            <div id="more">查看更多</div>
+            <?php endif;?>
+            <?php if(count($records)<10):?>
+            <div style="width: 100%;text-align: center;color: darkgray">没有更多消息</div>
+            <?php endif;?>
+        </div>
         </div>
     <?php endif;?>
     </div>
