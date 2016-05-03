@@ -1,29 +1,155 @@
 <?php include 'newtemplate/header.html';?>
+<style>
+.clicked{border: 1px solid #b32a22;}
+
+</style>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+wx.config({
+    appId: '<?php echo $signPackage["appId"];?>',
+    timestamp: <?php echo $signPackage["timestamp"];?>,
+    nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+    signature: '<?php echo $signPackage["signature"];?>',
+    jsApiList: [
+        'checkJsApi',
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage',
+        'onMenuShareQQ',
+        'onMenuShareWeibo',
+        'hideMenuItems',
+        'showMenuItems',
+        'hideAllNonBaseMenuItem',
+        'showAllNonBaseMenuItem',
+        'translateVoice',
+        'startRecord',
+        'stopRecord',
+        'onRecordEnd',
+        'playVoice',
+        'pauseVoice',
+        'stopVoice',
+        'uploadVoice',
+        'downloadVoice',
+        'chooseImage',
+        'previewImage',
+        'uploadImage',
+        'downloadImage',
+        'getNetworkType',
+        'openLocation',
+        'getLocation',
+        'hideOptionMenu',
+        'showOptionMenu',
+        'closeWindow',
+        'scanQRCode',
+        'chooseWXPay',
+        'openProductSpecificView',
+        'addCard',
+        'chooseCard',
+        'openCard'
+    ]
+});
+
+wx.ready(function(){
+    wx.onMenuShareTimeline({
+        title: '<?php echo $shareinfo["title"];?>',
+        link: '<?php echo $shareinfo["link"];?>',
+        imgUrl: '<?php echo $shareinfo["imgUrl"];?>',
+        trigger: function (res) {
+            //alert('用户点击分享到朋友圈');
+        },
+        success: function (res) {
+            //请求统计接口
+            $.ajax({
+                type:"POST",
+                url:'<?php echo SITE_DOMAIN;?>contentlog.php',
+                data:"action=share&id=<?php echo $content['id'];?>&openid=<?php echo $_SESSION['openid'];?>",
+                success:function(msg){
+                    var objmsg = eval("("+msg+")");
+                    console.log(objmsg.msg);
+                }
+            });
+        },
+        cancel: function (res) {
+            //alert('已取消');
+        },
+        fail: function (res) {
+            console.log(res);
+        }
+    });
+
+<?php if(!isset($_SESSION['location'])):?>  
+    wx.getLocation({
+        type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+        success: function (res) {
+            var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+            var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+            var speed = res.speed; // 速度，以米/每秒计
+            var accuracy = res.accuracy; // 位置精度
+            $.ajax({
+                type:"POST",
+                url:"<?php echo SITE_DOMAIN;?>contentlog.php",
+                data:"action=location&latitude="+latitude+"&longitude="+longitude,
+                success:function(msg){}
+            });
+        }
+    });
+<?php endif;?>
+    
+});
+
+<?php if(!empty($shareopenid)&&!$isclicked):?>
+$(function(){
+    setTimeout(function(){
+        $.ajax({
+            type:"POST",
+            url:'<?php echo SITE_DOMAIN;?>contentlog.php',
+            data:"action=clickshare&id=<?php echo $content['id'];?>&shareopenid=<?php echo $shareopenid;?>",
+            success:function(data){
+                var msgobj = eval("("+data+")");
+                setTimeout(function(){
+                    alert(msgobj.msg);
+                },3000);
+                //to do 引入artDialog，丰富交互
+                
+            }
+        });
+    },3000);    
+});
+<?php endif;?>
+</script>
 <body style="padding-bottom: 4.0rem">
+    <?php if(!empty($topbanners)):?>
     <div class="intro-header">
         <div class="fa fa-angle-left intro-header-back"></div>
-        <div class="intro-header-img"><img src="<?php echo SITE_DOMAIN;?>res/img/infobg.jpg" alt=""/></div>
+        <div class="intro-header-img">
+            <?php foreach($topbanners as $banner):?>
+            <img src="<?php echo $banner;?>" alt=""/>
+            <?php endforeach;?>
+        </div>
         <div class="intro-header-adr">
             <div class="intro-location">
-                <span class="fa fa-map-marker"></span>游仙区
+                <span class="fa fa-map-marker"></span><?php echo $storeaddr['district'];?>
             </div>
-            <div class="intro-imgnum">13张</div>
+            <div class="intro-imgnum"><?php echo count($topbanners);?>张</div>
         </div>
     </div>
+    <?php endif;?>
 
     <div class="intro-title">
-        <h1>欧派,家居装修定制品牌，个性定制，「0元量尺设计」，「免费出设计方案」，一站式安装配送！</h1>
+        <h1><?php echo $content['title'];?></h1>
         <div class="intro-count">
             <div class="body-read">
                 <ul>
                     <li>
-                        <span class="fa fa-eye"></span>阅读(100)
+                        <span class="fa fa-eye"></span>阅读(<?php echo $content['visitcount'];?>)
                     </li>
                     <li>
-                        <span class="fa fa-star-o"></span>收藏(12)
+                        <span class="fa fa-star-o"></span>收藏(<?php echo $content['collectnum'];?>)
                     </li>
                     <li>
-                        <span class="fa fa-share-alt"></span>分享(76)
+                        <span class="fa fa-share-alt"></span>分享(<?php echo $content['sharenum'];?>)
+                    </li>
+                    <li style="float:right;">
+                        <span class="fa fa-star"></span>点击收藏
                     </li>
                 </ul>
             </div>
@@ -33,44 +159,50 @@
     <div class="intro-money">
         <div class="intro-money-list">
             <ul>
-                <li>全部金额<br><span>￥10000.00</span></li>
-                <li>剩余金额<br><span>￥1000.00</span></li>
-                <li>阅读一次<br><span>￥0.10~0.50</span></li>
+                <li>全部金额<br><span>￥<?php echo $content['money'];?></span></li>
+                <li>剩余金额<br><span>￥<?php echo $content['leftmoney'];?></span></li>
+                <li>阅读一次<br><span>￥<?php echo $content['minprice'];?>~<?php echo $content['maxprice'];?></span></li>
             </ul>
         </div>
         <div class="intro-money-time">
-            <span>活动时间：</span>2016年08月08 日 ~  2016年09月12日
+            <span>活动时间：</span><?php echo date('Y年m月d日',$content['starttime']);?> ~  <?php echo date('Y年m月d日',$content['endtime']);?>
             <hr>
-            <span>赚钱区域：</span>成都市锦江区、绵阳涪城区、绵阳游仙区
+            <span>赚钱区域：</span><?php echo $areadata;?>
         </div>
     </div>
 
     <div class="intro-act">
         <h2>活动内容</h2>
         <div class="intro-content">
-            <p>金茂悦龙山所在区域为锦江区的后花园，承接了锦江区乃至整个城东、城南市民的假日休闲功能，也是日后锦江区政府搬迁的目标所在地。周边有三圣乡4A级风景旅游区、幸福梅林生态旅游区、LOHAS绿道区等生态休闲区，以及20万平米的果岭公园。</p>
+            <p><?php echo $content['content'];?></p>
         </div>
     </div>
 
+    <!--
     <div class="intro-icon">
         <ul>
-            <li>
+            <li id="collectaction">
                 <div class="fa fa-star-o intro-tubiao"></div>
                 <div class="intro-icon-name">我要收藏</div>
             </li>
-            <li>
+            <li id="upaction">
                 <div class="fa fa-thumbs-o-up intro-tubiao"></div>
                 <div class="intro-icon-name"><span>347</span>个赞</div>
             </li>
-            <li>
+            <li id="downaction">
                 <div class="fa fa-ban intro-tubiao"></div>
                 <div class="intro-icon-name">不感兴趣</div>
             </li>
-            <li>
+            
+            <li id="shareaction">
                 <div class="fa fa-share-square-o intro-tubiao"></div>
                 <div class="intro-icon-name">分享到</div>
             </li>
+
         </ul>
     </div>
-
+    -->
+<script>
+    
+</script>
 <?php include 'newtemplate/footer.html';?>

@@ -36,6 +36,7 @@ if(!empty($shareopenid)){
 	$isclicked = ClickCount::checkisClicked($db,$contentid,$_SESSION['openid'],$shareopenid);
 }
 
+//分钱范围
 $tempareadata = json_decode($content['city'],true);
 $data['province'] = $tempareadata['province'];
 $data['tempcity'] = $tempareadata['city'];
@@ -47,6 +48,15 @@ if(!empty($data['district'])){
 }else{
 	$areadata = $data['province'];
 }
+
+//商家地址
+$storeaddr = json_decode($content['storeaddr'],true);
+
+//banners
+if(preg_match_all('/<img src="([^>]+)"/i', $content['banners'], $matches)){
+	$topbanners = $matches[1];
+}
+
 
 
 
@@ -70,5 +80,5 @@ $shareinfo['imgUrl'] = $content['listimage'];
 //template
 include 'newtemplate/content.html';
 
-//click num
+//visit num + 1
 $db->query("update articles set visitcount=visitcount+1 where id=".$contentid);
