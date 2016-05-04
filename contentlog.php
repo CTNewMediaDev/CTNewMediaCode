@@ -16,6 +16,8 @@ if(isset($_POST['action'])&&$_POST['action']==='collection'){
 	$articleid = intval($_POST['articleid']);
 	if(!Collection::checkIsCollected($db,$_SESSION['openid'],$articleid)){
 		if(Collection::logCollection($db,$_SESSION['openid'],$articleid)){
+			$sql = "update articles set collectnum=collectnum+1 where id=".$articleid;
+			$db->query($sql);
 			echo '1';
 		}else{
 			echo 'action failed';
@@ -30,6 +32,8 @@ if(isset($_POST['action'])&&$_POST['action']==='collection'){
 if(isset($_POST['action'])&&$_POST['action']==='cancelcollection'){
 	$articleid = intval($_POST['articleid']);
 	if(Collection::logCollection($db,$_SESSION['openid'],$articleid,0)){
+		$sql = "update articles set collectnum=collectnum-1 where id=".$articleid;
+			$db->query($sql);
 		echo '1';
 	}else{
 		echo 'action failed';

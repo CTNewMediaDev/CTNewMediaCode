@@ -59,6 +59,11 @@ wx.ready(function(){
                 url:'<?php echo SITE_DOMAIN;?>contentlog.php',
                 data:"action=share&id=<?php echo $content['id'];?>&openid=<?php echo $_SESSION['openid'];?>",
                 success:function(msg){
+                    var sharenumstr = $("#sharenum").html();
+                    sharenumstr = sharenumstr.substr(1,sharenumstr.length-2);
+                    sharenum = parseInt(sharenumstr);    
+                    sharenum = sharenum +1;
+                    $("#sharenum").html('('+sharenum+')'); 
                     var objmsg = eval("("+msg+")");
                     console.log(objmsg.msg);
                 }
@@ -101,9 +106,12 @@ $(function(){
             data:"action=clickshare&id=<?php echo $content['id'];?>&shareopenid=<?php echo $shareopenid;?>",
             success:function(data){
                 var msgobj = eval("("+data+")");
+                console.log(msgobj.msg);
+                /*
                 setTimeout(function(){
                     alert(msgobj.msg);
                 },3000);
+                */
                 //to do 引入artDialog，丰富交互
                 
             }
@@ -121,7 +129,12 @@ function collectart(articleid){
         data:"action=collection&articleid="+articleid,
         success:function(data){
             if(data=='1'){
-                $("#collectstatus").html('<a href="javascript:void(0);" onclick="cancelcollectart(<?php echo $content['id'];?>)"><span class="fa fa-star-red"></span>取消收藏</a>');
+                $("#collectstatus").html('<a href="javascript:void(0);" onclick="cancelcollectart(<?php echo $content['id'];?>)"><span class="fa fa-star"></span>取消收藏</a>');
+                var collectnumstr = $("#collectnum").html();
+                collectnumstr = collectnumstr.substr(1,collectnumstr.length-2);
+                collectnum = parseInt(collectnumstr);
+                collectnum = collectnum +1;
+                $("#collectnum").html('('+collectnum+')');     
             }else{
                 alert(data);
             }
@@ -136,7 +149,12 @@ function cancelcollectart(articleid){
         data:"action=cancelcollection&articleid="+articleid,
         success:function(data){
             if(data=='1'){
-                $("#collectstatus").html('<a href="javascript:void(0);" onclick="collectart(<?php echo $content['id'];?>)"><span class="fa fa-star "></span>点击收藏</a>');
+                $("#collectstatus").html('<a href="javascript:void(0);" onclick="collectart(<?php echo $content['id'];?>)"><span class="fa fa-star-o"></span>点击收藏</a>');
+                var collectnumstr = $("#collectnum").html();
+                collectnumstr = collectnumstr.substr(1,collectnumstr.length-2);
+                collectnum = parseInt(collectnumstr);
+                collectnum = collectnum -1;
+                $("#collectnum").html('('+collectnum+')'); 
             }else{
                 alert(data);
             }
@@ -168,22 +186,25 @@ function cancelcollectart(articleid){
             <div class="body-read">
                 <ul>
                     <li>
-                        <span class="fa fa-eye"></span>阅读(<?php echo $content['visitcount'];?>)
+                        <span class="fa fa-eye"></span>阅读
+                        (<?php echo $content['visitcount'];?>)
                     </li>
                     <li>
-                        <span class="fa fa-star-o"></span>收藏(<?php echo $content['collectnum'];?>)
+                        <span class="fa fa-star-o"></span>
+                        收藏<span id="collectnum">(<?php echo $content['collectnum'];?>)</span>
                     </li>
                     <li>
-                        <span class="fa fa-share-alt"></span>分享(<?php echo $content['sharenum'];?>)
+                        <span class="fa fa-share-alt"></span>
+                        分享<span id="sharenum">(<?php echo $content['sharenum'];?>)</span>
                     </li>
                     <li style="float:right;" id="collectstatus">
                         <?php if($iscollected):?>
                             <a href="javascript:void(0);" onclick="cancelcollectart(<?php echo $content['id'];?>)">
-                                <span class="fa fa-star-red"></span>取消收藏
+                                <span class="fa fa-star"></span>取消收藏
                             </a>
                         <?php else:?>
                             <a href="javascript:void(0);" onclick="collectart(<?php echo $content['id'];?>)">
-                                <span class="fa fa-star "></span>点击收藏
+                                <span class="fa fa-star-o "></span>点击收藏
                             </a>
                         <?php endif;?>
                     </li>
