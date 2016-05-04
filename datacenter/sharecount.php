@@ -34,7 +34,19 @@ class ShareCount{
 		else
 			return true;
 	}
-	
+    /**
+     * 用户分享统计
+     * @param $db
+     * @return bool
+     */
+    public static function getShare($db){
+        $res=$db->fetch_all("select * from shares where shareOpenid='".$_SESSION['openid']."'");
+        if(!empty($res)){
+            return $res;
+        }else{
+            return false;
+        }
+    }
 	
 }
 ?>
