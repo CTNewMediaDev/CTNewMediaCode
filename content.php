@@ -57,7 +57,8 @@ if(preg_match_all('/<img src="([^>]+)"/i', $content['banners'], $matches)){
 	$topbanners = $matches[1];
 }
 
-
+//is collected
+$iscollected = Collection::checkIsCollected($db,$_SESSION['openid'],$contentid);
 
 
 $pageidx = 'content';

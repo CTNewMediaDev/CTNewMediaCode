@@ -14,6 +14,8 @@ require_once 'include/mysql.class.php';
 $db = new mysql;
 $db->connect($DB['config']['dbhost'], $DB['config']['dbuser'], $DB['config']['dbpassword'], $DB['config']['dbname']);
 
+//收藏类
+require_once 'datacenter/collection.php';
 //地址解析类
 require_once 'datacenter/address.php';
 //分享相关类

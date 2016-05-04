@@ -198,6 +198,10 @@
 .fa-star:before {
   content: "\f005";
 }
+.fa-star-red:before {
+  content: "\f005";
+  color:#b32a22;
+}
 .fa-star-o:before {
   content: "\f006";
 }

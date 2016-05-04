@@ -11,6 +11,31 @@ if(!isset($_SESSION['openid'])||empty($_SESSION['openid'])){
 	exit;
 }
 
+//收藏,ajax请求处理
+if(isset($_POST['action'])&&$_POST['action']==='collection'){
+	$articleid = intval($_POST['articleid']);
+	if(!Collection::checkIsCollected($db,$_SESSION['openid'],$articleid)){
+		if(Collection::logCollection($db,$_SESSION['openid'],$articleid)){
+			echo '1';
+		}else{
+			echo 'action failed';
+		}
+	}else{
+		echo '1';
+	}
+	exit;
+}
+
+//取消收藏,ajax请求处理
+if(isset($_POST['action'])&&$_POST['action']==='cancelcollection'){
+	$articleid = intval($_POST['articleid']);
+	if(Collection::logCollection($db,$_SESSION['openid'],$articleid,0)){
+		echo '1';
+	}else{
+		echo 'action failed';
+	}
+	exit;
+}
 
 //位置信息,ajax请求处理
 if(isset($_POST['action'])&&$_POST['action']==='location'){

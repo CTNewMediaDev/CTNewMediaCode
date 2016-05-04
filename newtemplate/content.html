@@ -1,8 +1,4 @@
 <?php include 'newtemplate/header.html';?>
-<style>
-.clicked{border: 1px solid #b32a22;}
-
-</style>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
 wx.config({
@@ -114,7 +110,39 @@ $(function(){
         });
     },3000);    
 });
+
 <?php endif;?>
+
+
+function collectart(articleid){
+    $.ajax({
+        type:"POST",
+        url:'<?php echo SITE_DOMAIN;?>contentlog.php',
+        data:"action=collection&articleid="+articleid,
+        success:function(data){
+            if(data=='1'){
+                $("#collectstatus").html('<a href="javascript:void(0);" onclick="cancelcollectart(<?php echo $content['id'];?>)"><span class="fa fa-star-red"></span>取消收藏</a>');
+            }else{
+                alert(data);
+            }
+        }
+    });
+}
+
+function cancelcollectart(articleid){
+    $.ajax({
+        type:"POST",
+        url:'<?php echo SITE_DOMAIN;?>contentlog.php',
+        data:"action=cancelcollection&articleid="+articleid,
+        success:function(data){
+            if(data=='1'){
+                $("#collectstatus").html('<a href="javascript:void(0);" onclick="collectart(<?php echo $content['id'];?>)"><span class="fa fa-star "></span>点击收藏</a>');
+            }else{
+                alert(data);
+            }
+        }
+    });
+}
 </script>
 <body style="padding-bottom: 4.0rem">
     <?php if(!empty($topbanners)):?>
@@ -148,8 +176,16 @@ $(function(){
                     <li>
                         <span class="fa fa-share-alt"></span>分享(<?php echo $content['sharenum'];?>)
                     </li>
-                    <li style="float:right;">
-                        <span class="fa fa-star"></span>点击收藏
+                    <li style="float:right;" id="collectstatus">
+                        <?php if($iscollected):?>
+                            <a href="javascript:void(0);" onclick="cancelcollectart(<?php echo $content['id'];?>)">
+                                <span class="fa fa-star-red"></span>取消收藏
+                            </a>
+                        <?php else:?>
+                            <a href="javascript:void(0);" onclick="collectart(<?php echo $content['id'];?>)">
+                                <span class="fa fa-star "></span>点击收藏
+                            </a>
+                        <?php endif;?>
                     </li>
                 </ul>
             </div>
