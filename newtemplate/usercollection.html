@@ -2,7 +2,7 @@
 <div>
     <?php if($collections):?>
     <?php foreach($collections as $value):?>
-    <a href="<?php echo SITE_DOMAIN;?>content.php?id=62">
+    <a href="<?php echo SITE_DOMAIN;?>content.php?id=<?php echo $value['id']?>">
         <section class="body-item">
             <img src="<?php echo $value['listimage'];?>" alt="" class="body-item-img"/>
             <div class="body-concent">
