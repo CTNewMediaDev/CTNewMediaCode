@@ -14,19 +14,18 @@ if(empty($_SESSION['openid'])){
 	SystemTool::checkOpenid($db,'snsapi_userinfo',$redirecturl);
 }
 
-
 $pagesize = 2;
+
 
 //ajax加载更多
 if(isset($_GET['action'])&&$_GET['action']=='ajaxpage'){
-	$startindex = $_GET['startindex'];
-	$order = empty($_GET['order'])?'':$_GET['order'];
-	$catid = isset($_GET['catid'])?intval($_GET['catid']):0;
+	$startindex = intval($_GET['startindex']);
+	$order = isset($_GET['order'])?$_GET['order']:'';
 	if(!in_array($order,array('visitcount','sharenum','collectnum','money','leftmoney'))){
 		$order = '';
 	}
-
-	$pagedata = getPageList($db,$catid,$order,$startindex,$pagesize);
+	$keyword = $_GET['keyword'];
+	$pagedata = getPageList($db,$keyword,$order,$startindex,$pagesize);
 	if(empty($pagedata)){
 		echo json_encode(array('status'=>false,'msg'=>'没有更多数据'));
 		exit;
@@ -37,8 +36,18 @@ if(isset($_GET['action'])&&$_GET['action']=='ajaxpage'){
 }
 
 
+
 //文章数据
-$catid = isset($_GET['catid'])?intval($_GET['catid']):0;
+$startindex = 0;
+if(isset($_POST['dosearch'])&&isset($_POST['keyword'])){
+	$keyword = $_POST['keyword'];
+}else{
+	if(empty($_GET['keyword'])){
+		header("location:index.php");
+		exit();
+	}
+	$keyword = $_GET['keyword'];
+}
 if(isset($_GET['order'])){
 	$order = $_GET['order'];
 	if(!in_array($order,array('visitcount','sharenum','collectnum','money','leftmoney'))){
@@ -47,14 +56,15 @@ if(isset($_GET['order'])){
 }else{
 	$order = '';
 }
-$startindex = 0;
-$articles = getPageList($db,$catid,$order,$startindex,$pagesize);
+$articles = getPageList($db,$keyword,$order,$startindex,$pagesize);
+
+
 
 //page list
-function getPageList($db,$catid=0,$order='',$startindex=0,$pagesize=6){
+function getPageList($db,$keyword,$order='',$startindex=0,$pagesize=6){
 	$sql = "select * from articles where status=1";
-	if(!empty($catid))
-		$sql .= " and categoryid=".$catid;
+	if(!empty($keyword))
+		$sql .= " and title like '%".$keyword."%'";
 	if(empty($order))
 		$sql .= " order by id desc limit ".$startindex.",".$pagesize;
 	else
@@ -70,35 +80,22 @@ function getPageList($db,$catid=0,$order='',$startindex=0,$pagesize=6){
 	return $articles;
 }
 
+
 //分类数据
 $categories = SystemTool::getAllCategory($db);
 
 //banner图
-if(!empty($catid)){
-	for($i=0;$i<count($categories);$i++){
-		if($categories[$i]['id']==$catid){
-			$catname = $categories[$i]['name'];
-			break;
-		}
-	}
-	$sql = "select * from banners where position='".$catname."' and status=1";
-	$banners = $db->fetch_all($sql);
-}
+$sql = "select * from banners where position='首页' and status=1";
+$banners = $db->fetch_all($sql);
 
-if(empty($banners)){
-	$sql = "select * from banners where position='首页' and status=1";
-	$banners = $db->fetch_all($sql);
-}
 
 //排序链接地址
-$orderlink = 'index.php?';
-if(!empty($catid))
-	$orderlink .= 'catid='.$catid."&";
+$orderlink = 'search.php?keyword='.$keyword."&";
 
-$pageidx = 'index';
+$pageidx = 'search';
 
 //meta信息
 $title = '微官网--同城新媒';
 
 //template
-include 'newtemplate/index.html';
+include 'newtemplate/search.html';

@@ -31,7 +31,7 @@
     <div class="search">
         <form methos="post" action="search.php">
         <div class="search-body">
-            <input type="text" class="search-text" placeholder="" name="keyword">
+            <input type="text" class="search-text" placeholder="" name="keyword" value="<?php echo $keyword;?>">
             <button type="submit" class="search-button" name="dosearch"><span class="fa fa-search"></span> 搜索</button>
         </div>
         </form>
@@ -172,8 +172,8 @@
 function loadmore(startindex){
     $.ajax({
         type:"GET",
-        url:"index.php",
-        data:"action=ajaxpage&startindex="+startindex+"<?php if(!empty($order)){echo '&order='.$order;}?><?php if(!empty($catid)){echo '&catid='.$catid;}?>",
+        url:"search.php",
+        data:"action=ajaxpage&keyword=<?php echo $keyword;?>&startindex="+startindex+"<?php if(!empty($order)){echo '&order='.$order;}?>",
         success:function(msg){
             var dataObj = eval("("+msg+")");
             if(dataObj.status){
