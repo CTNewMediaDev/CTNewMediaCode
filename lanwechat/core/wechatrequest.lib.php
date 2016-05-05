@@ -239,7 +239,7 @@ class WechatRequest{
      * @return array
      */
     public static function eventQrsceneSubscribe(&$request){
-        $content = '欢迎您关注我们的微信，将为您竭诚服务,功能开发测试中，访问 <a href="http://www.zhuangxiuji.com.cn/cms/">微官网</a>';
+        $content = '欢迎您关注我们的微信，将为您竭诚服务,功能开发测试中，访问 <a href="http://www.zhuangxiuji.com.cn/">微官网</a>';
 
         //关注的时候用户信息存入数据库
         if(!UserManage::isUserExists($request['fromusername'])){
@@ -258,7 +258,7 @@ class WechatRequest{
      * @return array
      */
     public static function eventScan(&$request){
-        $content = '欢迎您关注我们的微信，将为您竭诚服务,功能开发测试中，访问 <a href="http://www.zhuangxiuji.com.cn/cms/">微官网</a>';
+        $content = '欢迎您关注我们的微信，将为您竭诚服务,功能开发测试中，访问 <a href="http://www.zhuangxiuji.com.cn/">微官网</a>';
         return ResponsePassive::text($request['fromusername'], $request['tousername'], $content);
     }
 

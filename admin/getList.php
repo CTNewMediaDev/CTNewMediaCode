@@ -142,7 +142,7 @@ foreach($datalist as $datatemp){
 	$item[] = '&yen;'.$datatemp['leftmoney'];
 	$item[] = $datatemp['clicknum'];
 	$item[] = $datatemp['addtime'];
-	$item[] = '<a target="_blank" href="http://www.zhuangxiuji.com.cn/cms/admin/content.php?id='.$datatemp['id'].'">
+	$item[] = '<a target="_blank" href="http://www.zhuangxiuji.com.cn/admin/content.php?id='.$datatemp['id'].'">
                 <i></i>
                 详细&nbsp;
             </a>

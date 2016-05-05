@@ -129,7 +129,7 @@ function collectart(articleid){
         data:"action=collection&articleid="+articleid,
         success:function(data){
             if(data=='1'){
-                $("#collectstatus").html('<a href="javascript:void(0);" onclick="cancelcollectart(<?php echo $content['id'];?>)"><span class="fa fa-star"></span>取消收藏</a>');
+                $("#collectstatus").html('<a href="javascript:void(0);" onclick="cancelcollectart(<?php echo $content['id'];?>)"><span class="fa fa-star"></span>已收藏</a>');
                 var collectnumstr = $("#collectnum").html();
                 collectnumstr = collectnumstr.substr(1,collectnumstr.length-2);
                 collectnum = parseInt(collectnumstr);
@@ -200,7 +200,7 @@ function cancelcollectart(articleid){
                     <li style="float:right;" id="collectstatus">
                         <?php if($iscollected):?>
                             <a href="javascript:void(0);" onclick="cancelcollectart(<?php echo $content['id'];?>)">
-                                <span class="fa fa-star"></span>取消收藏
+                                <span class="fa fa-star"></span>已收藏
                             </a>
                         <?php else:?>
                             <a href="javascript:void(0);" onclick="collectart(<?php echo $content['id'];?>)">
