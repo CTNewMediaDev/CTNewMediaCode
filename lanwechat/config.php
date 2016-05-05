@@ -16,7 +16,7 @@ define('LANEWECHAT_VERSION_DATE', '2014-11-05');
 /*
  * 服务器配置，详情请参考@link http://mp.weixin.qq.com/wiki/index.php?title=接入指南
  */
-define("WECHAT_URL", 'http://www.zhuangxiuji.com.cn/cms/lanwechat/wechat.php');
+define("WECHAT_URL", 'http://www.zhuangxiuji.com.cn/lanwechat/wechat.php');
 define('WECHAT_TOKEN', 'ctnewmedia');
 define('ENCODING_AES_KEY', "3dY7ksLXDcH0h1jApEZK5b0OJKaL7NnPlz3PtcNQcdh");
 
@@ -31,9 +31,9 @@ define("WECHAT_APPSECRET", '35c418ebce1938381799cf685473a67c');
  * 数据库配置
  */
 define("DBHOST", 'localhost');
-define("DBNAME", 'cms');
+define("DBNAME", 'ctnewmedia');
 define("DBUSER", 'root');
-define("DBPASSWORD", 'newnonesearch');
+define("DBPASSWORD", 'CT#NewMedia');
 
 
 ////-----引入系统所需类库-------------------
