@@ -1,5 +1,5 @@
 <?php include '../newtemplate/header.html';?>
-<div>
+<div id="content">
     <?php if($collections):?>
     <?php foreach($collections as $value):?>
     <a href="<?php echo SITE_DOMAIN;?>content.php?id=<?php echo $value['id']?>">
@@ -23,16 +23,55 @@
                 </div>
                 <div class="body-address">
                     <div class="body-adrtime">
-                        <span class="fa fa-map-marker"></span><span>游仙区</span><span>2016-3-14～2016-3-31</span>
+                        <span class="fa fa-map-marker"></span><span><?php echo $value['district'];?></span><span><?php echo $value['starttime'];?>～<?php echo $value['endtime'];?></span>
                     </div>
-                    <div class="body-share">分享点击后得钱</div>
                 </div>
             </div>
         </section>
     </a>
     <?php endforeach;?>
+    <?php if(count($collections)==$pagesize):?>
+    <a href="javascript:void(0);" onclick="loadmore()" id="loadmore" style="height:30px;">
+        <section class="body-item" style="padding:5px;background:#f9f9f9;text-align:center;border:0px;font-size:12px;">点击加载更多</section>
+    </a>
     <?php else:?>
-    没有收藏
+    <a href="javascript:void(0);" id="loadmore" style="height:30px;">
+        <section class="body-item" style="padding:5px;background:#f9f9f9;text-align:center;border:0px;font-size:12px;">没有更多内容</section>
+    </a>
+    <?php endif;?>
+    <?php else:?>
+    <a href="javascript:void(0);" id="loadmore" style="height:30px;">
+        <section class="body-item" style="padding:5px;background:#f9f9f9;text-align:center;border:0px;font-size:12px;">没有数据</section>
+    </a>
     <?php endif;?>
 </div>
+<script type="text/javascript">
+    function loadmore(){
+        $.ajax({
+            url:'collection.php',
+            type:'get',
+            data:'action=more&page_now='+page_now,
+            success:function(res){
+                datalist=eval("("+res+")");
+//                each
+                if(datalist!=0) {
+                    for (var i = 0; i < info.length; i++) {
+                        $("#content").append('<a href="<?php echo SITE_DOMAIN;?>content.php?id='+datalist[i].id+'"><section class="body-item"><img src="'+datalist[i].listimage+'" alt="'+datalist[i].title+'" class="body-item-img"/><div class="body-concent"><h2>'+datalist[i].title+'</h2><div class="body-allmoney">金额：<span class="body-allm">￥'+datalist[i].leftmoney+'</span>  / <span class="body-alls">￥'+datalist[i].money+'</span></div><div class="body-read"><ul><li><span class="fa fa-eye"></span>阅读('+datalist[i].visitcount+')</li><li><span class="fa fa-star-o"></span>收藏('+datalist[i].collectnum+')</li><li><span class="fa fa-share-alt"></span>分享('+datalist[i].sharenum+')</li></ul></div><div class="body-address"><div class="body-adrtime"><span class="fa fa-map-marker"></span><span>'+datalist[i].storedist+'</span><span>'+datalist[i].starttime+' ～ '+datalist[i].endtime+'</span></div></div></div></section></a>');
+                    }
+                    var topnum = startindex*100+"px";
+                    $("body").animate({scrollTop:topnum},"fast");
+                    if(info.length<10){
+//                        $("#more").html('没有更多消息');
+                        $("#listarea").append('<a href="javascript:void(0);" id="loadmore" style="height:30px;"><section class="body-item" style="padding:5px;background:#f9f9f9;text-align:center;border:0px;font-size:12px;">没有更多内容</section></a>');
+                    }else{
+                        $("#listarea").append('<a href="javascript:void(0);" onclick="loadmore()" id="loadmore" style="height:30px;"><section class="body-item" style="padding:5px;background:#f9f9f9;text-align:center;border:0px;font-size:12px;">点击加载更多</section></a>');
+                    }
+                }else{
+//                    $("#more").html('没有更多消息');
+                    $("#listarea").append('<a href="javascript:void(0);" id="loadmore" style="height:30px;"><section class="body-item" style="padding:5px;background:#f9f9f9;text-align:center;border:0px;font-size:12px;">没有更多内容</section></a>');
+                }
+            }
+        })
+    }
+</script>
 <?php include '../newtemplate/footer.html';?>
