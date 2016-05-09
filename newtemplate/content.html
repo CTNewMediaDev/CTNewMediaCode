@@ -162,16 +162,50 @@ function cancelcollectart(articleid){
     });
 }
 </script>
+
+<link rel="stylesheet" href="res/css/idangerous.swiper.css">
+
+<script src="res/js/idangerous.swiper-1.9.1.min.js"></script>
+
+<script src="res/js/idangerous.swiper.scrollbar-1.2.js"></script>
+
+<script src="res/js/swiper.js"></script>
+
 <body style="padding-bottom: 4.0rem">
     <?php if(!empty($topbanners)):?>
     <div class="intro-header">
-        <div class="fa fa-angle-left intro-header-back"></div>
+        <div class="fa fa-angle-left intro-header-back" onclick="window.history.go(-1)"></div>
+        
         <div class="intro-header-img">
-            <?php foreach($topbanners as $banner):?>
-            <img src="<?php echo $banner;?>" alt=""/>
-            <?php endforeach;?>
+            <div class="home-device" >
+
+                <a class="arrow-left" href="#"></a>
+
+                <a class="arrow-right" href="#"></a>
+
+                <div class="swiper-main">
+
+                    <div class="swiper-container swiper1">
+
+                        <div class="swiper-wrapper">
+                                
+                            <?php foreach($topbanners as $key=>$banner):?>
+                            <div class="swiper-slide">
+                                <a href="javascript:void(0);"><img id="pc_<?php echo $key+1;?>" src="<?php echo $banner;?>" width="100%"/></a>
+                            </div>
+                            <?php endforeach;?>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="pagination pagination1"></div>
+
+            </div>
         </div>
-        <div class="intro-header-adr">
+        <div class="intro-header-adr" style="z-index:9;">
             <div class="intro-location">
                 <span class="fa fa-map-marker"></span><?php echo $storeaddr['district'];?>
             </div>
@@ -259,7 +293,4 @@ function cancelcollectart(articleid){
         </ul>
     </div>
     -->
-<script>
-    
-</script>
 <?php include 'newtemplate/footer.html';?>
