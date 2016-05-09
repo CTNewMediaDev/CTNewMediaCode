@@ -46,32 +46,39 @@
     <?php endif;?>
 </div>
 <script type="text/javascript">
+    var page_now=1;
+    var page_size="<?php echo $pagesize?>";
     function loadmore(){
         $.ajax({
             url:'collection.php',
             type:'get',
-            data:'action=more&page_now='+page_now,
-            success:function(res){
-                datalist=eval("("+res+")");
+            data:'action=more&page_now='+page_now*page_size,
+            success:function(info){
+                $("#loadmore").remove();
+                var datalist=eval("("+info+")");
 //                each
                 if(datalist!=0) {
-                    for (var i = 0; i < info.length; i++) {
+                    for (var i = 0; i < datalist.length; i++) {
                         $("#content").append('<a href="<?php echo SITE_DOMAIN;?>content.php?id='+datalist[i].id+'"><section class="body-item"><img src="'+datalist[i].listimage+'" alt="'+datalist[i].title+'" class="body-item-img"/><div class="body-concent"><h2>'+datalist[i].title+'</h2><div class="body-allmoney">金额：<span class="body-allm">￥'+datalist[i].leftmoney+'</span>  / <span class="body-alls">￥'+datalist[i].money+'</span></div><div class="body-read"><ul><li><span class="fa fa-eye"></span>阅读('+datalist[i].visitcount+')</li><li><span class="fa fa-star-o"></span>收藏('+datalist[i].collectnum+')</li><li><span class="fa fa-share-alt"></span>分享('+datalist[i].sharenum+')</li></ul></div><div class="body-address"><div class="body-adrtime"><span class="fa fa-map-marker"></span><span>'+datalist[i].storedist+'</span><span>'+datalist[i].starttime+' ～ '+datalist[i].endtime+'</span></div></div></div></section></a>');
                     }
-                    var topnum = startindex*100+"px";
-                    $("body").animate({scrollTop:topnum},"fast");
-                    if(info.length<10){
+//                    var topnum = page_now*100+"px";
+//                    $("body").animate({scrollTop:topnum},"fast");
+                    if(datalist.length<page_size){
+                        window.console.log('no more');
 //                        $("#more").html('没有更多消息');
-                        $("#listarea").append('<a href="javascript:void(0);" id="loadmore" style="height:30px;"><section class="body-item" style="padding:5px;background:#f9f9f9;text-align:center;border:0px;font-size:12px;">没有更多内容</section></a>');
+                        $("#content").append('<a href="javascript:void(0);" id="loadmore" style="height:30px;"><section class="body-item" style="padding:5px;background:#f9f9f9;text-align:center;border:0px;font-size:12px;">没有更多内容</section></a>');
                     }else{
-                        $("#listarea").append('<a href="javascript:void(0);" onclick="loadmore()" id="loadmore" style="height:30px;"><section class="body-item" style="padding:5px;background:#f9f9f9;text-align:center;border:0px;font-size:12px;">点击加载更多</section></a>');
+                        window.console.log('more');
+                        $("#content").append('<a href="javascript:void(0);" onclick="loadmore()" id="loadmore" style="height:30px;"><section class="body-item" style="padding:5px;background:#f9f9f9;text-align:center;border:0px;font-size:12px;">点击加载更多</section></a>');
                     }
                 }else{
+                    window.console.log('no');
 //                    $("#more").html('没有更多消息');
-                    $("#listarea").append('<a href="javascript:void(0);" id="loadmore" style="height:30px;"><section class="body-item" style="padding:5px;background:#f9f9f9;text-align:center;border:0px;font-size:12px;">没有更多内容</section></a>');
+                    $("#content").append('<a href="javascript:void(0);" id="loadmore" style="height:30px;"><section class="body-item" style="padding:5px;background:#f9f9f9;text-align:center;border:0px;font-size:12px;">没有更多内容</section></a>');
                 }
             }
         })
+        page_now+=page_size;
     }
 </script>
 <?php include '../newtemplate/footer.html';?>

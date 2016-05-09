@@ -14,10 +14,12 @@ if(empty($_SESSION['openid'])){
 $title='我的收藏';
 $pageidx = 'index';
 
-$pagesize=2;
+$pagesize=3;
 $startindex = 0;
 
-$collections=Collection::getCollection($db,0,10);
+$page_now=isset($_GET['page_now'])?intval($_GET['page_now']):0;
+
+$collections=Collection::getCollection($db,$page_now,$pagesize);
 if($collections){
     for($i=0;$i<count($collections);$i++){
         $contentInfo=ContentClass::getArticle($db,$collections[$i]['contentid']);
@@ -31,6 +33,10 @@ if($collections){
             unset($collections[$i]);
         }
     }
+}
+if(!empty($_GET['action'])&&$_GET['action']=='more'){
+    echo json_encode($collections);
+    exit;
 }
 //var_dump($collections);exit;
 //$article=ContentClass::getArticle($db,)

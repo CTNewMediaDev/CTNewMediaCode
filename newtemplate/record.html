@@ -5,7 +5,7 @@
         <div class="rank-username">
             <?php echo $user_info['nickname'];?><br><span>当前排名：<span class="rank-user-place">231</span>名</span>
         </div>
-        <div class="rank-sharebtn">去分享赚钱</div>
+        <!--<div class="rank-sharebtn">去分享赚钱</div>-->
     </div>
 
     <div class="details-money">
@@ -24,29 +24,31 @@
     </div>
 
     <div class="intro-act">
-        <h2>收入明细 <span>（最近7天,点击查看更多）</span></h2>
+        <h2>收入明细 <span>（最近7天,点击<a href="">查看更多</a>）</span></h2>
         <div class="intro-content">
-            <table class="details-list">
+            <table class="details-list" id="data-table">
                 <tr>
                     <th>时间</th>
                     <th>阅读量</th>
                     <th>总收入</th>
                 </tr>
-                <tr>
-                    <td>2016-03-29</td>
-                    <td>23</td>
-                    <td>￥1.32</td>
-                </tr>
                 <?php $i=0;foreach($count_arr as $day_count):?>
+                <?php if(isset($day_count['c_sum'])):?>
                 <tr>
                     <td><?php echo date('Y-m-d',strtotime("-$i day"));?></td>
                     <td><?php echo isset($day_count['c_count'])?$day_count['c_count']:0;?></td>
                     <td><?php echo '￥'.(isset($day_count['c_sum'])?$day_count['c_sum']:'0.00');?></td>
                 </tr>
+                <?php endif;?>
                 <?php $i++;?>
                 <?php endforeach;?>
             </table>
         </div>
     </div>
-
+<script type="text/javascript">
+    var check_str=$(".details-list tr").eq(1).html();
+    if(typeof(check_str)=='undefined'){
+        $("#data-table").html('<section class="body-item" style="width:100%;padding:5px;background:#f9f9f9;text-align:center;border:0px;font-size:12px;">最近七天没有数据</section>');
+    }
+</script>
 <?php include '../newtemplate/footer.html';?>

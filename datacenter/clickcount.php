@@ -153,7 +153,7 @@ class ClickCount{
     }
 
     /**
-     * 获取点击记录
+     * 按天获取点击记录
      * @param $db
      * @param $day_count [获取记录天数]
      * @return array
@@ -168,11 +168,17 @@ class ClickCount{
         }
         return $count_arr;
     }
+
+    /**
+     * 获取点击信息
+     * @param $db
+     * @param $openId
+     * @param $from
+     * @param $limit
+     * @return bool
+     */
     public static function getClickInfoByDbAll($db,$openId,$from,$limit){
-//        $sql='select A.title,C.addtime,C.money as cmoney,A.money as amoney from clickcount as C left join articles as A on C.contentid=A.id where C.clickOpenid="'.$openId.'"  limit 0,10';
         $sql="select * from clickcount where shareOpenid='".$openId."' limit $from,".$limit;
-//        $click_arr=$db->fetch_all($sql);
-//        $user_sql='select '
         $res=$db->fetch_all($sql);
         for($i=0;$i<count($res);$i++){
             $sql="select nickname,headimgurl from users where openid='".$res[$i]['clickOpenid']."'";
@@ -186,6 +192,9 @@ class ClickCount{
             return $res;
         }
     }
+    public static function getClickAllByDay($db,$openId,$from,$limit){
+        $sql="select FROM_UNIXTIME(addtime,'%Y-%m-%d'),count(*),sum(money) from clickcount GROUP BY FROM_UNIXTIME(addtime,'%Y%m%d') where shareOpenid='".$openId."'";
+        $res=$db->fetch_all($sql);
+    }
 }
-
 ?>
