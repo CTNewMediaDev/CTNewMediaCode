@@ -1,6 +1,4 @@
 <?php
-namespace CTNewMedia;
-
 	class mysql{
 		var $link;
 		function connect($dbhost , $dbuser , $dbpw , $dbname=''){
