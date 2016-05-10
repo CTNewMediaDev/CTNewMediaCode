@@ -261,7 +261,7 @@ class UserManage{
      */
     public static function checkisSubscribe($openid){
         $userinfo = self::getUserInfo($openid);
-        if($userinfo['subscribe']==1)
+        if(isset($userinfo['subscribe'])&&$userinfo['subscribe']==1)
             return true;
         else
             return false;
