@@ -2,6 +2,8 @@
 /**
  * content 类
  */
+namespace DataCenter;
+
 class ContentClass{
 	
 	//文章内容

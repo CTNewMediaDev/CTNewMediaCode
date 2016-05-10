@@ -15,25 +15,25 @@ if(isset($_GET['shareopenid'])&&!empty($_GET['shareopenid'])){
 
 //用户openid
 if(empty($_SESSION['openid'])){
-	SystemTool::systemLog($db,'content.php','empty session openid','check openid');
+	\DataCenter\SystemTool::systemLog($db,'content.php','empty session openid','check openid');
 	$redirecturl = SITE_DOMAIN.'content.php?id='.$contentid;
 	if(!empty($shareopenid))
 		$redirecturl .= '&shareopenid='.$shareopenid;
 	$redirecturl .= '#'.time();
-	SystemTool::checkOpenid($db,'snsapi_userinfo',$redirecturl);
+	\DataCenter\SystemTool::checkOpenid($db,'snsapi_userinfo',$redirecturl);
 	exit;
 }
 
 
 
-$content = ContentClass::getArticle($db,$contentid);
+$content = \DataCenter\ContentClass::getArticle($db,$contentid);
 if(empty($content)){
 	echo '内容不存在或者已删除';
 	exit;
 }
 
 if(!empty($shareopenid)){
-	$isclicked = ClickCount::checkisClicked($db,$contentid,$_SESSION['openid'],$shareopenid);
+	$isclicked = \DataCenter\ClickCount::checkisClicked($db,$contentid,$_SESSION['openid'],$shareopenid);
 }
 
 //分钱范围
@@ -58,7 +58,7 @@ if(preg_match_all('/<img src="([^>]+)"/i', $content['banners'], $matches)){
 }
 
 //is collected
-$iscollected = Collection::checkIsCollected($db,$_SESSION['openid'],$contentid);
+$iscollected = \DataCenter\Collection::checkIsCollected($db,$_SESSION['openid'],$contentid);
 
 
 $pageidx = 'content';

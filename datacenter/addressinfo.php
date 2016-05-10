@@ -2,6 +2,8 @@
 /**
  * 地址转换
  */
+namespace DataCenter;
+
 class Addressinfo{
 
 	/**

@@ -5,6 +5,8 @@
  * Date: 2016/4/20 0020
  * Time: 15:44
  */
+namespace DataCenter;
+
 class Collection{
 	/**
 	 * [getCollection description]
@@ -13,8 +15,8 @@ class Collection{
 	 * @param  [type] $limit [description]
 	 * @return [type]        [description]
 	 */
-    public static function getCollection($db,$from,$limit){
-        $sql="select * from collection where collectionOpenid='".$_SESSION['openid']."' limit $from,$limit";
+    public static function getCollection($db,$openid,$from,$limit){
+        $sql="select * from collection where collectionOpenid='".$openid."' limit $from,$limit";
         $res=$db->fetch_all($sql);
         if(!empty($res)){
             return $res;

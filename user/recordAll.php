@@ -10,7 +10,7 @@ require_once '../config.inc.php';
 if(empty($_SESSION['openid'])){
     $redirecturl = SITE_DOMAIN.'user/record.php';
     $redirecturl .= '#'.time();
-    SystemTool::checkOpenid($db,'snsapi_userinfo',$redirecturl);
+    \DataCenter\SystemTool::checkOpenid($db,'snsapi_userinfo',$redirecturl);
 }
-$user_info=Userinfo::getUserinfobyDb($db,$_SESSION['openid']);
-$recordAll=ClickCount::getClickAllByDay($db,$_SESSION['openid'],0,10);
+$user_info=\DataCenter\Userinfo::getUserinfobyDb($db,$_SESSION['openid']);
+$recordAll=\DataCenter\ClickCount::getClickAllByDay($db,$_SESSION['openid'],0,10);

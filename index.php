@@ -7,11 +7,12 @@
 ini_set('display_errors', 1);
 require_once './config.inc.php';
 
+
 //用户openid
 if(empty($_SESSION['openid'])){
 	$redirecturl = SITE_DOMAIN.'index.php';
 	$redirecturl .= '#'.time();
-	SystemTool::checkOpenid($db,'snsapi_userinfo',$redirecturl);
+	\DataCenter\SystemTool::checkOpenid($db,'snsapi_userinfo',$redirecturl);
 }
 
 
@@ -71,7 +72,7 @@ function getPageList($db,$catid=0,$order='',$startindex=0,$pagesize=6){
 }
 
 //分类数据
-$categories = SystemTool::getAllCategory($db);
+$categories = \DataCenter\SystemTool::getAllCategory($db);
 
 //banner图
 if(!empty($catid)){

@@ -11,7 +11,7 @@ require_once './config.inc.php';
 if(empty($_SESSION['openid'])){
 	$redirecturl = SITE_DOMAIN.'index.php';
 	$redirecturl .= '#'.time();
-	SystemTool::checkOpenid($db,'snsapi_userinfo',$redirecturl);
+	\DataCenter\SystemTool::checkOpenid($db,'snsapi_userinfo',$redirecturl);
 }
 
 $pagesize = 2;
@@ -82,7 +82,7 @@ function getPageList($db,$keyword,$order='',$startindex=0,$pagesize=6){
 
 
 //分类数据
-$categories = SystemTool::getAllCategory($db);
+$categories = \DataCenter\SystemTool::getAllCategory($db);
 
 //banner图
 $sql = "select * from banners where position='首页' and status=1";

@@ -1,5 +1,5 @@
 <?php
-namespace CTNewMedia;
+namespace DataCenter;
 
 	class mysql{
 		var $link;

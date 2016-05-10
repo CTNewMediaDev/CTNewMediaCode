@@ -9,7 +9,7 @@ require_once '../config.inc.php';
 if(empty($_SESSION['openid'])){
     $redirecturl = SITE_DOMAIN.'user/index.php';
     $redirecturl .= '#'.time();
-    SystemTool::checkOpenid($db,'snsapi_userinfo',$redirecturl);
+    \DataCenter\SystemTool::checkOpenid($db,'snsapi_userinfo',$redirecturl);
 }
 $title='我的收藏';
 $pageidx = 'index';
@@ -19,10 +19,10 @@ $startindex = 0;
 
 $page_now=isset($_GET['page_now'])?intval($_GET['page_now']):0;
 
-$collections=Collection::getCollection($db,$page_now,$pagesize);
+$collections=\DataCenter\Collection::getCollection($db,$_SESSION['openid'],$page_now,$pagesize);
 if($collections){
     for($i=0;$i<count($collections);$i++){
-        $contentInfo=ContentClass::getArticle($db,$collections[$i]['contentid']);
+        $contentInfo=\DataCenter\ContentClass::getArticle($db,$collections[$i]['contentid']);
         if($contentInfo) {
             $collections[$i] = array_merge($collections[$i], $contentInfo);
             $storeaddr=json_decode($collections[$i]['storeaddr'],true);

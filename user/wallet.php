@@ -1,18 +1,19 @@
 <?php
 /**
- 用户首页
+我的钱包
  */
 ini_set('display_errors', 1);
 require_once '../config.inc.php';
 
 //用户openid
 if(empty($_SESSION['openid'])){
-    $redirecturl = SITE_DOMAIN.'user/rank.php';
+    $redirecturl = SITE_DOMAIN.'user/wallet.php';
     $redirecturl .= '#'.time();
     \DataCenter\SystemTool::checkOpenid($db,'snsapi_userinfo',$redirecturl);
 }
-$title='排行榜';
-$pageidx = 'rank';
-$user_info=\DataCenter\Userinfo::getUserinfobyDb($db,$_SESSION['openid']);
 
-include '../newtemplate/userrank.html';
+$money_info=$db->fetch_all("select * from usersmoney where openid='".$_SESSION['openid']."'");
+
+$title='赚钱记录';
+$pageidx = 'index';
+include 'template/wallet.html';

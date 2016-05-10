@@ -1,7 +1,9 @@
 <?php
-date_default_timezone_set('America/Chicago');
+date_default_timezone_set('PRC');
 //引入微信框架
 require_once 'lanwechat/lanewechat.php';
+
+require_once 'datacenter/datacenter.php';
 
 define('SITE_DOMAIN','http://www.zhuangxiuji.com.cn/');
 
@@ -9,10 +11,14 @@ define('SITE_DOMAIN','http://www.zhuangxiuji.com.cn/');
 $DB['config']['dbhost'] = 'localhost';
 $DB['config']['dbname'] = 'ctnewmedia';
 $DB['config']['dbuser'] = 'root';
-$DB['config']['dbpassword'] = 'CT#NewMedia';
-require_once 'include/mysql.class.php';
-$db = new mysql;
+$DB['config']['dbpassword'] = 'newnonesearch';
+//require_once 'include/mysql.class.php';
+$db = new \DataCenter\mysql;
 $db->connect($DB['config']['dbhost'], $DB['config']['dbuser'], $DB['config']['dbpassword'], $DB['config']['dbname']);
+
+
+
+/*
 
 //收藏类
 require_once 'datacenter/collection.php';
@@ -29,3 +35,4 @@ require_once 'datacenter/contentclass.php';
 
 //系统工具类
 require_once 'datacenter/systemtool.php';
+*/

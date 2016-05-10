@@ -3,6 +3,8 @@
  *  share统计
  *
  */
+namespace DataCenter;
+
 class ShareCount{
 
 	/**

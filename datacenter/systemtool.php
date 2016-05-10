@@ -2,6 +2,8 @@
 /**
  * system tool
  */
+namespace DataCenter;
+
 class SystemTool{
 	/**
 	 * 获取所有分类

@@ -3,6 +3,8 @@
  * 用户信息处理， 增，删，查，改
  * 
  */
+namespace DataCenter;
+
 class Userinfo{
 	
 	//检查openid是否已经关注

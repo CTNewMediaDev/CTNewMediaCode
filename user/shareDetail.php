@@ -17,15 +17,15 @@ require_once '../config.inc.php';
 if(empty($_SESSION['openid'])){
     $redirecturl = SITE_DOMAIN.'user/index.php';
     $redirecturl .= '#'.time();
-    SystemTool::checkOpenid($db,'snsapi_userinfo',$redirecturl);
+    \DataCenter\SystemTool::checkOpenid($db,'snsapi_userinfo',$redirecturl);
 }
 $title='分享详细';
 $pageidx = 'index';
-$records=ClickCount::getClickInfoByDb($db,$contentId,$_SESSION['openid'],0,10);
+$records=\DataCenter\ClickCount::getClickInfoByDb($db,$contentId,$_SESSION['openid'],0,10);
 if(!empty($_GET['action'])&&$_GET['action']=='more'){
     $page=$_GET['page_now'];
 //    $res=$db->fetch_all('select A.title,C.addtime,C.money as cmoney,A.money as amoney from clickcount as C left join articles as A on C.contentid=A.id where C.clickOpenid="'.$_SESSION['openid'].'"  limit '.(($page-1)*10).',10');
-    $res=ClickCount::getClickInfoByDb($db,$contentId,$_SESSION['openid'],($page-1)*10,10);
+    $res=\DataCenter\ClickCount::getClickInfoByDb($db,$contentId,$_SESSION['openid'],($page-1)*10,10);
     echo json_encode($res);
     exit;
 }

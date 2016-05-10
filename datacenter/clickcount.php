@@ -2,6 +2,7 @@
 /**
  * 点击统计
  */
+namespace DataCenter;
 
 class ClickCount{
 
@@ -91,13 +92,12 @@ class ClickCount{
 
 		
 		$timenow = time();
-		$sql = "insert into clickcount(`contentid`,`shareOpenid`,`clickOpenid`,`addtime`,`ip`,`money`) 
+		$sql = "insert into clickcount(`contentid`,`shareOpenid`,`clickOpenid`,`addtime`,`money`) 
 				values(
 						'".$contentinfo['id']."',
 						'".$shareopenid."',
 						'".$clickopenid."',
 						'".$timenow."',
-						'".$ip."',
 						'".$money."'
 					)";
 		$db->query($sql);
@@ -121,7 +121,7 @@ class ClickCount{
 			return $result;
 		}
 
-		$result = 1;
+		$result = $clickcountId;
 		return $result;
 	}
 
@@ -192,6 +192,7 @@ class ClickCount{
             return $res;
         }
     }
+    
     public static function getClickAllByDay($db,$openId,$from,$limit){
         $sql="select FROM_UNIXTIME(addtime,'%Y-%m-%d'),count(*),sum(money) from clickcount GROUP BY FROM_UNIXTIME(addtime,'%Y%m%d') where shareOpenid='".$openId."'";
         $res=$db->fetch_all($sql);
