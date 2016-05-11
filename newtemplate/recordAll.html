@@ -7,19 +7,20 @@
     </div>
     <!--<div class="rank-sharebtn">去分享赚钱</div>-->
 </div>
-<div class="intro-act">
+<div class="intro-act" style="padding-left: 0" id="data-list">
     <h2>我的收入记录</h2>
     <div class="intro-content">
+        <?php if($recordAll):?>
         <table class="details-list" id="data-table">
             <tr>
                 <th>时间</th>
                 <th>阅读量</th>
                 <th>总收入</th>
             </tr>
-            <?php $i=0;foreach($count_arr as $day_count):?>
+            <?php $i=0;foreach($recordAll as $day_count):?>
             <?php if(isset($day_count['c_sum'])):?>
             <tr>
-                <td><?php echo date('Y-m-d',strtotime("-$i day"));?></td>
+                <td><?php echo $day_count['date'];?></td>
                 <td><?php echo isset($day_count['c_count'])?$day_count['c_count']:0;?></td>
                 <td><?php echo '￥'.(isset($day_count['c_sum'])?$day_count['c_sum']:'0.00');?></td>
             </tr>
@@ -27,5 +28,57 @@
             <?php $i++;?>
             <?php endforeach;?>
         </table>
+        <!--more-->
+        <?php if(count($recordAll)==$pagesize):?>
+        <a href="javascript:void(0);" onclick="loadmore()" id="loadmore" style="height:30px;">
+            <section class="body-item" style="padding:5px;background:#f9f9f9;text-align:center;border:0px;font-size:12px;">点击加载更多</section>
+        </a>
+        <?php else:?>
+        <a href="javascript:void(0);" id="loadmore" style="height:30px;">
+            <section class="body-item" style="padding:5px;background:#f9f9f9;text-align:center;border:0px;font-size:12px;">没有更多内容</section>
+        </a>
+        <?php endif;?>
+        <?php else:?>
+        <a href="javascript:void(0);" id="loadmore" style="height:30px;">
+            <section class="body-item" style="padding:5px;background:#f9f9f9;text-align:center;border:0px;font-size:12px;">没有数据</section>
+        </a>
+        <?php endif;?>
     </div>
 </div>
+<script type="text/javascript">
+    var page_now=1;
+    var page_size=parseInt("<?php echo $pagesize?>");
+    function loadmore(){
+        $.ajax({
+            url:'recordAll.php',
+            type:'get',
+            data:'action=more&page_now='+page_now*page_size,
+            success:function(info){
+                $("#loadmore").remove();
+                var datalist=eval("("+info+")");
+//                each
+                if(datalist!=0) {
+                    for (var i = 0; i < datalist.length; i++) {
+                        $("#data-table").append('<tr><td>'+datalist[i].date+'</td><td>'+datalist[i].c_count+'</td><td>￥'+datalist[i].c_sum+'</td></tr>');
+                    }
+//                    var topnum = page_now*100+"px";
+//                    $("body").animate({scrollTop:topnum},"fast");
+                    if(datalist.length<page_size){
+                        window.console.log('no more');
+//                        $("#more").html('没有更多消息');
+                        $("#data-list").append('<a href="javascript:void(0);" id="loadmore" style="height:30px;"><section class="body-item" style="padding:5px;background:#f9f9f9;text-align:center;border:0px;font-size:12px;">没有更多内容</section></a>');
+                    }else{
+                        window.console.log('more');
+                        $("#data-list").append('<a href="javascript:void(0);" onclick="loadmore()" id="loadmore" style="height:30px;"><section class="body-item" style="padding:5px;background:#f9f9f9;text-align:center;border:0px;font-size:12px;">点击加载更多</section></a>');
+                    }
+                }else{
+                    window.console.log('no');
+//                    $("#more").html('没有更多消息');
+                    $("#data-list").append('<a href="javascript:void(0);" id="loadmore" style="height:30px;"><section class="body-item" style="padding:5px;background:#f9f9f9;text-align:center;border:0px;font-size:12px;">没有更多内容</section></a>');
+                }
+            }
+        });
+        page_now=page_now+1;
+    }
+</script>
+<?php include '../newtemplate/footer.html';?>

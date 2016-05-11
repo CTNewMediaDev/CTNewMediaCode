@@ -194,8 +194,12 @@ class ClickCount{
     }
     
     public static function getClickAllByDay($db,$openId,$from,$limit){
-        $sql="select FROM_UNIXTIME(addtime,'%Y-%m-%d'),count(*),sum(money) from clickcount GROUP BY FROM_UNIXTIME(addtime,'%Y%m%d') where shareOpenid='".$openId."'";
+        $sql="select FROM_UNIXTIME(addtime,'%Y-%m-%d') as date,count(*) as c_count,sum(money) as c_sum from clickcount where shareOpenid='".$openId."' GROUP BY FROM_UNIXTIME(addtime,'%Y%m%d') limit $from,$limit";
         $res=$db->fetch_all($sql);
+        if(empty($res)){
+            return false;
+        }
+        return $res;
     }
 }
 ?>

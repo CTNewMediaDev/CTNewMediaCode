@@ -12,5 +12,16 @@ if(empty($_SESSION['openid'])){
     $redirecturl .= '#'.time();
     \DataCenter\SystemTool::checkOpenid($db,'snsapi_userinfo',$redirecturl);
 }
+$pagesize=2;
+$startindex = 0;
+$page_now=isset($_GET['page_now'])?intval($_GET['page_now']):0;
+
 $user_info=\DataCenter\Userinfo::getUserinfobyDb($db,$_SESSION['openid']);
-$recordAll=\DataCenter\ClickCount::getClickAllByDay($db,$_SESSION['openid'],0,10);
+$recordAll=\DataCenter\ClickCount::getClickAllByDay($db,$_SESSION['openid'],$page_now,$pagesize);
+if(!empty($_GET['action'])&&$_GET['action']=='more'){
+    echo json_encode($recordAll);
+    exit;
+}
+$title='赚钱记录';
+$pageidx = 'index';
+include '../newtemplate/recordAll.html';

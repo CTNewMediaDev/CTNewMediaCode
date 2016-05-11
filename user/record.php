@@ -30,7 +30,7 @@ if(!empty($_GET['action'])&&$_GET['action']=='more'){
     exit;
 }
 
-$title='赚钱记录';
+$title='收入明细';
 $pageidx = 'index';
 //var_dump($records);exit;
 include '../newtemplate/record.html';

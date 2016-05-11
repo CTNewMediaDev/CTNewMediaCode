@@ -17,6 +17,8 @@ $pageidx = 'index';
 $pagesize=3;
 $startindex = 0;
 
+$user_info=\DataCenter\Userinfo::getUserinfobyDb($db,$_SESSION['openid']);
+
 $page_now=isset($_GET['page_now'])?intval($_GET['page_now']):0;
 
 $collections=\DataCenter\Collection::getCollection($db,$_SESSION['openid'],$page_now,$pagesize);
