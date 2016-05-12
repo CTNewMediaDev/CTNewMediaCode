@@ -55,9 +55,22 @@
 	目前就做简单版本，三个单独的页面
 }
 
-提现{
-	1.余额大于1元可以随时体现
-	2.提现处理时间为24小时
-    3.提交提现请求页面
-    4.提现记录页面
+money处理{
+	usersmoney表处理
+
+	1.点击分享时
+	判断updatetime（{同一天：moneytoday+，moneythismmonth+，moneytotal+}{不是同一天：计算所有的money数据}）
+
+	2.每天0点1分，计算所有的数据，timer.php
+}
+
+
+money审核{
+	1.timer在每月开始的1号凌晨00：30分开始
+
+	2.通过clickog和clickcount的数据作统计， 结算结果写入数据表moneycount，
+	（moneycount的结果正确与否通过clicklog和count计算验证）
+	（leftmoney 可以通过moneycount与moneypay计算 ）
+
+	3.所有的money，可以通过moneylog统计验证
 }

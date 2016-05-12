@@ -254,6 +254,18 @@ class UserManage{
             return false;
     }
 
+
+    /**
+     * [insertUsersMoney 用户插入usersmoney表]
+     * @return [type] [description]
+     */
+    public static function insertUsersMoney($db,$openid){
+        $sql = "insert into usersmoney(`openid`) values('".$openid."')";
+        $db->query($sql);
+        $id = $db->insert_id();
+        return $id;
+    }
+
     /**
      * [是否已关注]
      * @param  [type] $openid [description]

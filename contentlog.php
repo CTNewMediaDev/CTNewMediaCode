@@ -142,6 +142,7 @@ if(isset($_POST['action'])&&$_POST['action']=='clickshare'){
 				break;
 			default:
 				$db->query("insert into clicklog(`contentid`,`openid`,`shareopenid`,`ip`,`msg`,`isvalid`,`location`,`moeny`) values(".$contentinfo['id'].",'".$clickOpenid."','".$shareOpenid."','".$_SERVER['REMOTE_ADDR']."','click count ID:".$clickresult."','1','".$_SESSION['location']."','".$clickprice."')");
+				\DataCenter\MoneyAction::updateMoneyatClick($db,$shareOpenid,$clickprice);
 				$msg = array('result'=>true,'msg'=>'本次阅读为你的好友增加￥'.$clickprice);
 				echo json_encode($msg);
 				exit;
