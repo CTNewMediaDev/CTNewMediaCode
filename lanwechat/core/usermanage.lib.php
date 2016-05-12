@@ -200,9 +200,10 @@ class UserManage{
                 )";
         $db->query($sql);
         $userid = $db->insert_id();
-        if($userid)
+        if($userid){
+            self::insertUsersMoney($db,$openid);
             return $userid;
-        else
+        }else
             return false;
     }
 
@@ -248,8 +249,10 @@ class UserManage{
                 )";
         $db->query($sql);
         $userid = $db->insert_id();
-        if($userid)
+        if($userid){
+            self::insertUsersMoney($db,$userinfo['openid']);
             return $userid;
+        }
         else
             return false;
     }
