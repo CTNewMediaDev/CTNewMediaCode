@@ -21,6 +21,7 @@ if(empty($_SESSION['openid'])){
 }
 $title='分享详细';
 $pageidx = 'index';
+
 $records=\DataCenter\ClickCount::getClickInfoByDb($db,$contentId,$_SESSION['openid'],0,10);
 if(!empty($_GET['action'])&&$_GET['action']=='more'){
     $page=$_GET['page_now'];

@@ -144,6 +144,7 @@ class ClickCount{
             $user_info=$db->fetch_first($sql);
             $res[$i]['nickname']=$user_info['nickname'];
             $res[$i]['headimgurl']=$user_info['headimgurl'];
+            $res[$i]['addtime']=date('Y-m-d H:i:s',$res[$i]['addtime']);
         }
         if(empty($res)){
             return false;
@@ -185,6 +186,7 @@ class ClickCount{
             $user_info=$db->fetch_first($sql);
             $res[$i]['nickname']=$user_info['nickname'];
             $res[$i]['headimgurl']=$user_info['headimgurl'];
+            $res[$i]['addtime']=date('Y-m-d H:i:s',$res[$i]['addtime']);
         }
         if(empty($res)){
             return false;

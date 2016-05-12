@@ -20,7 +20,7 @@
                     </div>
                     <div class="user_info">
                         <div><?php echo $v['nickname'];?></div>
-                        <div style='font-size: 10px;margin-top: 10px'><?php echo date('Y-m-d H:i:s',$v['addtime']);?>&nbsp;帮助点击</div>
+                        <div style='font-size: 10px;margin-top: 10px'><?php echo $v['addtime'];?>&nbsp;帮助点击</div>
                     </div>
                     <div></div>
                 </td>
@@ -28,14 +28,14 @@
             </tr>
             <?php endforeach;?>
         </table>
-        <div style="width: 100%;background-color: white;margin-top: 5px;padding-top: 10px;padding-bottom: 10px">
-            <?php if(count($records)==10):?>
-            <div id="more">查看更多</div>
-            <?php endif;?>
-            <?php if(count($records)<10):?>
-            <div style="width: 100%;text-align: center;color: darkgray">没有更多消息</div>
-            <?php endif;?>
-        </div>
+    </div>
+    <div style="width: 100%;background-color: white;margin-top: 5px;padding-top: 10px;padding-bottom: 10px">
+        <?php if(count($records)==10):?>
+        <div id="more">查看更多</div>
+        <?php endif;?>
+        <?php if(count($records)<10):?>
+        <div style="width: 100%;text-align: center;color: darkgray">没有更多消息</div>
+        <?php endif;?>
     </div>
     <?php endif;?>
 </div>
@@ -77,7 +77,7 @@
     $("#more").click(function(){
         page_now+=1;
         $.ajax({
-            url:'record.php',
+            url:'shareDetail.php',
             type:'get',
             data:'action=more&page_now='+page_now,
             success:function(res){
@@ -87,16 +87,16 @@
                     for (var i = 0; i < info.length; i++) {
                         $("#data_table").append("<tr>" +
                         "<td class='td_left'> " +
-                        "<div class='head_img'> " +
-                        "<img height='41px' src='<?php echo $v['headimgurl'];?>'> " +
+                        "<div class='click-head'> " +
+                        "<img src='"+info[i].headimgurl+"'>"+
                         "</div> " +
                         "<div class='user_info'> " +
-                        "<div><?php echo $v['nickname'];?></div> " +
-                        "<div style='font-size: 10px;margin-top: 10px'><?php echo date('Y-m-d H:i:s',$v['addtime']);?>&nbsp;帮助点击</div> " +
+                        "<div>"+info[i].nickname+"</div> " +
+                        "<div style='font-size: 10px;margin-top: 6px'>"+info[i].addtime+"&nbsp;帮助点击</div> " +
                         "</div> " +
                         "<div></div> " +
                         "</td> " +
-                        "<td class='td_right'>+<?php echo '￥'.$v['money'];?></td> " +
+                        "<td class='td_right'>+￥"+info[i].money+"</td> " +
                         "</tr>");
                     }
                     if(info.length<10){

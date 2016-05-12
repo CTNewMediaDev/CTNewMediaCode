@@ -71,21 +71,18 @@
 //                    var topnum = page_now*100+"px";
 //                    $("body").animate({scrollTop:topnum},"fast");
                     if(datalist.length<page_size){
-                        window.console.log('no more');
 //                        $("#more").html('没有更多消息');
                         $("#content").append('<a href="javascript:void(0);" id="loadmore" style="height:30px;"><section class="body-item" style="padding:5px;background:#f9f9f9;text-align:center;border:0px;font-size:12px;">没有更多内容</section></a>');
                     }else{
-                        window.console.log('more');
                         $("#content").append('<a href="javascript:void(0);" onclick="loadmore()" id="loadmore" style="height:30px;"><section class="body-item" style="padding:5px;background:#f9f9f9;text-align:center;border:0px;font-size:12px;">点击加载更多</section></a>');
                     }
                 }else{
-                    window.console.log('no');
 //                    $("#more").html('没有更多消息');
                     $("#content").append('<a href="javascript:void(0);" id="loadmore" style="height:30px;"><section class="body-item" style="padding:5px;background:#f9f9f9;text-align:center;border:0px;font-size:12px;">没有更多内容</section></a>');
                 }
             }
         })
-        page_now+=page_size;
+        page_now=page_now+1;
     }
 </script>
 <?php include '../newtemplate/footer.html';?>
