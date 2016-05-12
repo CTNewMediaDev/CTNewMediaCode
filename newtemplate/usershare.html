@@ -106,6 +106,7 @@
 </div>
 <div id="share_info">
     <?php if($shares):?>
+    <div id="share_table">
     <?php foreach($shares as $value):?>
     <a href="<?php echo SITE_DOMAIN;?>content.php?id=62">
         <section class="body-item">
@@ -130,7 +131,7 @@
                     <div class="body-adrtime">
                         <span class="fa fa-map-marker"></span>
                         <span>
-                            <?php echo $value['city']->province.' '.$value['city']->city;?>
+                            <?php echo $value['storedist']?>
                         </span>
                         <span>2016-3-14～2016-3-31</span>
                     </div>
@@ -147,8 +148,17 @@
         </section>
     </a>
     <?php endforeach;?>
+    </div>
+    <div style="width: 100%;background-color: white;margin-top: 5px;padding-top: 10px;padding-bottom: 10px;margin-bottom: 55px">
+        <?php if(count($shares)==10):?>
+        <div id="more">查看更多</div>
+        <?php endif;?>
+        <?php if(count($shares)<10):?>
+        <div style="width: 100%;text-align: center;color: darkgray">没有更多消息</div>
+        <?php endif;?>
+    </div>
     <?php else:?>
-    没有分享
+    <div style="width: 100%;text-align: center;color: darkgray">没有分享记录</div>
     <?php endif;?>
 </div>
 <div id="click_info" style="display: none">
@@ -158,7 +168,7 @@
     </div>
     <?php endif;?>
     <?php if(!empty($click_info)):?>
-    <table class="data_table" rules="none" id="data_table">
+    <table class="data_table" rules="none" id="click_table">
     <?php foreach($click_info as $k=>$v):?>
     <tr>
         <td class="td_left">
@@ -167,7 +177,7 @@
             </div>
             <div class="user_info">
                 <div><?php echo $v['nickname'];?></div>
-                <div style='font-size: 10px;margin-top: 10px'><?php echo date('Y-m-d H:i:s',$v['addtime']);?>&nbsp;帮助点击</div>
+                <div style='font-size: 10px;margin-top: 6px'><?php echo $v['addtime'];?>&nbsp;帮助点击</div>
             </div>
             <div></div>
         </td>
@@ -177,7 +187,7 @@
     </table>
     <div style="width: 100%;background-color: white;margin-top: 5px;padding-top: 10px;padding-bottom: 10px;margin-bottom: 55px">
         <?php if(count($click_info)==10):?>
-        <div id="more">查看更多</div>
+        <div id="click_more">查看更多</div>
         <?php endif;?>
         <?php if(count($click_info)<10):?>
         <div style="width: 100%;text-align: center;color: darkgray">没有更多消息</div>
@@ -196,6 +206,7 @@
     .head_img{float: left;margin-left: 10px;margin-bottom: 10px;margin-top: 10px}
     .user_info{float: left;margin-left: 10px;margin-top: 10px}
     #more{width: 100%;text-align: center;color: darkgray;background-color: #EEEEEE;line-height: 41px;}
+    #click_more{width: 100%;text-align: center;color: darkgray;background-color: #EEEEEE;line-height: 41px;}
 </style>
 <script type="text/javascript">
     $("#click_button").click(function(){
@@ -219,29 +230,52 @@
             type:'get',
             data:'action=more&page_now='+page_now,
             success:function(res){
-                info=eval("("+res+")");
+                datalist=eval("("+res+")");
 //                each
-                if(info!=0) {
-                    for (var i = 0; i < info.length; i++) {
-                        $("#data_table").append("<tr>" +
-                        "<td class='td_left'> " +
-                        "<div class='click-head'> " +
-                        "<img src='<?php echo $v['headimgurl'];?>'> " +
-                        "</div> " +
-                        "<div class='user_info'> " +
-                        "<div><?php echo $v['nickname'];?></div> " +
-                        "<div style='font-size: 10px;margin-top: 10px'><?php echo date('Y-m-d H:i:s',$v['addtime']);?>&nbsp;帮助点击</div> " +
-                        "</div> " +
-                        "<div></div> " +
-                        "</td> " +
-                        "<td class='td_right'>+<?php echo '￥'.$v['money'];?></td> " +
-                        "</tr>");
+                if(datalist!=0) {
+                    for (var i = 0; i < datalist.length; i++) {
+                        $("#share_table").append('<a href="<?php echo SITE_DOMAIN;?>content.php?id='+datalist[i].id+'"><section class="body-item"><img src="'+datalist[i].listimage+'" alt="'+datalist[i].title+'" class="body-item-img"/><div class="body-concent"><h2>'+datalist[i].title+'</h2><div class="body-allmoney">金额：<span class="body-allm">￥'+datalist[i].leftmoney+'</span>  / <span class="body-alls">￥'+datalist[i].money+'</span></div><div class="body-read"><ul><li><span class="fa fa-eye"></span>阅读('+datalist[i].visitcount+')</li><li><span class="fa fa-star-o"></span>收藏('+datalist[i].collectnum+')</li><li><span class="fa fa-share-alt"></span>分享('+datalist[i].sharenum+')</li></ul></div><div class="body-address"><div class="body-adrtime"><span class="fa fa-map-marker"></span><span>'+datalist[i].storedist+'</span><span>'+datalist[i].starttime+' ～ '+datalist[i].endtime+'</span></div></div></div></section></a>'+
+                        '<div class="body-read"><ul><li>我的分享点击量：'+datalist[i].c_count+'</li><li>点击收益：'+datalist[i].c_money+'</li><li class="fr" style="float: right"><a href="shareDetail.php?contentId='+datalist[i].content_id+'">查看详情</a></li></ul></div>');
                     }
-                    if(info.length<10){
+                    if(datalist.length<10){
                         $("#more").html('没有更多消息');
                     }
                 }else{
                     $("#more").html('没有更多消息');
+                }
+            }
+        })
+    })
+    $("#click_more").click(function(){
+        page_now+=1;
+        $.ajax({
+            url:'share.php',
+            type:'get',
+            data:'action=click_more&page_now='+page_now,
+            success:function(res){
+                info=eval("("+res+")");
+//                each
+                if(info!=0) {
+                    for (var i = 0; i < info.length; i++) {
+                        $("#click_table").append("<tr>" +
+                        "<td class='td_left'> " +
+                        "<div class='click-head'> " +
+                        "<img src='"+info[i].headimgurl+"'>"+
+                        "</div> " +
+                        "<div class='user_info'> " +
+                        "<div>"+info[i].nickname+"</div> " +
+                        "<div style='font-size: 10px;margin-top: 6px'>"+info[i].addtime+"&nbsp;帮助点击</div> " +
+                        "</div> " +
+                        "<div></div> " +
+                        "</td> " +
+                        "<td class='td_right'>+￥"+info[i].money+"</td> " +
+                        "</tr>");
+                    }
+                    if(info.length<10){
+                        $("#click_more").html('没有更多消息');
+                    }
+                }else{
+                    $("#click_more").html('没有更多消息');
                 }
             }
         })

@@ -41,8 +41,8 @@ class ShareCount{
      * @param $db
      * @return bool
      */
-    public static function getShare($db){
-        $res=$db->fetch_all("select * from shares where shareOpenid='".$_SESSION['openid']."'");
+    public static function getShare($db,$from,$limit){
+        $res=$db->fetch_all("select * from shares where shareOpenid='".$_SESSION['openid']."' limit $from,".$limit);
         if(!empty($res)){
             return $res;
         }else{

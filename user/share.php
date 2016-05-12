@@ -17,12 +17,18 @@ if(empty($_SESSION['openid'])){
 $title='我的分享';
 $pageidx = 'index';
 $user_info=\DataCenter\Userinfo::getUserinfobyDb($db,$_SESSION['openid']);
-$shares=\DataCenter\ShareCount::getShare($db);
+$page=(empty($_GET['page_now'])||!is_numeric(@$_GET['page_now']))?1:$_GET['page_now'];
+//$from=empty($_GET[''])
+$shares=\DataCenter\ShareCount::getShare($db,($page-1)*10,10);
 if($shares){
     for($i=0;$i<count($shares);$i++){
         $contentInfo=\DataCenter\ContentClass::getArticle($db,$shares[$i]['contentid']);
         if($contentInfo) {
-            $contentInfo['city']=json_decode($contentInfo['city']);
+            $storeaddr=json_decode($contentInfo['storeaddr'],true);
+            $contentInfo['storedist'] = $storeaddr['district'];
+            $contentInfo['starttime'] = date('Y-m-d',$contentInfo['starttime']);
+            $contentInfo['endtime'] = date('Y-m-d',$contentInfo['endtime']);
+//            $contentInfo['city']=json_decode($contentInfo['city']);
             $userClickCount=$db->fetch_first("select count(*) as c_count,sum(money) c_money from clickcount where shareOpenid='".$_SESSION['openid']."' and contentid=".$contentInfo['id']);
             $shares[$i] = array_merge($shares[$i], $contentInfo,$userClickCount);
         }else{
@@ -31,11 +37,12 @@ if($shares){
     }
 }
 //点击信息
-$click_info=\DataCenter\ClickCount::getClickInfoByDbAll($db,$_SESSION['openid'],0,10);
+$click_info=\DataCenter\ClickCount::getClickInfoByDbAll($db,$_SESSION['openid'],($page-1)*10,10);
 if(@$_GET['action']=='more'){
-    $page=$_GET['page_now'];
-    $res=\DataCenter\ClickCount::getClickInfoByDbAll($db,$_SESSION['openid'],($page-1)*10,10);
-    echo json_encode($res);
+    echo json_encode($shares);
+    exit;
+}elseif(@$_GET['action']=='click_more'){
+    echo json_encode($click_info);
     exit;
 }
 
