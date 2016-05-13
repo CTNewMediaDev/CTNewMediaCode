@@ -38,6 +38,10 @@ if($shares){
 }
 //点击信息
 $click_info=\DataCenter\ClickCount::getClickInfoByDbAll($db,$_SESSION['openid'],($page-1)*10,10);
+//分享量
+$shareCount=$db->fetch_first("select count(1) as count from shares where shareOpenid='".$_SESSION['openid']."'");
+//点击量
+$clickCount=$db->fetch_first("select count(1) as count from clickcount where shareOpenid='".$_SESSION['openid']."'");
 if(@$_GET['action']=='more'){
     echo json_encode($shares);
     exit;

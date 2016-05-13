@@ -1,7 +1,7 @@
 <?php include '../newtemplate/header.html';?>
 <body>
 <div class="rank-user">
-    <div class="rank-portrait"><img src="<?php echo $user_info['headimgurl'];?>" alt=""/></div>
+    <div class="rank-portrait"><a href="<?php echo SITE_DOMAIN;?>user/index.php"><img src="<?php echo $user_info['headimgurl'];?>" alt=""/></a></div>
     <div class="rank-username">
         <?php echo $user_info['nickname'];?><br><span>当前排名：<span class="rank-user-place">231</span>名</span>
     </div>

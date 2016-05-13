@@ -1,7 +1,7 @@
 <?php include '../newtemplate/header.html';?>
 <body>
     <div class="rank-user">
-        <div class="rank-portrait"><img src="<?php echo $user_info['headimgurl'];?>" alt=""/></div>
+        <div class="rank-portrait"><a href="<?php echo SITE_DOMAIN;?>user/index.php"><img src="<?php echo $user_info['headimgurl'];?>" alt=""/></a></div>
         <div class="rank-username">
             <?php echo $user_info['nickname'];?><br><span>当前排名：<span class="rank-user-place">231</span>名</span>
         </div>
@@ -11,14 +11,14 @@
     <div class="details-money">
         <div class="details-money-list">
             <ul>
-                <li>昨日收入（元）<br><span><?php echo '￥'.(isset($count_arr[1]['c_sum'])?$count_arr[1]['c_sum']:'0.00');?></span></li>
-                <li>本月累计收入（元）<br><span><?php echo '￥'.(isset($money_info['moneytotal'])?$money_info['moneytotal']:'0.00');?></span></li>
+                <li>今日收入（元）<br><span><?php echo '￥'.(isset($money_info['moneytoday'])?$money_info['moneytoday']:'0.00');?></span></li>
+                <li>昨日收入（元）<br><span><?php echo '￥'.(isset($money_info['moneylastday'])?$money_info['moneylastday']:'0.00');?></span></li>
             </ul>
         </div>
         <div class="details-money-list">
             <ul>
-                <li>昨日阅读量<br><span><?php echo $clickCountYes;?></span></li>
-                <li>本月累计阅读量<br><span><?php echo $clickCountAll;?></span></li>
+                <li>本月累计收入（元）<br><span><?php echo '￥'.(isset($money_info['moneythismonth'])?$money_info['moneythismonth']:'0.00');?></span></li>
+                <li>累计收入（元）<br><span><?php echo '￥'.(isset($money_info['moneytotal'])?$money_info['moneytotal']:'0.00');?></span></li>
             </ul>
         </div>
     </div>

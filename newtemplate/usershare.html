@@ -86,13 +86,13 @@
 </style>
 <div class="share-user">
     <div class="share-head">
-        <img src="<?php echo $user_info['headimgurl'];?>">
+        <a href="<?php echo SITE_DOMAIN;?>user/index.php"><img src="<?php echo $user_info['headimgurl'];?>"></a>
     </div>
     <div class="share-info">
         <div><?php echo $user_info['nickname'];?></div>
         <div class="share-count">
-                <span>累计分享：<span class="font-red">12</span>次</span>
-                <span class="fr">累计被点击：<span class="font-red">15</span>次</span>
+                <span>累计分享：<span class="font-red"><?php echo $shareCount['count'];?></span>次</span>
+                <span class="fr">累计被点击：<span class="font-red"><?php echo $clickCount['count'];?></span>次</span>
         </div>
         <div class="clear"></div>
     </div>

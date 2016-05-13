@@ -12,7 +12,7 @@ if(empty($_SESSION['openid'])){
     $redirecturl .= '#'.time();
     \DataCenter\SystemTool::checkOpenid($db,'snsapi_userinfo',$redirecturl);
 }
-$pagesize=2;
+$pagesize=10;
 $startindex = 0;
 $page_now=isset($_GET['page_now'])?intval($_GET['page_now']):0;
 
