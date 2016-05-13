@@ -135,7 +135,7 @@ class ClickCount{
      */
     public static function getClickInfoByDb($db,$contentId,$openId,$from,$limit){
 //        $sql='select A.title,C.addtime,C.money as cmoney,A.money as amoney from clickcount as C left join articles as A on C.contentid=A.id where C.clickOpenid="'.$openId.'"  limit 0,10';
-        $sql="select * from clickcount where shareOpenid='".$openId."' and contentid=$contentId  limit $from,".$limit;
+        $sql="select * from clickcount where isvalid=1 and shareOpenid='".$openId."' and contentid=$contentId  limit $from,".$limit;
 //        $click_arr=$db->fetch_all($sql);
 //        $user_sql='select '
         $res=$db->fetch_all($sql);
@@ -163,7 +163,7 @@ class ClickCount{
         date_default_timezone_set("PRC");
         $count_arr=array();
         for($i=0;$i<$day_count;$i++){
-            $sql="select count(*) as c_count,sum(money) as c_sum from clickcount where shareOpenid='".$_SESSION['openid']."' and addtime>=".strtotime(date('Y/m/d',strtotime("-$i day")))." and addtime<".strtotime(date('Y/m/d',strtotime("-".($i-1)." day")));
+            $sql="select count(*) as c_count,sum(money) as c_sum from clickcount where isvalid=1 and shareOpenid='".$_SESSION['openid']."' and addtime>=".strtotime(date('Y/m/d',strtotime("-$i day")))." and addtime<".strtotime(date('Y/m/d',strtotime("-".($i-1)." day")));
             $res=$db->fetch_first($sql);
             array_push($count_arr,$res);
         }
@@ -179,7 +179,7 @@ class ClickCount{
      * @return bool
      */
     public static function getClickInfoByDbAll($db,$openId,$from,$limit){
-        $sql="select * from clickcount where shareOpenid='".$openId."' limit $from,".$limit;
+        $sql="select * from clickcount where isvalid=1 and  shareOpenid='".$openId."' limit $from,".$limit;
         $res=$db->fetch_all($sql);
         for($i=0;$i<count($res);$i++){
             $sql="select nickname,headimgurl from users where openid='".$res[$i]['clickOpenid']."'";
@@ -196,7 +196,7 @@ class ClickCount{
     }
     
     public static function getClickAllByDay($db,$openId,$from,$limit){
-        $sql="select FROM_UNIXTIME(addtime,'%Y-%m-%d') as date,count(*) as c_count,sum(money) as c_sum from clickcount where shareOpenid='".$openId."' GROUP BY FROM_UNIXTIME(addtime,'%Y%m%d') limit $from,$limit";
+        $sql="select FROM_UNIXTIME(addtime,'%Y-%m-%d') as date,count(*) as c_count,sum(money) as c_sum from clickcount where isvalid=1 and  shareOpenid='".$openId."' GROUP BY FROM_UNIXTIME(addtime,'%Y%m%d') limit $from,$limit";
         $res=$db->fetch_all($sql);
         if(empty($res)){
             return false;

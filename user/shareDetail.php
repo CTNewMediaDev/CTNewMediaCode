@@ -20,7 +20,7 @@ if(empty($_SESSION['openid'])){
     \DataCenter\SystemTool::checkOpenid($db,'snsapi_userinfo',$redirecturl);
 }
 $title='分享详细';
-$pageidx = 'index';
+$pageidx = 'usercenter';
 
 $records=\DataCenter\ClickCount::getClickInfoByDb($db,$contentId,$_SESSION['openid'],0,10);
 if(!empty($_GET['action'])&&$_GET['action']=='more'){

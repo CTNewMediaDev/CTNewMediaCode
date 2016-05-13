@@ -15,8 +15,8 @@ if(empty($_SESSION['openid'])){
 
 $user_info=\DataCenter\Userinfo::getUserinfobyDb($db,$_SESSION['openid']);
 
-$clickCountAll=$db->result_first("select count(*) from clickcount where shareOpenid='".$_SESSION['openid']."'");
-$clickCountYes=$db->result_first("select count(*) from clickcount where shareOpenid='".$_SESSION['openid']."' and addtime>=".strtotime(date('Y/m/d',strtotime('-1 day')))." and addtime<".strtotime(date('Y/m/d')));
+$clickCountAll=$db->result_first("select count(*) from clickcount where isvalid=1 and shareOpenid='".$_SESSION['openid']."'");
+$clickCountYes=$db->result_first("select count(*) from clickcount where isvalid=1 and shareOpenid='".$_SESSION['openid']."' and addtime>=".strtotime(date('Y/m/d',strtotime('-1 day')))." and addtime<".strtotime(date('Y/m/d')));
 
 $money_info=$db->fetch_first("select * from usersmoney where openid='".$_SESSION['openid']."'");
 
@@ -31,6 +31,6 @@ if(!empty($_GET['action'])&&$_GET['action']=='more'){
 }
 
 $title='收入明细';
-$pageidx = 'index';
+$pageidx = 'usercenter';
 //var_dump($records);exit;
 include '../newtemplate/record.html';

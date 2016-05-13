@@ -1,5 +1,4 @@
 <?php include '../newtemplate/header.html';?>
-<script type="text/javascript" src="<?php echo SITE_DOMAIN;?>/source/js/jquery-1.9.1.min.js"></script>
 <style>
     .share-user{
         background: #FFFFFF;
@@ -135,14 +134,18 @@
                         </span>
                         <span>2016-3-14～2016-3-31</span>
                     </div>
-                    <div class="body-share">分享点击后得钱</div>
+                    
                 </div>
             </div>
             <div class="body-read">
                 <ul>
                     <li>我的分享点击量：<?php echo $value['c_count'];?></li>
-                    <li>点击收益：<?php echo '￥'.$value['c_money'];?></li>
-                    <li class="fr" style="float: right"><a href="shareDetail.php?contentId=<?php echo $value['contentid'];?>">查看详情</a></li>
+                    <li>点击收益：<?php echo '￥'.(empty($value['c_money'])?0:$value['c_money']);?></li>
+                    <li class="fr" style="float: right">
+                        <?php if($value['c_count']>0):?>
+                        <a href="shareDetail.php?contentId=<?php echo $value['contentid'];?>">查看详情</a>
+                        <?php endif;?>
+                    </li>
                 </ul>
             </div>
         </section>

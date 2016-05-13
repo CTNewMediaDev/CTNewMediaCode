@@ -14,11 +14,16 @@ if(empty($_SESSION['openid'])){
     $redirecturl .= '#'.time();
     \DataCenter\SystemTool::checkOpenid($db,'snsapi_userinfo',$redirecturl);
 }
-$title='我的分享';
-$pageidx = 'index';
+
+
+//userinfo
 $user_info=\DataCenter\Userinfo::getUserinfobyDb($db,$_SESSION['openid']);
+
+
+//pagedata
 $page=(empty($_GET['page_now'])||!is_numeric(@$_GET['page_now']))?1:$_GET['page_now'];
-//$from=empty($_GET[''])
+
+
 $shares=\DataCenter\ShareCount::getShare($db,($page-1)*10,10);
 if($shares){
     for($i=0;$i<count($shares);$i++){
@@ -28,20 +33,24 @@ if($shares){
             $contentInfo['storedist'] = $storeaddr['district'];
             $contentInfo['starttime'] = date('Y-m-d',$contentInfo['starttime']);
             $contentInfo['endtime'] = date('Y-m-d',$contentInfo['endtime']);
-//            $contentInfo['city']=json_decode($contentInfo['city']);
-            $userClickCount=$db->fetch_first("select count(*) as c_count,sum(money) c_money from clickcount where shareOpenid='".$_SESSION['openid']."' and contentid=".$contentInfo['id']);
+
+            $userClickCount=$db->fetch_first("select count(*) as c_count,sum(money) c_money from clickcount where isvalid=1 and shareOpenid='".$_SESSION['openid']."' and contentid=".$contentInfo['id']);
             $shares[$i] = array_merge($shares[$i], $contentInfo,$userClickCount);
         }else{
             unset($shares[$i]);
         }
     }
 }
+
 //点击信息
 $click_info=\DataCenter\ClickCount::getClickInfoByDbAll($db,$_SESSION['openid'],($page-1)*10,10);
+
 //分享量
 $shareCount=$db->fetch_first("select count(1) as count from shares where shareOpenid='".$_SESSION['openid']."'");
+
 //点击量
-$clickCount=$db->fetch_first("select count(1) as count from clickcount where shareOpenid='".$_SESSION['openid']."'");
+$clickCount=$db->fetch_first("select count(1) as count from clickcount where isvalid=1 and shareOpenid='".$_SESSION['openid']."'");
+
 if(@$_GET['action']=='more'){
     echo json_encode($shares);
     exit;
@@ -50,4 +59,7 @@ if(@$_GET['action']=='more'){
     exit;
 }
 
+
+$title='我的分享';
+$pageidx = 'usercenter';
 include '../newtemplate/usershare.html';

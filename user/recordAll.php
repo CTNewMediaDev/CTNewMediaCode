@@ -23,5 +23,5 @@ if(!empty($_GET['action'])&&$_GET['action']=='more'){
     exit;
 }
 $title='赚钱记录';
-$pageidx = 'index';
+$pageidx = 'usercenter';
 include '../newtemplate/recordAll.html';
