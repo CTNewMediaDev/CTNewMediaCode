@@ -1,56 +1,87 @@
 <?php include '../newtemplate/header.html';?>
 <body>
+<style>
+.selecteditem{color: #b32a22;}
+.rank-list a{
+    text-decoration: none;
+    color: #333333;
+}
+.rank-list a:link{
+    color: #333333;
+}
+.rank-list a:visited{
+    color: #333333;
+}
+</style>
     <div class="rank-user">
-        <div class="rank-portrait"><img src="<?php echo SITE_DOMAIN;?>res/img/touxiang.jpg" alt=""/></div>
+        <div class="rank-portrait"><img src="<?php echo $user_info['headimgurl'];?>" alt=""/></div>
         <div class="rank-username">
-            随风而逝<br><span>当前排名：<span class="rank-user-place">231</span>名</span>
+            <?php echo $user_info['nickname'];?><br><span>当前排名：<span class="rank-user-place"><?php echo $user_info['ranknum'];?></span>名</span>
         </div>
-        <div class="rank-sharebtn">去分享赚钱</div>
+        <!--
+            <div class="rank-sharebtn">去分享赚钱</div>
+        -->
     </div>
 
     <div class="rank-list">
-        <ul>
+        <ul id="listarea">
+            <?php if(!empty($pagedata)):?>
+            <?php foreach($pagedata as $user):?>
             <li>
-                <div class="rank-list-num">第1名</div>
+                <div class="rank-list-num">第<?php echo $user['ranknum'];?>名</div>
                 <div class="rank-list-portrait">
-                    <img src="<?php echo SITE_DOMAIN;?>res/img/touxiang.jpg" alt=""/>
+                    <img src="<?php echo $user['headimgurl'];?>" alt=""/>
                 </div>
-                <div class="rank-list-name">蜡笔小新@123</div>
-                <div class="rank-list-money">￥5873.98</div>
+                <div class="rank-list-name"><?php echo $user['nickname'];?></div>
+                <div class="rank-list-money">￥<?php echo $user['moneytotal'];?></div>
             </li>
-            <li>
-                <div class="rank-list-num">第2名</div>
-                <div class="rank-list-portrait">
-                    <img src="<?php echo SITE_DOMAIN;?>res/img/touxiang.jpg" alt=""/>
-                </div>
-                <div class="rank-list-name">蜡笔小新@123</div>
-                <div class="rank-list-money">￥5873.98</div>
-            </li>
-            <li>
-                <div class="rank-list-num">第3名</div>
-                <div class="rank-list-portrait">
-                    <img src="<?php echo SITE_DOMAIN;?>res/img/touxiang.jpg" alt=""/>
-                </div>
-                <div class="rank-list-name">蜡笔小新@123</div>
-                <div class="rank-list-money">￥5873.98</div>
-            </li>
-            <li>
-                <div class="rank-list-num">第4名</div>
-                <div class="rank-list-portrait">
-                    <img src="<?php echo SITE_DOMAIN;?>res/img/touxiang.jpg" alt=""/>
-                </div>
-                <div class="rank-list-name">蜡笔小新@123</div>
-                <div class="rank-list-money">￥5873.98</div>
-            </li>
-            <li>
-                <div class="rank-list-num">第5名</div>
-                <div class="rank-list-portrait">
-                    <img src="<?php echo SITE_DOMAIN;?>res/img/touxiang.jpg" alt=""/>
-                </div>
-                <div class="rank-list-name">蜡笔小新@123</div>
-                <div class="rank-list-money">￥5873.98</div>
-            </li>
+            <?php endforeach;?>
+            <?php else:?>
+            <?php endif;?>
+            <?php if(count($pagedata)==$pagesize):?>
+                <a href="javascript:void(0);" onclick="loadmore(<?php echo $startindex+$pagesize;?>)" id="loadmore" style="height:30px;">
+                    <li>点击加载更多</li>
+                </a>
+            <?php else:?>
+                <a href="javascript:void(0);" id="loadmore" style="height:30px;">
+                    <li>没有更多内容</li>
+                </a>
+            <?php endif;?>     
+
         </ul>
     </div>
-
+<script>
+function loadmore(startindex){
+    $.ajax({
+        type:"GET",
+        url:"http://www.zhuangxiuji.com.cn/user/rank.php",
+        data:"action=ajaxpage&startindex="+startindex,
+        success:function(msg){
+            var dataObj = eval("("+msg+")");
+            if(dataObj.status){
+                $("#loadmore").remove();
+                var datalist = dataObj.data;
+                //console.log(datalist);
+                for(var i=0;i<datalist.length;i++){
+                    $("#listarea").append('<li><div class="rank-list-num">第'+datalist[i].ranknum+'名</div><div class="rank-list-portrait"><img src="'+datalist[i].headimgurl+'" alt=""/></div><div class="rank-list-name">'+datalist[i].nickname+'</div><div class="rank-list-money">￥'+datalist[i].moneytotal+'</div></li>');    
+                }
+                
+                if(datalist.length<<?php echo $pagesize?>){
+                    $("#listarea").append('<a href="javascript:void(0);" id="loadmore" style="height:30px;"><li>没有更多内容</li></a>');
+                }else{
+                    $("#listarea").append('<a href="javascript:void(0);" onclick="loadmore('+(startindex+<?php echo $pagesize;?>)+')" id="loadmore" style="height:30px;"><li>点击加载更多</li></a>');
+                }
+                if(datalist.length>0){
+                    var topnum = startindex*50+"px"
+                    $("body").animate({scrollTop:topnum},"fast");
+                }
+                
+            }else{
+                $("#loadmore").remove();
+                $("#listarea").append('<a href="javascript:void(0);" id="loadmore" style="height:30px;"><li>没有更多内容</li></a>');
+            }
+        }
+    });
+}
+</script>
 <?php include '../newtemplate/footer.html';?>
