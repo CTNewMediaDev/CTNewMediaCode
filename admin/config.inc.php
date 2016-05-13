@@ -1,5 +1,5 @@
 <?php
-date_default_timezone_set('America/Chicago');
+date_default_timezone_set('PRC');
 session_start();
 define('SITE_DOMAIN','http://www.zhuangxiuji.com.cn/');
 //数据库

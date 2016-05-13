@@ -39,13 +39,13 @@
             <?php else:?>
             <?php endif;?>
             <?php if(count($pagedata)==$pagesize):?>
-                <a href="javascript:void(0);" onclick="loadmore(<?php echo $startindex+$pagesize;?>)" id="loadmore" style="height:30px;">
-                    <li>点击加载更多</li>
-                </a>
+                <li><a href="javascript:void(0);" onclick="loadmore(<?php echo $startindex+$pagesize;?>)" id="loadmore" style="height:30px;">
+                    点击加载更多
+                </a></li>
             <?php else:?>
-                <a href="javascript:void(0);" id="loadmore" style="height:30px;">
-                    <li>没有更多内容</li>
-                </a>
+                <li><a href="javascript:void(0);" id="loadmore" style="height:30px;">
+                    没有更多内容
+                </a></li>
             <?php endif;?>     
 
         </ul>
@@ -67,9 +67,9 @@ function loadmore(startindex){
                 }
                 
                 if(datalist.length<<?php echo $pagesize?>){
-                    $("#listarea").append('<a href="javascript:void(0);" id="loadmore" style="height:30px;"><li>没有更多内容</li></a>');
+                    $("#listarea").append('<li><a href="javascript:void(0);" id="loadmore" style="height:30px;">没有更多内容</a></li>');
                 }else{
-                    $("#listarea").append('<a href="javascript:void(0);" onclick="loadmore('+(startindex+<?php echo $pagesize;?>)+')" id="loadmore" style="height:30px;"><li>点击加载更多</li></a>');
+                    $("#listarea").append('<li><a href="javascript:void(0);" onclick="loadmore('+(startindex+<?php echo $pagesize;?>)+')" id="loadmore" style="height:30px;">点击加载更多</a></li>');
                 }
                 if(datalist.length>0){
                     var topnum = startindex*50+"px"
@@ -78,7 +78,7 @@ function loadmore(startindex){
                 
             }else{
                 $("#loadmore").remove();
-                $("#listarea").append('<a href="javascript:void(0);" id="loadmore" style="height:30px;"><li>没有更多内容</li></a>');
+                $("#listarea").append('<li><a href="javascript:void(0);" id="loadmore" style="height:30px;">没有更多内容</a></li>');
             }
         }
     });
