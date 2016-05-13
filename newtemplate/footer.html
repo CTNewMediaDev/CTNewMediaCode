@@ -1,8 +1,21 @@
+<style>
+#foot a{
+    text-decoration: none;
+    color: #666666;
+}
+#foot a:link{
+    color: #666666;
+}
+#foot a:visited{
+    color: #666666;
+}
+</style>    
     <div class="footer">
-        <ul>
-            <li <?php if($pageidx=='index'):?>class="footer-hover"<?php endif;?>><span class="fa fa-home"></span><br><a href="<?php echo SITE_DOMAIN;?>index.php">首页</a></li>
-            <li <?php if($pageidx=='rank'):?>class="footer-hover"<?php endif;?>><span class="fa fa-signal"></span><br><a href="<?php echo SITE_DOMAIN;?>user/rank.php">排行榜</a></li>
-            <li <?php if($pageidx=='usercenter'):?>class="footer-hover"<?php endif;?>><span class="fa fa-user"></span><br><a href="<?php echo SITE_DOMAIN;?>user/index.php">个人中心</a></li>
+        <ul id="foot">
+            <li <?php if($pageidx=='index'):?>class="footer-hover"<?php endif;?>>
+            	<a href="<?php echo SITE_DOMAIN;?>index.php"><span class="fa fa-home"></span><br>首页</a></li>
+            <li <?php if($pageidx=='rank'):?>class="footer-hover"<?php endif;?>><a href="<?php echo SITE_DOMAIN;?>user/rank.php"><span class="fa fa-signal"></span><br>排行榜</a></li>
+            <li <?php if($pageidx=='usercenter'):?>class="footer-hover"<?php endif;?>><a href="<?php echo SITE_DOMAIN;?>user/index.php"><span class="fa fa-user"></span><br>个人中心</a></li>
         </ul>
     </div>
 </body>

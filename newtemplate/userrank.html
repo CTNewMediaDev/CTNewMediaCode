@@ -12,6 +12,11 @@
 .rank-list a:visited{
     color: #333333;
 }
+
+.loadmore{
+    text-align: center;
+    line-height: 30px;
+}
 </style>
     <div class="rank-user">
         <div class="rank-portrait"><img src="<?php echo $user_info['headimgurl'];?>" alt=""/></div>
@@ -39,11 +44,11 @@
             <?php else:?>
             <?php endif;?>
             <?php if(count($pagedata)==$pagesize):?>
-                <li><a href="javascript:void(0);" onclick="loadmore(<?php echo $startindex+$pagesize;?>)" id="loadmore" style="height:30px;">
+                <li id="loadmore" class="loadmore"><a href="javascript:void(0);" onclick="loadmore(<?php echo $startindex+$pagesize;?>)" id="loadmore" style="height:30px;">
                     点击加载更多
                 </a></li>
             <?php else:?>
-                <li><a href="javascript:void(0);" id="loadmore" style="height:30px;">
+                <li id="loadmore" class="loadmore"><a href="javascript:void(0);" id="loadmore" style="height:30px;">
                     没有更多内容
                 </a></li>
             <?php endif;?>     
@@ -67,9 +72,9 @@ function loadmore(startindex){
                 }
                 
                 if(datalist.length<<?php echo $pagesize?>){
-                    $("#listarea").append('<li><a href="javascript:void(0);" id="loadmore" style="height:30px;">没有更多内容</a></li>');
+                    $("#listarea").append('<li id="loadmore" class="loadmore"><a href="javascript:void(0);" id="loadmore" style="height:30px;">没有更多内容</a></li>');
                 }else{
-                    $("#listarea").append('<li><a href="javascript:void(0);" onclick="loadmore('+(startindex+<?php echo $pagesize;?>)+')" id="loadmore" style="height:30px;">点击加载更多</a></li>');
+                    $("#listarea").append('<li id="loadmore" class="loadmore"><a href="javascript:void(0);" onclick="loadmore('+(startindex+<?php echo $pagesize;?>)+')" id="loadmore" style="height:30px;">点击加载更多</a></li>');
                 }
                 if(datalist.length>0){
                     var topnum = startindex*50+"px"
@@ -78,7 +83,7 @@ function loadmore(startindex){
                 
             }else{
                 $("#loadmore").remove();
-                $("#listarea").append('<li><a href="javascript:void(0);" id="loadmore" style="height:30px;">没有更多内容</a></li>');
+                $("#listarea").append('<li id="loadmore" class="loadmore"><a href="javascript:void(0);" id="loadmore" style="height:30px;">没有更多内容</a></li>');
             }
         }
     });

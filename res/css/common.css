@@ -681,3 +681,14 @@ h1,h2,h3,h4,h5,h6{
 .footer-hover{
     background: #fafafa;
 }
+
+.footer a{
+    text-decoration: none;
+    color: #333333;
+}
+.footer a:link{
+    color: #333333;
+}
+.footer a:visited{
+    color: #333333;
+}
