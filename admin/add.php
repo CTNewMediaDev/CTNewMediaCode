@@ -23,6 +23,19 @@ if(isset($_POST['addpost'])){
 			$sql = "insert into cmscontent(`articleid`,`content`) values(".$articleId.",'".$content."')";
 			$db->query($sql);
 			$msg = '文章已添加请设置其他参数';
+			if(preg_match_all('/<img src="([^>]+)"/isU', $_POST['content'], $matches)){
+				$topbanners = $matches[1];
+				//var_dump($topbanners);die();
+				for($i=0;$i<count($topbanners);$i++){
+					$imginfo = explode("/",$topbanners[$i]);
+					$im=imagecreatefromjpeg($_SERVER['DOCUMENT_ROOT'].$topbanners[$i]);//参数是图片的存方路径
+					$maxwidth="600";//设置图片的最大宽度
+					$maxheight="900";//设置图片的最大高度
+					$name=$_SERVER['DOCUMENT_ROOT'].$topbanners[$i];
+					$filetype=substr($imginfo[count($imginfo)-1],strrpos($imginfo[count($imginfo)-1],'.'));
+					resizeImage($im,$maxwidth,$maxheight,$name,$filetype);
+				}
+			}
 			header("location:edit.php?id=".$articleId."&msg=".$msg);
 			exit;
 		}else{

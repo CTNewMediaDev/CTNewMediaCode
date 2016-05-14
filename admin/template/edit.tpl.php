@@ -1,5 +1,5 @@
 <?php include 'template/header.php';?>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="css/jquery-ui.css">
 <!--content section start-->
 <div>
     <ul class="breadcrumb">
@@ -222,8 +222,8 @@
     </div>
 </div>
 
-<script src="//code.jquery.com/jquery-1.9.1.js"></script>
-<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="js/jquery-1.9.1.js"></script>
+<script src="js/jquery-ui.js"></script>
 <script>
 $(function() {
     $( "#date01" ).datepicker();

@@ -22,6 +22,20 @@ if(isset($_POST['addpost'])){
 		$db->query($sql);
 		$sql = "update cmscontent set content='".$content."' where articleid=".$id;
 		$db->query($sql);
+		if(preg_match_all('/<img src="([^>]+)"/isU', $_POST['content'], $matches)){
+				$topbanners = $matches[1];
+				//var_dump($topbanners);die();
+				for($i=0;$i<count($topbanners);$i++){
+					$imginfo = explode("/",$topbanners[$i]);
+					$im=imagecreatefromjpeg($_SERVER['DOCUMENT_ROOT'].$topbanners[$i]);//参数是图片的存方路径
+					$maxwidth="600";//设置图片的最大宽度
+					$maxheight="900";//设置图片的最大高度
+					$name=$_SERVER['DOCUMENT_ROOT'].$topbanners[$i];
+					$filetype=substr($imginfo[count($imginfo)-1],strrpos($imginfo[count($imginfo)-1],'.'));
+					resizeImage($im,$maxwidth,$maxheight,$name,$filetype);
+				}
+		}
+
 		$msg = '文章内容已保存';
 		$formnum=0;
 		header("location:edit.php?formnum=".$formnum."&id=".$id."&msg=".$msg);
@@ -107,8 +121,7 @@ if(isset($_POST['addpost'])){
 		if(!empty($_FILES['slpic'])&&!$_FILES['slpic']['error']){
 			#/upload/blog/image/{yyyy}{mm}{dd}/{time}{rand:6}
 			$daydir = date('Ymd',time());
-			$filename = time();
-			$filename .= rand(111111,999999);
+			$filename = 'listimage'.$id;
 			$filename .= '.'.substr($_FILES['slpic']['type'],6);
 			$returnfilename = '/upload/blog/image/'.$daydir.'/'.$filename;
 
@@ -117,9 +130,19 @@ if(isset($_POST['addpost'])){
 				mkdir($uploaddir,0777);
 			}
 
+			if(file_exists($uploaddir.'/'.$filename)){
+				unlink($uploaddir.'/'.$filename);
+			}
+
 			if(move_uploaded_file($_FILES['slpic']['tmp_name'],$uploaddir.'/'.$filename)){
 				$listimage = $returnfilename;
 				$listimage = 'http://www.zhuangxiuji.com.cn'.$listimage;
+				$im=imagecreatefromjpeg($uploaddir.'/'.$filename);//参数是图片的存方路径
+				$maxwidth="100";//设置图片的最大宽度
+				$maxheight="100";//设置图片的最大高度
+				$name=$uploaddir.'/'.$filename;//图片的名称，随便取吧
+				$filetype='.'.substr($_FILES['slpic']['type'],6);//图片类型
+				resizeImage($im,$maxwidth,$maxheight,$name,$filetype);//调用上面的函数
 			}
 			$sql = "update articles set listimage='".$listimage."' where id=".$id;
 			$db->query($sql);
@@ -128,6 +151,19 @@ if(isset($_POST['addpost'])){
 		if(isset($_POST['bannercontent'])){
 			$sql = "update articles set banners='".$_POST['bannercontent']."' where id=".$id;
 			$db->query($sql);
+			if(preg_match_all('/<img src="([^>]+)"/isU', $_POST['bannercontent'], $matches)){
+				$topbanners = $matches[1];
+				//var_dump($topbanners);die();
+				for($i=0;$i<count($topbanners);$i++){
+					$imginfo = explode("/",$topbanners[$i]);
+					$im=imagecreatefromjpeg($_SERVER['DOCUMENT_ROOT'].$topbanners[$i]);//参数是图片的存方路径
+					$maxwidth="700";//设置图片的最大宽度
+					$maxheight="700";//设置图片的最大高度
+					$name=$_SERVER['DOCUMENT_ROOT'].$topbanners[$i];
+					$filetype=substr($imginfo[count($imginfo)-1],strrpos($imginfo[count($imginfo)-1],'.'));
+					resizeImage($im,$maxwidth,$maxheight,$name,$filetype);
+				}
+			}
 		}
 		$msg = '图片设置已保存';
 		$formnum=3;
@@ -210,4 +246,54 @@ function getCategory(&$db){
 	$sql = "select * from category";
 	$result = $db->fetch_all($sql);
 	return $result;
+}
+
+
+
+//压缩图片
+function resizeImage($im,$maxwidth,$maxheight,$name,$filetype){
+    $pic_width = imagesx($im);
+    $pic_height = imagesy($im);
+   
+    if(($maxwidth && $pic_width > $maxwidth) || ($maxheight && $pic_height > $maxheight)){
+        if($maxwidth && $pic_width>$maxwidth){
+            $widthratio = $maxwidth/$pic_width;
+            $resizewidth_tag = true;
+        }
+   
+        if($maxheight && $pic_height>$maxheight){
+            $heightratio = $maxheight/$pic_height;
+            $resizeheight_tag = true;
+        }
+   
+        if($resizewidth_tag && $resizeheight_tag){
+            if($widthratio<$heightratio)
+                $ratio = $widthratio;
+            else
+                $ratio = $heightratio;
+        }
+   
+        if($resizewidth_tag && !$resizeheight_tag)
+            $ratio = $widthratio;
+        if($resizeheight_tag && !$resizewidth_tag)
+            $ratio = $heightratio;
+   
+        $newwidth = $pic_width * $ratio;
+        $newheight = $pic_height * $ratio;
+   
+        if(function_exists("imagecopyresampled")){
+            $newim = imagecreatetruecolor($newwidth,$newheight);//PHP系统函数
+            imagecopyresampled($newim,$im,0,0,0,0,$newwidth,$newheight,$pic_width,$pic_height);//PHP系统函数
+        }else{
+            $newim = imagecreate($newwidth,$newheight);
+            imagecopyresized($newim,$im,0,0,0,0,$newwidth,$newheight,$pic_width,$pic_height);
+        }
+   
+        //$name = $name.$filetype;
+        imagejpeg($newim,$name);
+        imagedestroy($newim);
+    }else{
+        //$name = $name.$filetype;
+        imagejpeg($im,$name);
+    }
 }

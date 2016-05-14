@@ -53,7 +53,7 @@ if(!empty($data['district'])){
 $storeaddr = json_decode($content['storeaddr'],true);
 
 //banners
-if(preg_match_all('/<img src="([^>]+)"/i', $content['banners'], $matches)){
+if(preg_match_all('/<img src="([^>]+)"/isU', $content['banners'], $matches)){
 	$topbanners = $matches[1];
 }
 
