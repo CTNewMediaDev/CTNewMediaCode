@@ -12,7 +12,7 @@ if(empty($_SESSION['openid'])){
     \DataCenter\SystemTool::checkOpenid($db,'snsapi_userinfo',$redirecturl);
 }
 
-$pagesize = 2;
+$pagesize = 12;
 
 //ajax加载更多
 if(isset($_GET['action'])&&$_GET['action']=='ajaxpage'){

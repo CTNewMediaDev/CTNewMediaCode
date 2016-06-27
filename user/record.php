@@ -22,10 +22,13 @@ $money_info=$db->fetch_first("select * from usersmoney where openid='".$_SESSION
 
 $count_arr=\DataCenter\ClickCount::getCountByDay($db,7);
 
+
+$pagesize = 10;
+
 if(!empty($_GET['action'])&&$_GET['action']=='more'){
     $page=$_GET['page_now'];
 //    $res=$db->fetch_all('select A.title,C.addtime,C.money as cmoney,A.money as amoney from clickcount as C left join articles as A on C.contentid=A.id where C.clickOpenid="'.$_SESSION['openid'].'"  limit '.(($page-1)*10).',10');
-    $res=\DataCenter\ClickCount::getClickInfoByDb($db,$contentId,$_SESSION['openid'],($page-1)*10,10);
+    $res=\DataCenter\ClickCount::getClickInfoByDb($db,$contentId,$_SESSION['openid'],($page-1)*$pagesize,$pagesize);
     echo json_encode($res);
     exit;
 }

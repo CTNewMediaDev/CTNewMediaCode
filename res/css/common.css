@@ -220,6 +220,7 @@ h1,h2,h3,h4,h5,h6{
 }
 .body-concent{
     padding-left: 5.5rem;
+    padding-top:2px;
 }
 .body-concent h2{
     font-size: .9rem;

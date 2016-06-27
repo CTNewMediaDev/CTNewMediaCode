@@ -16,7 +16,7 @@ if(empty($_SESSION['openid'])){
 }
 
 
-$pagesize = 2;
+$pagesize = 12;
 
 //ajax加载更多
 if(isset($_GET['action'])&&$_GET['action']=='ajaxpage'){

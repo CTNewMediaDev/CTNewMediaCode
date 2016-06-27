@@ -16,7 +16,7 @@ class Collection{
 	 * @return [type]        [description]
 	 */
     public static function getCollection($db,$openid,$from,$limit){
-        $sql="select * from collection where collectionOpenid='".$openid."' limit $from,$limit";
+        $sql="select * from collection where collectionOpenid='".$openid."' order by id desc limit $from,$limit";
         $res=$db->fetch_all($sql);
         if(!empty($res)){
             return $res;

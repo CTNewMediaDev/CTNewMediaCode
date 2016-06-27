@@ -13,7 +13,7 @@ if(empty($_SESSION['openid'])){
 }
 
 
-$pagesize=3;
+$pagesize=12;
 $startindex = 0;
 
 $user_info=\DataCenter\Userinfo::getUserinfobyDb($db,$_SESSION['openid']);
